@@ -28,5 +28,5 @@ Update the paste in the same change that edits the tuple; update `dev/contracts/
 ## The registered paste
 
 ```text mirror
-SUPPORTED_KINDS = ("tier-manifest", "budget", "required-sections", "source-mirror", "capability-registry", "criteria-traced", "forbidden-regex", "note-class", "skill-trigger", "publish-manifest", "sealed-manifest")
+SUPPORTED_KINDS = ("tier-manifest", "budget", "required-sections", "source-mirror", "capability-registry", "criteria-traced", "forbidden-regex", "note-class", "link-target", "skill-trigger", "publish-manifest", "sealed-manifest")
 ```

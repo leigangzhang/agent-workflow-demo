@@ -477,11 +477,13 @@ def link_violations(root: Path, path: str, text: str) -> list[str]:
     A relative link is a claim that a file exists at that path. Nothing else in this kit
     reads links — the host renderer compares the two sides of a pair, not the filesystem —
     so a link that drifted one directory level too far is invisible until a reader clicks
-    it. That is why the check lives here rather than in a reviewer's habit.
+    it. That is why the check lives here rather than in a reviewer's habit. The language
+    switcher line is skipped only when it really is one, so a file that carries no
+    switcher still has every line checked.
     """
     switcher = switcher_line(text)
     skip = None
-    if switcher is not None:
+    if switcher is not None and (SWITCHER_EN.match(switcher) or SWITCHER_ZH.match(switcher)):
         skip = next((index + 1 for index, line in enumerate(text.split("\n")) if line.strip() == switcher), None)
     out = []
     absent = absent_home_prefixes(root)

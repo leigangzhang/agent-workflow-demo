@@ -13,9 +13,10 @@ import json
 import sys
 import tempfile
 
-from . import capabilities, criteria, mirrors, policies, publication, records, seals, skills, tiers
+from . import capabilities, criteria, links, mirrors, policies, publication, records, seals, skills, tiers
 from .capabilities import check_capability_registry
 from .core import SUPPORTED_KINDS, die, iter_files, load_config
+from .links import check_link_target
 from .mirrors import check_source_mirror
 from .policies import check_budget, check_forbidden_regex, check_required_sections
 from .criteria import check_criteria_traced
@@ -33,6 +34,7 @@ RUNNERS = {
     "required-sections": check_required_sections,
     "forbidden-regex": check_forbidden_regex,
     "note-class": check_note_class,
+    "link-target": check_link_target,
     "source-mirror": check_source_mirror,
     "capability-registry": check_capability_registry,
     "criteria-traced": check_criteria_traced,
@@ -363,4 +365,4 @@ if __name__ == "__main__":
 
 SELF_TEST_CASES = (tiers.SELF_TEST_CASES + policies.SELF_TEST_CASES + mirrors.SELF_TEST_CASES + capabilities.SELF_TEST_CASES
                    + records.SELF_TEST_CASES + publication.SELF_TEST_CASES + seals.SELF_TEST_CASES + criteria.SELF_TEST_CASES
-                   + skills.SELF_TEST_CASES)
+                   + skills.SELF_TEST_CASES + links.SELF_TEST_CASES)

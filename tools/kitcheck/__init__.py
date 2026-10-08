@@ -1,11 +1,12 @@
 """The check engine, split by subject: shared helpers, one module per check family, and the registry."""
 
-from . import (capabilities, core, criteria, mirrors, policies, publication, records, registry, seals, skills,
+from . import (capabilities, core, criteria, links, mirrors, policies, publication, records, registry, seals, skills,
                tiers)
 from .capabilities import check_capability_registry
 from .cli import main
 from .core import (DEFAULT_CONFIG, SKIP_DIRECTORIES, count_lines, count_words, die, iter_files, load_config,
                    read_manifest, section_body)
+from .links import check_link_target
 from .mirrors import check_source_mirror, fenced_blocks, first_difference, normalize_block
 from .policies import check_budget, check_forbidden_regex, check_required_sections, section_variants
 from .criteria import DEFAULT_CRITERION_ID, check_criteria_traced

@@ -28,5 +28,5 @@ python3 tools/check-invariants.py --self-test # proves each kind can go red and 
 ## 登记的粘贴
 
 ```text mirror
-SUPPORTED_KINDS = ("tier-manifest", "budget", "required-sections", "source-mirror", "capability-registry", "criteria-traced", "forbidden-regex", "note-class", "skill-trigger", "publish-manifest", "sealed-manifest")
+SUPPORTED_KINDS = ("tier-manifest", "budget", "required-sections", "source-mirror", "capability-registry", "criteria-traced", "forbidden-regex", "note-class", "link-target", "skill-trigger", "publish-manifest", "sealed-manifest")
 ```
