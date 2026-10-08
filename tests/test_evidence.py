@@ -63,18 +63,40 @@ class RunEvidence(unittest.TestCase):
         violations = self.module.validate_commands(self.module.plan_for_all(WORKFLOW))
         self.assertEqual(violations, [], "a declared command that cannot run is not evidence")
 
-    def test_a_later_record_gets_a_successor_instead_of_overwriting(self):
+    def test_a_run_stamps_its_record_and_a_repeat_lands_beside_it(self):
         """An evidence record is a claim about a moment; a re-run must not rewrite it."""
         with tempfile.TemporaryDirectory() as directory:
             base = Path(directory) / "evidence" / "2026-01-01-main.md"
             base.parent.mkdir(parents=True)
-            self.assertEqual(self.module.unique_record_path(base), base)
-            base.write_text("first run\n", encoding="utf-8")
-            successor = self.module.unique_record_path(base)
-            self.assertEqual(successor.name, "2026-01-01-main-2.md")
-            successor.write_text("second run\n", encoding="utf-8")
-            self.assertEqual(self.module.unique_record_path(base).name, "2026-01-01-main-3.md")
-            self.assertEqual(base.read_text(encoding="utf-8"), "first run\n")
+            first = self.module.unique_record_path(base, "101500Z")
+            self.assertEqual(first.name, "2026-01-01-main-101500Z.md")
+            first.write_text("first run\n", encoding="utf-8")
+            # Only a collision the stamp cannot separate still takes a number: two runs
+            # inside one second.
+            second = self.module.unique_record_path(base, "101500Z")
+            self.assertEqual(second.name, "2026-01-01-main-101500Z-2.md")
+            second.write_text("second run\n", encoding="utf-8")
+            self.assertEqual(first.read_text(encoding="utf-8"), "first run\n")
+
+    def test_a_deletion_does_not_free_a_name_for_the_next_run(self):
+        """The name follows the run, so nothing on disk decides it.
+
+        The rule this replaces took the first free suffix, which handed a deleted
+        record's name to the next run — the same name meant two different claims at two
+        moments. A stamped name cannot be inherited: the clock moves forward.
+        """
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory) / "evidence" / "2026-01-01-main.md"
+            base.parent.mkdir(parents=True)
+            kept = self.module.unique_record_path(base, "101500Z")
+            kept.write_text("kept\n", encoding="utf-8")
+            dropped = self.module.unique_record_path(base, "101600Z")
+            dropped.write_text("dropped\n", encoding="utf-8")
+            dropped.unlink()
+            self.assertEqual(
+                self.module.unique_record_path(base, "101700Z").name,
+                "2026-01-01-main-101700Z.md",
+            )
 
     def test_a_record_is_named_for_what_it_covered(self):
         """On a long-lived branch the branch name says nothing, so the surfaces name it.

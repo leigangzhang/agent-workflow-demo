@@ -294,20 +294,23 @@ def slug_for(root: Path, plan: list[dict]) -> str:
     return re.sub(r"[^A-Za-z0-9._-]+", "-", record_slug(branch, [surface["name"] for surface in plan])) or "evidence"
 
 
-def unique_record_path(base: Path) -> Path:
-    """Return `base`, or the first free `-<n>` successor when it already exists.
+def unique_record_path(base: Path, stamp: str) -> Path:
+    """Return the name this run stamps its record with, or a same-second successor.
 
     An evidence record is a claim about a moment: rewriting it after the fact is
-    forging the record. A later run on the same day and branch therefore writes a
-    successor beside it, the same append-only rule the archive applies to a retired
-    generation.
+    forging the record. Two rules name one, and the reader is meant to read the whole
+    name: `record_slug` says what the run covered, and this one stamps *when* it ran, so
+    a name is never an ordinal over a name that a rename or a deletion can move. The
+    `-<n>` successor survives for the one collision a stamp cannot separate — two runs
+    inside the same second — and takes the first free number only there.
     """
-    if not base.exists():
-        return base
+    candidate = base.with_name(f"{base.stem}-{stamp}{base.suffix}")
+    if not candidate.exists():
+        return candidate
     for number in range(2, 1000):
-        candidate = base.with_name(f"{base.stem}-{number}{base.suffix}")
-        if not candidate.exists():
-            return candidate
+        successor = base.with_name(f"{base.stem}-{stamp}-{number}{base.suffix}")
+        if not successor.exists():
+            return successor
     die(f"cannot find a free evidence record name next to {base}")
 
 
@@ -461,8 +464,10 @@ def main(argv: list[str] | None = None) -> int:
         if verdict != "PASS":
             print(f"--- [{surfaces}] {verdict}{'' if detail is None else f': {detail}'}")
 
+    now = datetime.now(timezone.utc)
     out = args.out or unique_record_path(
-        root / "dev" / "evidence" / f"{datetime.now(timezone.utc).strftime('%Y-%m-%d')}-{slug_for(root, plan)}.md",
+        root / "dev" / "evidence" / f"{now.strftime('%Y-%m-%d')}-{slug_for(root, plan)}.md",
+        now.strftime("%H%M%SZ"),
     )
     write_record(root, out, plan, unmatched, results, merge_base, args.base)
 

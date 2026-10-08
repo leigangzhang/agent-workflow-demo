@@ -20,7 +20,7 @@
       "dev/README.md",
       "tests/README.md"
     ],
-    "why": "Which documents are bilingual pairs, and which records must stay byte-identical to the renderer of the repository that hosts this kit. The rule lives in docs/i18n.md; the recorder and freshness gate are tools/pair-docs.py. The exclusions are agent instruction files, loader-read skills, generated output including run records, the frozen pre-translation archive, and session review briefs kept out of git."
+    "why": "Which documents are bilingual pairs, and which records must stay byte-identical to the renderer of the repository that hosts this kit. The rule lives in docs/i18n.md; the recorder and freshness gate are tools/pair-docs.py. The exclusions are agent instruction files, loader-read skills, generated output including run records, and the frozen pre-translation archive."
   },
   "surfaces": [
     {
@@ -303,7 +303,7 @@
         "CLAUDE.md"
       ],
       "maxLines": 120,
-      "why": "Always-loaded context is a budget, not a dumping ground. Relocate, then condense, then raise this number."
+      "why": "Always-loaded context is a budget, not a dumping ground. Relocate, then condense, then raise this number. Relocate directory-bound rules first: a rule that only bites while working under one directory belongs in that directory's own AGENTS.md, which the agent loads there rather than on every task. The ceiling is the last move, never the first."
     },
     {
       "id": "decision-proposed",

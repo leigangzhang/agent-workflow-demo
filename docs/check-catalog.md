@@ -32,7 +32,7 @@ This page lists the changed surfaces and the gates this repository declares righ
 
 | Check | Kind | Paths | Why it exists |
 |---|---|---|---|
-| `context-budget` | `budget` | `AGENTS.md`, `*/AGENTS.md`, `CLAUDE.md` | Always-loaded context is a budget, not a dumping ground. Relocate, then condense, then raise this number. |
+| `context-budget` | `budget` | `AGENTS.md`, `*/AGENTS.md`, `CLAUDE.md` | Always-loaded context is a budget, not a dumping ground. Relocate, then condense, then raise this number. Relocate directory-bound rules first: a rule that only bites while working under one directory belongs in that directory's own AGENTS.md, which the agent loads there rather than on every task. The ceiling is the last move, never the first. |
 | `decision-proposed` | `required-sections` | `.agents/notes/proposed/*.md` | A proposal without what it beat, and without what done looks like, cannot be shipped or rejected. |
 | `decision-implemented` | `required-sections` | `.agents/notes/implemented/*.md` | Moving a record out of proposed/ rewrites its skeleton; a leftover ## Proposal or ## Acceptance criteria fails here, while ## Testing keeps each criterion's proof alive in the present tense. |
 | `criteria-traced` | `criteria-traced` | `.agents/notes/proposed/*.md`, `.agents/notes/implemented/*.md` | A criterion nobody owns is a wish. Each bullet carries an id and cites a declared check or surface, so the thing that will go red when the criterion breaks is written next to it. |

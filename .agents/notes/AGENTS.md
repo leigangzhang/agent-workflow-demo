@@ -11,3 +11,9 @@ Decision records are this kit's RFCs: they keep the rationale, the rejected alte
 **A record that no longer guides anyone is retired, not accumulated.** Delete a mechanical one, reject an obsolete proposal, or seal an implemented record into `.agents/notes/archived/` with an `Archived:` date; the selector lives in [evolution.md](../../docs/evolution.md).
 
 **Both sides move together.** A record is a bilingual pair, so an edit to one side lands with the matching edit to the other and a re-recorded sidecar ([i18n.md](../../docs/i18n.md)).
+
+**An acceptance criterion whose check cannot go red is a wish.** If no command or observation would fail when the criterion is violated, delete it or mark it `unpinned` in the record — prose that reads as verified without one is worse than an admitted gap ([skill](../skills/define-acceptance/SKILL.md)).
+
+**A deletion of a committed path is a change like any other.** Removing or moving a record still claims a surface, and its inbound links must be resolved in the same change: a generated record is excluded from prose and pairing, but never from ownership. Gate `change-scope` reads the change, not the directory you tidied.
+
+**Say what is not verified.** An entry that did not run, and a claim nothing can falsify, are named in the place a reader looks for the verified ones; an unverified item presented as verified is an overclaim, not a shorter report.

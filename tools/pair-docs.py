@@ -684,6 +684,24 @@ def check_anchor(root: Path, prefix: str, anchor: str, anchors: set[str], pairin
     return violations
 
 
+def select_anchors(anchors: list[str], corpus: list[str]) -> list[str]:
+    """Resolve the command-line anchors against the corpus a run recorded.
+
+    `./name` is the only spelling that changes; a path that names a hidden directory
+    (`.agents/…`) keeps its leading dot, because that dot is part of the name.
+    """
+    if not anchors:
+        return corpus
+    scope = set(corpus)
+    selected: list[str] = []
+    for item in anchors:
+        anchor = item[2:] if item.startswith("./") else item
+        if anchor not in scope:
+            die(f"{anchor} is not an in-scope pair (see pairing in tools/workflow.json)")
+        selected.append(anchor)
+    return selected
+
+
 def main() -> int:
     """Run the requested mode over the whole corpus or the named anchors."""
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
@@ -699,10 +717,7 @@ def main() -> int:
     anchors = anchor_paths(root, pairing)
     scope = set(anchors)
     prefix = discover_prefix(root)
-    selected = anchors if not args.anchors else [item.lstrip("./") for item in args.anchors]
-    for anchor in selected:
-        if anchor not in scope:
-            die(f"{anchor} is not an in-scope pair (see pairing in tools/workflow.json)")
+    selected = select_anchors(args.anchors, anchors)
     violations: list[str] = []
     if args.write:
         for anchor in selected:

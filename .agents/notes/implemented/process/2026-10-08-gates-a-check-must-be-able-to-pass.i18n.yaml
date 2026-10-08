@@ -1,0 +1,22 @@
+# Bilingual-pair consistency record for 2026-10-08-gates-a-check-must-be-able-to-pass.md (docs/i18n.md): per heading section, a hash
+# of its English and Chinese blocks outside fenced code blocks.
+# After editing either side, bring the other along and re-record with:
+#   python3 tools/pair-docs.py --write .agents/notes/implemented/process/2026-10-08-gates-a-check-must-be-able-to-pass.md
+/decision-gates-a-check-must-be-able-to-pass:
+  en: d5311c66f37b56c2
+  zh: c0e34f4eac75d019
+/decision-gates-a-check-must-be-able-to-pass/problem:
+  en: 955d785c8c83b311
+  zh: 4480db7304890334
+/decision-gates-a-check-must-be-able-to-pass/decision:
+  en: 96e994f5b42b2ac9
+  zh: 51af4641ee57e0d0
+/decision-gates-a-check-must-be-able-to-pass/alternatives-considered:
+  en: 7199e36f5fd9bf41
+  zh: e60296d20de68c53
+/decision-gates-a-check-must-be-able-to-pass/consequences:
+  en: 5391003fcf0e096a
+  zh: 505840b322c33c9d
+/decision-gates-a-check-must-be-able-to-pass/testing:
+  en: 87954c4fcd764027
+  zh: 340dab711337c523

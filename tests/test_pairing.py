@@ -8,6 +8,7 @@ from pathlib import Path
 import importlib.util
 import json
 import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -225,3 +226,54 @@ class ThePairingToolReadsTheRepository(unittest.TestCase):
             (root / "scratch" / "brief.md").write_text("# brief\n", encoding="utf-8")
             pairing = {"patterns": ["*.md"], "exclude": []}
             self.assertEqual(self.module.anchor_paths(root, pairing), ["kept.md"])
+
+
+class ANamedPathKeepsItsOwnPrefix(unittest.TestCase):
+    """A command-line anchor is a repository-relative path, so only a leading `./` is noise.
+
+    A bare `lstrip("./")` also eats the dot that names a hidden directory, and every record
+    the kit tells you to write lives under `.agents/`: the command its own documented
+    `--write <path>` recipe prints is then rejected as "not an in-scope pair".
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.module = load_pair_docs()
+
+    def test_the_documented_form_still_names_its_pair(self):
+        self.assertEqual(self.module.select_anchors(["./a.md"], ["a.md"]), ["a.md"])
+
+    def test_a_hidden_directory_keeps_its_dot(self):
+        self.assertEqual(self.module.select_anchors([".agents/note.md"], [".agents/note.md"]), [".agents/note.md"])
+
+    def test_no_anchor_means_every_pair(self):
+        self.assertEqual(self.module.select_anchors([], ["a.md"]), ["a.md"])
+
+    def test_an_unknown_anchor_is_refused(self):
+        with self.assertRaises(SystemExit):
+            self.module.select_anchors(["ghost.md"], ["a.md"])
+
+    def test_the_recorded_name_is_the_one_the_cli_accepts(self):
+        """The failure the fix removes, driven end to end through the real parser."""
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "tools").mkdir()
+            (root / "tools" / "workflow.json").write_text(json.dumps({"pairing": {
+                "patterns": ["*.md"], "exclude": [], "hostCanonical": [], "why": "fixture",
+            }}), encoding="utf-8")
+            (root / ".agents" / "notes").mkdir(parents=True)
+            anchor = root / ".agents" / "notes" / "note.md"
+            anchor.write_text("# A\n\nEnglish | [中文](note.zh.md)\n\n## S\n\nbody\n", encoding="utf-8")
+            (root / ".agents" / "notes" / "note.zh.md").write_text(
+                "# A\n\n[English](note.md) | 中文\n\n## S\n\n正文\n", encoding="utf-8")
+            self.run_pair_docs(root, "--write", ".agents/notes/note.md")
+            self.assertTrue((root / ".agents" / "notes" / "note.i18n.yaml").is_file())
+            self.run_pair_docs(root, "--check", ".agents/notes/note.md")
+
+    def run_pair_docs(self, root: Path, mode: str, anchor: str) -> None:
+        argv = sys.argv
+        sys.argv = ["pair-docs.py", mode, "--root", str(root), anchor]
+        try:
+            self.assertEqual(self.module.main(), 0)
+        finally:
+            sys.argv = argv
