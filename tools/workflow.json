@@ -22,6 +22,13 @@
     ],
     "why": "Which documents are bilingual pairs, and which records must stay byte-identical to the renderer of the repository that hosts this kit. The rule lives in docs/i18n.md; the recorder and freshness gate are tools/pair-docs.py. The exclusions are agent instruction files, loader-read skills, generated output including run records, and the frozen pre-translation archive."
   },
+  "delivery": {
+    "page": {
+      "visual": true,
+      "proof": ".dsh/visual-proof.json",
+      "why": "A page this project ships is judged by a person looking at it, so its delivery carries a read of the rendered pixels rather than a description of them. Declaring visual:true makes the session tool dev_visual_check ask the host's own image-capable route to check the reviewed screenshots against the render facts recorded in the page evidence, and leave the proof delivery_check audits. This is a project-level policy, not a per-feature one: every page deliverable in this repository is held to it, so a new page needs no new declaration. The mechanism — the two-layer check, the proof format, the fingerprint equality — belongs to the shared dsh-router-preset bundle; this file owns only the policy."
+    }
+  },
   "surfaces": [
     {
       "name": "context-rules",
