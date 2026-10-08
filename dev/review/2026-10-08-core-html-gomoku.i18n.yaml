@@ -1,0 +1,25 @@
+# Bilingual-pair consistency record for 2026-10-08-core-html-gomoku.md (docs/i18n.md): per heading section, a hash
+# of its English and Chinese blocks outside fenced code blocks.
+# After editing either side, bring the other along and re-record with:
+#   python3 tools/pair-docs.py --write dev/review/2026-10-08-core-html-gomoku.md
+/review-the-two-player-gomoku-page-and-the-two-gates-it-exposed-2026-10-08:
+  en: 9671218435087567
+  zh: b4dab4e5481e86e2
+/review-the-two-player-gomoku-page-and-the-two-gates-it-exposed-2026-10-08/status:
+  en: 1910358a115801bc
+  zh: 532541d8db2618bb
+/review-the-two-player-gomoku-page-and-the-two-gates-it-exposed-2026-10-08/claim:
+  en: 0ff0c7563c048b5f
+  zh: 753d5421ef1d7e53
+/review-the-two-player-gomoku-page-and-the-two-gates-it-exposed-2026-10-08/evidence:
+  en: 97e78e2d57f062a8
+  zh: 35a1aed9f5e01c63
+/review-the-two-player-gomoku-page-and-the-two-gates-it-exposed-2026-10-08/findings:
+  en: fde845ad8ca8b767
+  zh: 32936157bfd4fc62
+/review-the-two-player-gomoku-page-and-the-two-gates-it-exposed-2026-10-08/follow-up:
+  en: ce0024a613a641fa
+  zh: c79a3ebfc25a4ca7
+/review-the-two-player-gomoku-page-and-the-two-gates-it-exposed-2026-10-08/deliberate-risks:
+  en: 1f0373575e268f00
+  zh: 152340143c1a9fc4

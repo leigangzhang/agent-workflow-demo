@@ -6,6 +6,7 @@
 
 ## 去哪找什么
 
+- 想下本仓库做的这盘棋：[src/gomoku/index.html](src/gomoku/index.html)
 - 每一站产出什么、由哪条闸门判定：[dev/README.md](dev/README.zh.md)
 - 文档怎么写、怎么预算、怎么发布：[docs/README.md](docs/README.zh.md)
 - agent 加载的常驻规则，以及唯一的命令清单：[AGENTS.md](AGENTS.md)

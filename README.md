@@ -6,6 +6,7 @@ A copy-in workflow kit: the eleven-station lifecycle, executable gates, and bili
 
 ## Where to go
 
+- To play the game this repository builds: [src/gomoku/index.html](src/gomoku/index.html)
 - What each station produces, and which gate decides it: [dev/README.md](dev/README.md)
 - How a document is written, budgeted, and published: [docs/README.md](docs/README.md)
 - The standing rules an agent loads, and the only command list: [AGENTS.md](AGENTS.md)

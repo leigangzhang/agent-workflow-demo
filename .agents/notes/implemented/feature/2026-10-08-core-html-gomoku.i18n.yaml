@@ -1,0 +1,22 @@
+# Bilingual-pair consistency record for 2026-10-08-core-html-gomoku.md (docs/i18n.md): per heading section, a hash
+# of its English and Chinese blocks outside fenced code blocks.
+# After editing either side, bring the other along and re-record with:
+#   python3 tools/pair-docs.py --write .agents/notes/implemented/feature/2026-10-08-core-html-gomoku.md
+/decision-an-html-gomoku-game-for-two-players-at-one-screen:
+  en: 0ed3d55a0dfa7ebd
+  zh: 4278f6939ac669f7
+/decision-an-html-gomoku-game-for-two-players-at-one-screen/problem:
+  en: ca4eeb53fcbc299e
+  zh: 502c467350affc75
+/decision-an-html-gomoku-game-for-two-players-at-one-screen/decision:
+  en: 58e8b34c35458bfb
+  zh: 005ff234e1d18008
+/decision-an-html-gomoku-game-for-two-players-at-one-screen/alternatives-considered:
+  en: 3631f43946b50a48
+  zh: df2e92a2785bb5e2
+/decision-an-html-gomoku-game-for-two-players-at-one-screen/consequences:
+  en: b2afabfdc553718a
+  zh: be0cef5e9e13759c
+/decision-an-html-gomoku-game-for-two-players-at-one-screen/testing:
+  en: 47ef3daef89e9c5c
+  zh: 0ce213a8dafb1e26
