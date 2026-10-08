@@ -37,17 +37,16 @@ The `architecture` / `process` line: architecture is about the artefact itself; 
 
 ## Modules
 
-A record's topic title opens with the **module** the decision lives in, because the class says what kind of decision it is and never which part of the project it is about. Gate `note-class` rejects a new title whose first token is not in the table below.
+A record's topic title opens with the **subject** the decision belongs to: the domain it is about, never the folder it is filed in or where the code it describes sits. A record is a sub-record of one subject, and moving the code does not move it between subjects. Gate `note-class` rejects a title whose first token is not in the table below.
 
-The class set above is closed and adopted from the host repository. This one is open and this project's own: it starts with the entry a project starts with, and it grows as records arrive.
+The class set above is closed and adopted. This one is open and this project's own: a subject is named once and reused, it grows when a decision belongs to a domain nothing here names yet, and a new project starts with its first entry.
 
 | Module | What it covers |
 |---|---|
 | `init` | This project's start: the tier it runs, and the records it began with. |
 | `game` | The Gomoku feature: its rules, its opponent, and its presentation. |
 
-**How the list is kept.** Look the module up before you name a file, by the name the code or the directory uses and by the words a reader would search for — a near match is a match, and a second name for the same place is how a list stops being usable. Reuse whenever the decision lives where an entry already points: most records reuse, and a list that grows with every record is a list nobody reads. Add a row only when nothing here is where the decision lives, in the same change as the record that needs it, and name a **place rather than a topic** — `sandbox`, not `new-sandbox-flag`. Never rename a module a record already uses, because records are addressed by their paths: a module that splits or is renamed gains a second row, and the first leaves only when the last record that used it is gone. The same judgement runs in reverse — an entry no record reaches a file through is a name the next reader will reuse by mistake.
-
+**How the list is kept.** Look the subject up before you name a file, by the words a reader would search for — a near match is a match. Reuse it whenever the decision lives in a domain an entry already names; a list that grows with every record is a list nobody reads. Add a row only when nothing here is where the decision belongs, in the same change as the record that needs it, and name a **domain, not a topic** — `sandbox`, not `new-sandbox-flag`. Never rename an entry a record already uses, because records are addressed by their paths: a subject that splits gains a second row, and the first leaves when the last record that used it is gone. In reverse, an entry no record reaches a file through is a name the next reader will reuse by mistake.
 ## Archiving and deletion
 
 Delete an implemented record that only describes a mechanical or local change — its English, Chinese, and sidecar files together, with every inbound link repaired. A small bug fix, a new capability, or a substantive decision does not qualify merely because its implementation is small.

@@ -11,7 +11,6 @@ import re
 from .core import iter_files
 
 RECORD_PATH = re.compile(r"^\.agents/notes/(?P<lifecycle>[^/]+)/(?P<klass>[^/]+)/(?P<file>[^/]+)$")
-DAY = re.compile(r"\d{4}-\d{2}-\d{2}")
 
 
 def module_table(root: Path, check: dict) -> list[str]:
@@ -21,9 +20,6 @@ def module_table(root: Path, check: dict) -> list[str]:
     manages it and the reader who is about to name a record find it in one place. The gate
     reads that one table; a second rendering of it here would be a second fact.
     """
-    since = check.get("areasSince")
-    if not isinstance(since, str) or DAY.fullmatch(since) is None:
-        die(f"check {check['id']!r}: 'areasSince' must be yyyy-mm-dd when 'areasIn' is declared")
     heading = check.get("areasHeading")
     if not isinstance(heading, str) or not heading:
         die(f"check {check['id']!r}: 'areasHeading' is required when 'areasIn' is declared")
@@ -58,11 +54,9 @@ def check_note_class(root: Path, check: dict) -> list[str]:
     A lifecycle's `TEMPLATE.md` is a matched subject only: the skeleton keeps the corpus
     non-empty before the first record exists, and a skeleton is not a record to classify.
 
-    When the check declares `areasIn`, a topic title dated on or after `areasSince` must
-    open with a module the table there declares, so the module a decision belongs to is
-    stated in one place and the file name carries it. A record older than `areasSince` is
-    grandfathered, because the list is a module list and a set of first words harvested
-    from history is not one.
+    When the check declares `areasIn`, a topic title must open with a subject the table
+    there declares. Every record, whatever its date: the list is a list of subjects, and a
+    date that exempts records from it would only make the list something to negotiate with.
     """
     classes = check.get("classes")
     if not isinstance(classes, list) or not classes:
@@ -71,7 +65,6 @@ def check_note_class(root: Path, check: dict) -> list[str]:
     if not isinstance(lifecycles, list) or not lifecycles:
         die(f"check {check['id']!r}: 'lifecycles' must be a non-empty list when present")
     areas = module_table(root, check) if check.get("areasIn") is not None else None
-    since = check.get("areasSince")
     violations: list[str] = []
     for relative, text in iter_files(root, check["patterns"]):
         if relative.rsplit("/", 1)[-1].startswith("TEMPLATE"):
@@ -81,12 +74,12 @@ def check_note_class(root: Path, check: dict) -> list[str]:
             violations.append(f"{relative}: a record lives at .agents/notes/<lifecycle>/<class>/<file>")
             continue
         lifecycle, klass, base = match.group("lifecycle"), match.group("klass"), match.group("file")
-        if areas is not None and base[:10] >= since:
+        if areas is not None:
             tokens = base.split("-")
             module = tokens[3] if len(tokens) > 3 else ""
             if module not in areas:
                 violations.append(
-                    f"{relative}: the topic title opens with {module!r}, which is not a module the table declares;"
+                    f"{relative}: the topic title opens with {module!r}, which is not a subject the table declares;"
                     f" reuse one of {', '.join(areas)} or add a row to {check['areasIn']}")
         if lifecycle not in lifecycles:
             violations.append(f"{relative}: unknown lifecycle {lifecycle!r}; expected one of {', '.join(lifecycles)}")
@@ -128,8 +121,8 @@ SELF_TEST_CASES = (
         {".agents/notes/implemented/architecture/decision.md": "Status: implemented\nClass: process\n\n## Problem\nx\n"},
         {".agents/notes/implemented/architecture/decision.md": "Status: implemented\nClass: architecture\n\n## Problem\nx\n"},
     ),
-    # A topic title dated on or after the rule must open with a module the table declares;
-    # the same title one day earlier is grandfathered, which is one fixture proving both halves.
+    # A topic title must open with a subject the table declares, and an old date is no way
+    # out: the first pair proves the rule, the second proves the list cannot be waited past.
     (
         "note-class",
         {
@@ -139,7 +132,6 @@ SELF_TEST_CASES = (
             "classes": ["feature", "bug-fix", "simplification", "architecture", "process", "testing"],
             "areasIn": ".agents/notes/README.md",
             "areasHeading": "## Modules",
-            "areasSince": "2026-10-08",
         },
         {
             ".agents/notes/README.md": MODULE_README,
@@ -147,7 +139,26 @@ SELF_TEST_CASES = (
         },
         {
             ".agents/notes/README.md": MODULE_README,
-            ".agents/notes/implemented/process/2026-10-07-widget-thing.md": "Class: process\n\n## Problem\nx\n",
+            ".agents/notes/implemented/process/2026-10-08-notes-widget-thing.md": "Class: process\n\n## Problem\nx\n",
+        },
+    ),
+    (
+        "note-class",
+        {
+            "id": "self-note-area-old",
+            "kind": "note-class",
+            "patterns": [".agents/notes/*/*/*.md"],
+            "classes": ["feature", "bug-fix", "simplification", "architecture", "process", "testing"],
+            "areasIn": ".agents/notes/README.md",
+            "areasHeading": "## Modules",
+        },
+        {
+            ".agents/notes/README.md": MODULE_README,
+            ".agents/notes/implemented/process/2020-01-01-widget-thing.md": "Class: process\n\n## Problem\nx\n",
+        },
+        {
+            ".agents/notes/README.md": MODULE_README,
+            ".agents/notes/implemented/process/2020-01-01-notes-widget-thing.md": "Class: process\n\n## Problem\nx\n",
         },
     ),
 )
