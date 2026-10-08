@@ -442,7 +442,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"--- [{surfaces}] {verdict}{'' if detail is None else f': {detail}'}")
 
     out = args.out or unique_record_path(
-        root / "evidence" / f"{datetime.now(timezone.utc).strftime('%Y-%m-%d')}-{slug_for(root)}.md",
+        root / "dev" / "evidence" / f"{datetime.now(timezone.utc).strftime('%Y-%m-%d')}-{slug_for(root)}.md",
     )
     write_record(root, out, plan, unmatched, results, merge_base, args.base)
 
