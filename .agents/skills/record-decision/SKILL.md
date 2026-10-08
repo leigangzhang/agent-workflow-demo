@@ -41,12 +41,24 @@ Moving the file without rewriting it fails the check. That is deliberate: the re
 
 When a path, symbol, or default changes, update the record in place. When the **decision** changes, write a new record and cross-link it. Do not append "update: later we changed it to…" — that hands the next reader two contradicting facts.
 
+**Before you name the file — look the module up, and reuse before you add.**
+
+The topic title opens with the module the decision lives in, and that module must be declared in `areas` in [tools/workflow.json](../../../tools/workflow.json), or the gate rejects the record. The list is this project's, it is open, it grows with its records, and it starts with one entry.
+
+1. **Look it up first**, by the name the code, the package, or the directory uses, and by the words a reader would search for. A near match is a match: `docs` covers a decision about a policy page, and inventing a second name for the same place is how a list stops being usable.
+2. **Reuse whenever the decision lives where an existing module points.** Most records reuse; a list that grows with every record is a list nobody reads.
+3. **Add one only when nothing in the list is where the decision lives.** Adding is one line in `areas`, in the same change as the record that needs it, and the new name is a **place, not a topic**: `sandbox`, not `new-sandbox-flag`. The lookup is what keeps the count of places from tracking the count of decisions.
+4. **Never rename a module a record already uses.** Records are addressed by their paths, so a name that moves under them is a broken link. A module that splits or is renamed gains a second entry; the first is retired only when the last record that used it is gone.
+
+**Retiring an entry is the same judgement in reverse.** When no record cites a module any more, delete it from `areas` in the same change that removed the last one. An entry no reader can reach a file through is a name they will reuse by mistake.
+
 **When it stops guiding anyone**, delete it, or move it to `.agents/notes/archived/` with an `Archived:` date and never edit it again.
 
 ## Verification
 
-- `python3 tools/check-invariants.py` — `decision-proposed` and `decision-implemented` require their sections to exist and be non-empty.
+- `python3 tools/check-invariants.py` — `decision-proposed` and `decision-implemented` require their sections to exist and be non-empty, and `note-class` rejects a record dated on or after `areasSince` whose topic title opens with a module that `areas` does not declare.
 - Read the `Alternatives considered` section yourself. No check can tell whether it is honest.
+- Read `areas` against the records: no check can tell a reused module from a new name for the same place.
 
 ## Anti-patterns
 
@@ -54,3 +66,4 @@ When a path, symbol, or default changes, update the record in place. When the **
 - An empty or perfunctory alternatives section — it is the only part that prevents re-litigation.
 - Editing a shipped record to describe a different decision.
 - Keeping every record forever, so superseded facts still read as current.
+- A module invented per record, so the list becomes a second title.

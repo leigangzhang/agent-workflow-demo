@@ -1,6 +1,6 @@
 # Decision: 按最小档安装这套工作流套件
 
-[English](2026-10-08-minimum-tier-install.md) | 中文
+[English](2026-10-08-init-minimum-tier-install.md) | 中文
 
 Status: implemented
 Date: 2026-10-08

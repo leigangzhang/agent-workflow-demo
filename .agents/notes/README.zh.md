@@ -16,7 +16,7 @@
 
 文件名里的日期是这件事**第一次被提出**的日期。记录之间的交叉引用一律用相对 Markdown 链接，绝不用裸文字或编号：链接能挺过搬动，而且 `pair-docs.py --check` 会解析它的 fragment。
 
-**标题**以这件事所属的模块开头，然后才是决定本身 —— `web-browser-snapshot-ci-gate`、`mcp-tool-list-refresh`。slug 跟着标题走，所以模块就是文件名的第一个词，整棵树按它排序。这条规矩由评审者来守；闸门守不了，因为模块集合是开集。
+**标题**以这件事所属的模块开头，然后才是决定本身 —— `web-browser-snapshot-ci-gate`、`mcp-tool-list-refresh`；slug 跟着走，所以模块就是文件名的第一个词。它必须在 `areas` 里声明（[workflow.json](../../tools/workflow.json)），而闸门 `note-class` 会拿这份清单去对每一条日期在 `areasSince` 之后的记录（[模块怎么选](../skills/record-decision/SKILL.md)）。
 
 模板住在上一层，即 `.agents/notes/<lifecycle>/TEMPLATE.md` —— 骨架由生命周期决定，不由类目决定 —— 每个模板还负责让对应检查不至于匹配不到文件，因为空语料判无效，而不是判通过。
 

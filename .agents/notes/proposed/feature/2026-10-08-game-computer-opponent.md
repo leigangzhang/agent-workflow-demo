@@ -1,6 +1,6 @@
 # Proposal: a computer opponent for the Gomoku page
 
-English | [中文](2026-10-08-gomoku-computer-opponent.zh.md)
+English | [中文](2026-10-08-game-computer-opponent.zh.md)
 
 Status: proposed
 Date: 2026-10-08
@@ -8,7 +8,7 @@ Class: feature
 
 ## Problem
 
-One person at a keyboard wants a game of Gomoku. The two-player page proposed in [an HTML Gomoku game for two players at one screen](2026-10-08-html-gomoku-game.md) is not built yet, and its v1 scope settles that a second person has to be present: alone, a player makes one click and the board then waits forever. Nothing on that page chooses a move, so the shortest path from "I want a game" to "I am playing" still runs through finding someone else.
+One person at a keyboard wants a game of Gomoku. The two-player page proposed in [an HTML Gomoku game for two players at one screen](2026-10-08-game-html-gomoku.md) is not built yet, and its v1 scope settles that a second person has to be present: alone, a player makes one click and the board then waits forever. Nothing on that page chooses a move, so the shortest path from "I want a game" to "I am playing" still runs through finding someone else.
 
 It is also the first behaviour this repository would pin as a decision rather than a rendering. The page's rules are written down once and clicked through; a chooser's output is checkable only if the same position yields the same move every time, so the acceptance criteria here have to pin a choice, not a picture.
 
@@ -22,7 +22,7 @@ The change is one module, its lane, and one mode on the page. It consumes the v1
 - `src/gomoku/index.html` — one mode control with two modes. In vs-computer mode the human plays black and moves first, and each human move is answered by exactly one reply, computed and applied inside the same click handler: there is no thinking state, no timer, and no second step for the player to trigger. The status line and the final message name 你 and 电脑 in this mode, and 黑方 and 白方 in the other. Changing the mode empties the board and starts a fresh game, and so does the reset button. The two-player path keeps the behaviour the v1 record pins.
 - `tools/workflow.json` — the `tests` and `source` evidence lists gain `node --test src/gomoku/ai.test.js` beside the v1 lane. Listing both commands is the whole fix for the warning the v1 record already carries, that one concrete command on `source` becomes a false green at the second module: the surface is a flat list of commands, so a change to either module runs both lanes.
 - `README.md`, `README.zh.md`, and their consistency record — the v1 record adds the page's bullet there; if that bullet describes two players only, this change corrects the wording on both sides and re-records the pair.
-- [The v1 record](2026-10-08-html-gomoku-game.md) — its `## Alternatives considered` entry for an AI opponent gains a relative link to this record on both sides, so a reader of either is not left with the other's earlier scope.
+- [The v1 record](2026-10-08-game-html-gomoku.md) — its `## Alternatives considered` entry for an AI opponent gains a relative link to this record on both sides, so a reader of either is not left with the other's earlier scope.
 
 Two defaults are settled for v1 and cheap to reverse: the human is black and moves first, and the opponent has one level. Both are revisit conditions in `## Risks`.
 

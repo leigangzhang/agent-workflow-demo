@@ -1,6 +1,6 @@
 # Proposal: an HTML Gomoku game for two players at one screen
 
-English | [中文](2026-10-08-html-gomoku-game.zh.md)
+English | [中文](2026-10-08-game-html-gomoku.zh.md)
 
 Status: proposed
 Date: 2026-10-08
@@ -38,7 +38,7 @@ Open question, settled for v1 and cheap to reverse: the page's strings are Chine
 
 **Canvas rendering with pixel hit-testing.** Rejected: it trades addressable elements for coordinate arithmetic in the page and in every test, and it drops keyboard access.
 
-**An AI opponent, or a Renju ruleset with forbidden moves.** Rejected for v1: the requester asked for two players at one screen, and forbidden-move rules change the win check and would need their own acceptance criteria. Revisit when a second player asks. The opponent half is now proposed in [a computer opponent for the Gomoku page](2026-10-08-gomoku-computer-opponent.md); the forbidden-move half is unchanged.
+**An AI opponent, or a Renju ruleset with forbidden moves.** Rejected for v1: the requester asked for two players at one screen, and forbidden-move rules change the win check and would need their own acceptance criteria. Revisit when a second player asks. The opponent half is now proposed in [a computer opponent for the Gomoku page](2026-10-08-game-computer-opponent.md); the forbidden-move half is unchanged.
 
 ## Acceptance criteria
 

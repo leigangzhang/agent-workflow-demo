@@ -1,10 +1,10 @@
-# Bilingual-pair consistency record for 2026-10-08-minimum-tier-install.md (docs/i18n.md): per heading section, a hash
+# Bilingual-pair consistency record for 2026-10-08-init-minimum-tier-install.md (docs/i18n.md): per heading section, a hash
 # of its English and Chinese blocks outside fenced code blocks.
 # After editing either side, bring the other along and re-record with:
-#   python3 tools/pair-docs.py --write .agents/notes/implemented/process/2026-10-08-minimum-tier-install.md
+#   python3 tools/pair-docs.py --write .agents/notes/implemented/process/2026-10-08-init-minimum-tier-install.md
 /decision-install-the-workflow-kit-at-the-minimum-tier:
-  en: fe5d679d7588593c
-  zh: 1d3b84e8582b5585
+  en: 1bf759c7821e54fd
+  zh: aa8634013ad64d72
 /decision-install-the-workflow-kit-at-the-minimum-tier/problem:
   en: 0704fabf312a117f
   zh: dad372d8c92cb289

@@ -1,6 +1,6 @@
 # Decision: install the workflow kit at the minimum tier
 
-English | [中文](2026-10-08-minimum-tier-install.zh.md)
+English | [中文](2026-10-08-init-minimum-tier-install.zh.md)
 
 Status: implemented
 Date: 2026-10-08

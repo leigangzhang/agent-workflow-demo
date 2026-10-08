@@ -1,16 +1,16 @@
-# Bilingual-pair consistency record for 2026-10-08-gomoku-computer-opponent.md (docs/i18n.md): per heading section, a hash
+# Bilingual-pair consistency record for 2026-10-08-game-computer-opponent.md (docs/i18n.md): per heading section, a hash
 # of its English and Chinese blocks outside fenced code blocks.
 # After editing either side, bring the other along and re-record with:
-#   python3 tools/pair-docs.py --write .agents/notes/proposed/feature/2026-10-08-gomoku-computer-opponent.md
+#   python3 tools/pair-docs.py --write .agents/notes/proposed/feature/2026-10-08-game-computer-opponent.md
 /proposal-a-computer-opponent-for-the-gomoku-page:
-  en: f34bcaeced52ba50
-  zh: dba8729bc80475ab
+  en: de92d873b7e53aa5
+  zh: b3928811ccaf7334
 /proposal-a-computer-opponent-for-the-gomoku-page/problem:
-  en: 5216c48c5f5fd78f
-  zh: 9dabb6a96e2d9a90
+  en: efb118118d19645f
+  zh: 9132a8eb877120bb
 /proposal-a-computer-opponent-for-the-gomoku-page/proposal:
-  en: 4fb576657759679e
-  zh: 6b741032f7ef3c41
+  en: adebc5b3f7b70c0e
+  zh: a9c747ddbb2aee48
 /proposal-a-computer-opponent-for-the-gomoku-page/alternatives-considered:
   en: e47ffdc17a96b716
   zh: 44f35f9f9f1453f5

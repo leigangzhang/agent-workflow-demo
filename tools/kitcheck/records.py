@@ -11,13 +11,19 @@ import re
 from .core import iter_files
 
 RECORD_PATH = re.compile(r"^\.agents/notes/(?P<lifecycle>[^/]+)/(?P<klass>[^/]+)/(?P<file>[^/]+)$")
+DAY = re.compile(r"\d{4}-\d{2}-\d{2}")
 
 
 def check_note_class(root: Path, check: dict) -> list[str]:
-    """Reject a record whose path class is outside the closed set or disagrees with its Class line.
+    """Reject a record whose path class, `Class:` line, and topic module do not agree with the sets.
 
     A lifecycle's `TEMPLATE.md` is a matched subject only: the skeleton keeps the corpus
     non-empty before the first record exists, and a skeleton is not a record to classify.
+
+    When the check declares `areas`, a topic title dated on or after `areasSince` must open
+    with one of them, so the module a decision belongs to is declared in one place and the
+    file name carries it. A record older than `areasSince` is grandfathered, because the
+    list is a module list and a set of first words harvested from history is not one.
     """
     classes = check.get("classes")
     if not isinstance(classes, list) or not classes:
@@ -25,6 +31,12 @@ def check_note_class(root: Path, check: dict) -> list[str]:
     lifecycles = check.get("lifecycles", ["proposed", "implemented", "rejected"])
     if not isinstance(lifecycles, list) or not lifecycles:
         die(f"check {check['id']!r}: 'lifecycles' must be a non-empty list when present")
+    areas = check.get("areas")
+    if areas is not None and (not isinstance(areas, list) or not areas):
+        die(f"check {check['id']!r}: 'areas' must be a non-empty list when present")
+    since = check.get("areasSince")
+    if areas is not None and (not isinstance(since, str) or DAY.fullmatch(since) is None):
+        die(f"check {check['id']!r}: 'areasSince' must be yyyy-mm-dd when 'areas' is declared")
     violations: list[str] = []
     for relative, text in iter_files(root, check["patterns"]):
         if relative.rsplit("/", 1)[-1].startswith("TEMPLATE"):
@@ -33,7 +45,14 @@ def check_note_class(root: Path, check: dict) -> list[str]:
         if match is None:
             violations.append(f"{relative}: a record lives at .agents/notes/<lifecycle>/<class>/<file>")
             continue
-        lifecycle, klass = match.group("lifecycle"), match.group("klass")
+        lifecycle, klass, base = match.group("lifecycle"), match.group("klass"), match.group("file")
+        if areas is not None and base[:10] >= since:
+            tokens = base.split("-")
+            module = tokens[3] if len(tokens) > 3 else ""
+            if module not in areas:
+                violations.append(
+                    f"{relative}: the topic title opens with {module!r}, which is not a declared module;"
+                    f" declare it in 'areas' or reuse one of {', '.join(areas)}")
         if lifecycle not in lifecycles:
             violations.append(f"{relative}: unknown lifecycle {lifecycle!r}; expected one of {', '.join(lifecycles)}")
         if klass not in classes:
@@ -60,5 +79,20 @@ SELF_TEST_CASES = (
         },
         {".agents/notes/implemented/architecture/decision.md": "Status: implemented\nClass: process\n\n## Problem\nx\n"},
         {".agents/notes/implemented/architecture/decision.md": "Status: implemented\nClass: architecture\n\n## Problem\nx\n"},
+    ),
+    # A topic title dated on or after the rule must open with a declared module; the same
+    # title one day earlier is grandfathered, which is the same fixture proving both halves.
+    (
+        "note-class",
+        {
+            "id": "self-note-area",
+            "kind": "note-class",
+            "patterns": [".agents/notes/*/*/*.md"],
+            "classes": ["feature", "bug-fix", "simplification", "architecture", "process", "testing"],
+            "areas": ["notes", "docs"],
+            "areasSince": "2026-10-08",
+        },
+        {".agents/notes/implemented/process/2026-10-08-widget-thing.md": "Class: process\n\n## Problem\nx\n"},
+        {".agents/notes/implemented/process/2026-10-07-widget-thing.md": "Class: process\n\n## Problem\nx\n"},
     ),
 )
