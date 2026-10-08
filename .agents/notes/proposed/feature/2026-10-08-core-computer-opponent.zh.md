@@ -61,7 +61,7 @@ v1 已按此定下两个默认，且改起来很便宜：人执黑先行，对�
 ## 验收标准
 
 - [A1] `tests` —— `node --test src/gomoku/ai.test.js` 用 `## 提案` 里那张表每一行的坐标与轮次搭出该局面，并断言该行点名的那个点，于是黄金期望值是从本记录抄录的，而不是由实现选择器的人自己写的。同一条通道还断言表格呈现不了的性质：同一局面重复调用返回同一点、调用不修改传入的棋局、返回的每一个点都是合法交叉点。任何一行的点被挪动，这条通道就判红。
-- [A2] `tests` —— 同一条通道覆盖 `## 提案` 放进 `GomokuAI.replyPoint(game, mode)` 的那个回合决策：棋局未结束时、`vs-computer` 模式下返回恰好一个合法点，`two-player` 模式下返回 `null`，出胜负或和棋之后返回 `null`。页面没有别的途径决定要不要回一手；至于它拿到答案之后做什么，是 [A3] 的事。
+- [A2] `tests` —— 同一条 `node --test src/gomoku/ai.test.js` 通道覆盖 `## 提案` 放进 `GomokuAI.replyPoint(game, mode)` 的那个回合决策：棋局未结束时、`vs-computer` 模式下返回恰好一个合法点，`two-player` 模式下返回 `null`，出胜负或和棋之后返回 `null`。页面没有别的途径决定要不要回一手；至于它拿到答案之后做什么，是 [A3] 的事。
 - [A3] `source` —— `unpinned`：从 `file://` 直接打开、不起服务、不发网络请求时，`src/gomoku/index.html` 显示棋盘、此模式下的「你」与「电脑」文案、可用键盘触达的交叉点、切换模式即清空的棋盘，以及 [A2] 返回的那一点在人的每一手之后恰好落下一次。为什么标成 `unpinned`：本仓库不跑任何浏览器驱动——v1 记录否决过 Playwright 与起服务——所以这条观察是人工的，而人工条目永远不算已验证。
 - [A4] `i18n` —— `python3 tools/pair-docs.py --check` 报出这份记录的三个兄弟文件齐全且同步，在跨链接改动之后继续让 v1 那一对保持同档，并能解析两份记录之间的链接。
 - [A5] `workflow` —— `tools/workflow.json` 把 `node --test src/gomoku/ai.test.js` 与 v1 那条通道并列为 `tests` 与 `source` 改动面上的可运行证据，于是 `python3 tools/run-evidence.py --check` 能解析两条，实跑记下的是 PASS 或 FAIL，而不是一条人工条目。
