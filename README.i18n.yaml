@@ -1,0 +1,13 @@
+# Bilingual-pair consistency record for README.md (docs/i18n.md): per heading section, a hash
+# of its English and Chinese blocks outside fenced code blocks.
+# After editing either side, bring the other along and re-record with:
+#   python3 tools/pair-docs.py --write README.md
+/agent-workflow-demo:
+  en: a99db9451c2976c0
+  zh: 2b86d0cb5c74a9f5
+/agent-workflow-demo/where-to-go:
+  en: e298a2e27074cc54
+  zh: bc8dca92ebb0f0d1
+/agent-workflow-demo/run-the-gates:
+  en: 895c560953b458f0
+  zh: 1aa1c5a1b8f7cd0a
