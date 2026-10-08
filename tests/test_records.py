@@ -55,7 +55,13 @@ class PublicationManifest(unittest.TestCase):
 
     @staticmethod
     def markdown_files() -> list[str]:
-        return sorted(path.relative_to(ROOT).as_posix() for path in ROOT.rglob("*.md"))
+        """The corpus the publication switch reads, taken from its one source.
+
+        Enumerating the disk here would disagree with the check the moment a project keeps
+        a Markdown file git ignores: the check would skip it and this test would demand a
+        classification for a file nobody can commit.
+        """
+        return sorted(name for name, _ in load_checker().iter_files(ROOT, ["*.md"]))
 
     def declared(self) -> list[tuple[str, str]]:
         return [(pattern, "public") for pattern in self.public] + [
