@@ -44,7 +44,7 @@ The class set above is closed and adopted. This one is open and this project's o
 | Module | What it covers |
 |---|---|
 | `init` | This project's start: the tier it runs, and the records it began with. |
-| `game` | The Gomoku feature: its rules, its opponent, and its presentation. |
+| `core` | The product's core feature: the Gomoku rules, the computer opponent, and the page that shows them. |
 
 **How the list is kept.** Look the subject up before you name a file, by the words a reader would search for — a near match is a match. Reuse it whenever the decision lives in a domain an entry already names; a list that grows with every record is a list nobody reads. Add a row only when nothing here is where the decision belongs, in the same change as the record that needs it, and name a **domain, not a topic** — `sandbox`, not `new-sandbox-flag`. Never rename an entry a record already uses, because records are addressed by their paths: a subject that splits gains a second row, and the first leaves when the last record that used it is gone. In reverse, an entry no record reaches a file through is a name the next reader will reuse by mistake.
 ## Archiving and deletion
