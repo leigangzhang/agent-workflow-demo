@@ -111,4 +111,4 @@ A shared fixture lives in its own module, never in another test file: collecting
 
 ## Known limits
 
-`testing-policy` guarantees only that the seven sections of this file **exist and are not empty**. Whether these tiers are the right ones, whether the evidence map really catches regressions, and whether the flake policy is followed are all beyond the gate — that half belongs to [engineer-tests](../skills/engineer-tests/SKILL.md) and review. The same holds for every claim of the form "this command proves this tier": the kit will not run it for you.
+`testing-policy` guarantees only that the seven sections of this file **exist and are not empty**. Whether these tiers are the right ones, whether the evidence map really catches regressions, and whether the flake policy is followed are all beyond the gate — that half belongs to [engineer-tests](../.agents/skills/engineer-tests/SKILL.md) and review. The same holds for every claim of the form "this command proves this tier": the kit will not run it for you.

@@ -24,4 +24,4 @@ The command a reader runs to prove this file and the source still agree, and the
 
 ## Drift policy
 
-What happens when the source changes: update the paste in the same change; add or remove the registration when blocks appear or disappear; when the interface is retired, delete the record or move it to `notes/archived/` with an `Archived:` date and never edit it again. A drift policy of "someone will notice" is not a policy.
+What happens when the source changes: update the paste in the same change; add or remove the registration when blocks appear or disappear; when the interface is retired, delete the record or move it to `.agents/notes/archived/` with an `Archived:` date and never edit it again. A drift policy of "someone will notice" is not a policy.

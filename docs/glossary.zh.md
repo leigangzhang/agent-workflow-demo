@@ -86,7 +86,7 @@
 
 ### decision record
 
-`notes/<lifecycle>/<class>/<yyyy-mm-dd>-<slug>.md` 下的记录，留下一个决定的问题、选择、被否方案、后果与验证（[notes/README.md](../notes/README.zh.md)）。写 `decision record`；单独的 `note` 不是同义词。宿主叫法：**Agent Note**。
+`.agents/notes/<lifecycle>/<class>/<yyyy-mm-dd>-<slug>.md` 下的记录，留下一个决定的问题、选择、被否方案、后果与验证（[.agents/notes/README.md](../.agents/notes/README.zh.md)）。写 `decision record`；单独的 `note` 不是同义词。宿主叫法：**Agent Note**。
 
 ### proposal / rejected
 
@@ -102,7 +102,7 @@
 
 ### seal / archived / frozen
 
-记录退役的三个词。**seal** 是动作 —— 文件的摘要、归档日期与理由进入 `notes/archived/manifest.json`；**archived** 是它住的地方；**frozen** 是后果 —— 已封印的记录永不编辑、重排、翻译、修补或移动。宿主叫法：`archived/`，三个意思相同。
+记录退役的三个词。**seal** 是动作 —— 文件的摘要、归档日期与理由进入 `.agents/notes/archived/manifest.json`；**archived** 是它住的地方；**frozen** 是后果 —— 已封印的记录永不编辑、重排、翻译、修补或移动。宿主叫法：`archived/`，三个意思相同。
 
 ### pair / sidecar / triplet
 

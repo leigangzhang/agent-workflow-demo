@@ -16,7 +16,7 @@ A test is evidence, not decoration. Before writing one, name the behaviour it ow
 
 ## How
 
-**1. Pick the tier from the claim, not from habit.** The policy in [testing.md](../../docs/testing.md) owns the list. In short: unit for edge cases, error paths, ordering, and races; a real entry run for "works the way it ships"; a golden or replay file for visible output; coverage to prove every line has an owner. A claim with no tier is not yet a claim.
+**1. Pick the tier from the claim, not from habit.** The policy in [testing.md](../../../docs/testing.md) owns the list. In short: unit for edge cases, error paths, ordering, and races; a real entry run for "works the way it ships"; a golden or replay file for visible output; coverage to prove every line has an owner. A claim with no tier is not yet a claim.
 
 **2. Write the failure first.** Introduce the regression, watch the intended assertion fail, then fix it and watch it pass. If you cannot make it fail, you have not written a test. For a static or registration guard, delete the registered subject and watch the gate go red.
 

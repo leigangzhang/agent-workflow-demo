@@ -16,8 +16,8 @@ Every document gets one kind first, and the kind fixes its skeleton, its budget,
 | index ([docs/README.md](README.md)) | Where to find what | Any rule or fact of its own |
 | generated ([docs/check-catalog.md](check-catalog.md)) | Facts exported exhaustively from one source | Any hand-written content |
 | contract ([dev/contracts/TEMPLATE.md](../dev/contracts/TEMPLATE.md), [dev/capabilities/TEMPLATE.md](../dev/capabilities/TEMPLATE.md)) | An interface someone must honour toward its callers | Behaviour narration and rationale (→ decision records) |
-| record ([notes/](../notes/implemented/TEMPLATE.md), [dev/review/](../dev/review/TEMPLATE.md), [dev/release/](../dev/release/TEMPLATE.md), [dev/postmortem/](../dev/postmortem/TEMPLATE.md)) | One decision, review, release, or incident | Current-state rules (→ their own rule homes) |
-| skill ([skills/](../skills/write-docs/SKILL.md)) | When to do what | Decision logic (→ gates) and contracts (→ source or `dev/contracts/`) |
+| record ([.agents/notes/](../.agents/notes/implemented/TEMPLATE.md), [dev/review/](../dev/review/TEMPLATE.md), [dev/release/](../dev/release/TEMPLATE.md), [dev/postmortem/](../dev/postmortem/TEMPLATE.md)) | One decision, review, release, or incident | Current-state rules (→ their own rule homes) |
+| skill ([.agents/skills/](../.agents/skills/write-docs/SKILL.md)) | When to do what | Decision logic (→ gates) and contracts (→ source or `dev/contracts/`) |
 | template (`*/TEMPLATE.md`) | What a record should look like | Real content |
 | reference ([glossary.md](glossary.md), [plain-language.md](plain-language.md)) | A current fact looked up by name or by term | Teaching paths, rationale, generated catalogs |
 
@@ -33,11 +33,11 @@ A fact lives in one home; everywhere else links there:
 |---|---|---|
 | Standing rules (in context for every task) | [AGENTS.md](../AGENTS.md) | Stories, examples, situational flows |
 | Station entry and exit | [dev/README.md](../dev/README.md) | Item-by-item checklists (→ `tools/workflow.json`) |
-| A station's records | `dev/<station>/` (see [dev/README.md](../dev/README.md)) | The station's rules (→ `docs/`) or a decision's rationale (→ [notes/](../notes/implemented/TEMPLATE.md)) |
+| A station's records | `dev/<station>/` (see [dev/README.md](../dev/README.md)) | The station's rules (→ `docs/`) or a decision's rationale (→ [.agents/notes/](../.agents/notes/implemented/TEMPLATE.md)) |
 | Test strategy | [testing.md](testing.md) | Concrete test commands (→ the changed surface's evidence) |
 | Evolution and retirement rules | [evolution.md](evolution.md) | One break's concrete migration steps (→ `dev/upgrade-guide/`) |
 | Documentation rules | this file | Product contracts (→ README or source) |
-| Why a choice was made, and what it gave up | [notes/](../notes/implemented/TEMPLATE.md) | Current-state rules |
+| Why a choice was made, and what it gave up | [.agents/notes/](../.agents/notes/implemented/TEMPLATE.md) | Current-state rules |
 | Language, pairing, and translation of terms | [i18n.md](i18n.md) | What a word means and which to use (→ [glossary.md](glossary.md)) |
 | What a word means and which spelling to use | [glossary.md](glossary.md) | Translation pairs (→ [i18n.md](i18n.md#terminology)) |
 | Interfaces, types, config keys | The declaration in source | A copy in a document, unless it is registered as a mirror |

@@ -31,11 +31,11 @@
       "reason": "standing orders for an agent editing this repository; the reader-facing rules live in README.md, LIFECYCLE.md and documentation.md"
     },
     {
-      "pattern": "notes/*",
+      "pattern": ".agents/notes/*",
       "reason": "decision records and their templates; internal history, not a guide"
     },
     {
-      "pattern": "skills/*",
+      "pattern": ".agents/skills/*",
       "reason": "agent-loaded workflows; the host injects the catalog, nobody browses them as a page"
     },
     {
@@ -59,8 +59,8 @@
       "reason": "migration guides for breaks in this repository's own surfaces"
     },
     {
-      "pattern": "notes/archived/*",
-      "reason": "frozen retired records sealed by notes/archived/manifest.json; the file that was retired, not a page"
+      "pattern": ".agents/notes/archived/*",
+      "reason": "frozen retired records sealed by .agents/notes/archived/manifest.json; the file that was retired, not a page"
     },
     {
       "pattern": "dev/postmortem/*",

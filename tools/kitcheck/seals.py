@@ -144,7 +144,7 @@ SELF_SEALED_FILES = {
             "path": "archive/a.md",
             "sha256": hashlib.sha256(SELF_SEALED_TEXT.encode("utf-8")).hexdigest(),
             "archived": "2026-01-01",
-            "reason": "superseded by notes/implemented/2026-01-02-successor.md",
+            "reason": "superseded by .agents/notes/implemented/2026-01-02-successor.md",
         },
     ]}),
     "archive/a.md": SELF_SEALED_TEXT,

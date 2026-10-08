@@ -76,7 +76,7 @@ class EvolutionPolicy(unittest.TestCase):
 
     def test_policy_names_the_seal_and_its_registry(self):
         text = (ROOT / "docs" / "evolution.md").read_text(encoding="utf-8")
-        self.assertIn("notes/archived/manifest.json", text)
+        self.assertIn(".agents/notes/archived/manifest.json", text)
         self.assertIn("archive-seal", text)
 
 

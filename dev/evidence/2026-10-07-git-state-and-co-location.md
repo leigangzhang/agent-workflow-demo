@@ -9,7 +9,7 @@
 
 ```text
 files moved: 0 — both artifacts keep their homes, their checks, and their records
-notes/proposed/process/: removed when it became empty; the proposal shipped to notes/implemented/process/
+.agents/notes/proposed/process/: removed when it became empty; the proposal shipped to .agents/notes/implemented/process/
 relative links across the kit: 647, broken: 0
 ```
 

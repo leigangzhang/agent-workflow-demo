@@ -130,7 +130,7 @@ SELF_TEST_TIER_SWITCH = {
     "tiers": ["minimum", "long-lived"],
     "ladder": {"minimum": ["proposal"], "long-lived": ["contract"]},
     "stages": {
-        "proposal": {"number": 2, "label": "Proposal", "home": "notes/proposed/*.md"},
+        "proposal": {"number": 2, "label": "Proposal", "home": ".agents/notes/proposed/*.md"},
         "contract": {"number": 4, "label": "Contract", "home": "dev/contracts/*.md"},
     },
     "lifecycles": {"fixture": {"default": "long-lived", "stages": {}}},
@@ -140,7 +140,7 @@ SELF_TEST_TIER_TABLE_BAD = "| Tier | Stations |\n|---|---|\n| **Minimum** | 2 |\
 SELF_TEST_TIER_FILES = {
     "tools/tiers.json": json.dumps(SELF_TEST_TIER_SWITCH),
     "dev/README.md": SELF_TEST_TIER_TABLE_OK,
-    "notes/proposed/2026-01-01-a.md": "# A\n",
+    ".agents/notes/proposed/2026-01-01-a.md": "# A\n",
     "dev/contracts/2026-01-01-b.md": "# B\n",
 }
 SELF_TEST_TIER_FILES_NONE_WITH_FILES = dict(SELF_TEST_TIER_FILES)

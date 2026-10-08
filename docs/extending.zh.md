@@ -14,11 +14,11 @@
 
 1. **改一个改动面** —— 在 [tools/workflow.json](../tools/workflow.json) 的 `surfaces` 里加一条。`name` 唯一，每条 `dev/evidence` 必须是读者能粘贴就运行的命令而不是一句描述；可选的 `exclude` 用来摘掉 `patterns` 本来会认领的路径（glob 表达不了否定）。
 2. **加一条记录检查** —— 先加 `checks` 条目，再建它要匹配的文件。匹配不到任何文件的检查判**无效**，所以模板要先落地。
-3. **加一个技能** —— 建 `skills/<name>/SKILL.md`，写齐 `skill-record` 要求的四节，`description` 写**触发条件**而不是内容摘要。
+3. **加一个技能** —— 建 `.agents/skills/<name>/SKILL.md`，写齐 `skill-record` 要求的四节，`description` 写**触发条件**而不是内容摘要。
 4. **加一条预算** —— 给检查 `maxLines` 或 `maxWords`，至少一个。只有空白分隔的正文才适合按词计；中文常驻文档按行计，而没有词间分隔的文本用任何按词的单位都会严重低估。
 5. **加一份契约镜像** —— 在源码里加 `begin`/`end` 标记、把块粘进文档、并登记进 [contracts/mirrors.json](../dev/contracts/mirrors.json)。三件事同一次改动落地，否则 `contract-mirror` 变红。
 6. **加一个能力** —— 在源码里加行首 `# capability: <key>`、写登记条目；是 seam 就把 Definition / Provider / Consumer 的路径填全。发现自动，分类手写。
-7. **加一条可追溯的验收标准** —— 在[提案记录](../notes/proposed/TEMPLATE.zh.md)的验收小节里写 `- [A<n>] \`<已声明的 check id 或 surface>\` <可观测结果>`。按决定本身、而不是它碰到的文件来选类目；编号要活到实现期骨架里。
+7. **加一条可追溯的验收标准** —— 在[提案记录](../.agents/notes/proposed/TEMPLATE.zh.md)的验收小节里写 `- [A<n>] \`<已声明的 check id 或 surface>\` <可观测结果>`。按决定本身、而不是它碰到的文件来选类目；编号要活到实现期骨架里。
 8. **做一次发布决定** —— 在 [docs/publish.json](publish.json) 里归类。`public` 逐条点名文件，不接受通配。
 9. **加一份生成页** —— 写生成器与它的 `--check` 模式，然后在 `generated-docs` 面上声明那条命令。生成页只读；生成器才是源。
 10. **加一份文档** —— 给它 kind 与家；是政策家就再加一条 `required-sections` 检查；然后归类并配对（[i18n.md](i18n.zh.md)）。

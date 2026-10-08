@@ -12,10 +12,10 @@ Pick the record before you write it. One selector, and the details live in the h
 
 | What you changed | Which record to write | What holds it |
 |---|---|---|
-| A non-trivial decision | [notes/](../notes/implemented/TEMPLATE.md) (proposal → decision) | `decision-proposed`, `decision-implemented` |
+| A non-trivial decision | [.agents/notes/](../.agents/notes/implemented/TEMPLATE.md) (proposal → decision) | `decision-proposed`, `decision-implemented` |
 | Something published broke | [postmortem/](../dev/postmortem/TEMPLATE.md) (including "what was green" and a negative control) | `postmortem-record` |
 | An externally perceptible break | [upgrade-guide/](../dev/upgrade-guide/TEMPLATE.md) (one per surface) | `dev/upgrade-guide`, `upgrade-guide-budget` |
-| A record that no longer guides anyone | Delete it, or seal it into [notes/archived/](../notes/archived/manifest.json) | `archive-seal` |
+| A record that no longer guides anyone | Delete it, or seal it into [.agents/notes/archived/](../.agents/notes/archived/manifest.json) | `archive-seal` |
 | None of the above | Write no record | — |
 
 **One guide per break, not per version.** Guides split by **surface** (a command, a config key, a storage format, a published entry point); a version that breaks three things gets three guides. Put two surfaces in one guide and the reader has to work out which part is theirs.
@@ -61,8 +61,8 @@ Ask once per round of work: **which artifact would make the next reader, human o
 
 - **Delete outright**: an implemented record that only described a mechanical or local change.
 - **Merge first, then delete**: a fully superseded record may be folded into the current one and deleted, but **every distinctive rationale, rejected alternative, consequence, and required verification must survive the merge**. Partial supersession does not count — keep both and cross-link them.
-- **Keep it in `notes/rejected/`**: a rejected proposal, **only while it still prevents a tempting mistake**; once the verdict stops doing that, delete the whole record.
-- **Seal it**: a record that still owns a piece of history but is no longer current moves into `notes/archived/<class>/`, carries `Archived: <yyyy-mm-dd>` in its header, and is registered in [manifest.json](../notes/archived/manifest.json).
+- **Keep it in `.agents/notes/rejected/`**: a rejected proposal, **only while it still prevents a tempting mistake**; once the verdict stops doing that, delete the whole record.
+- **Seal it**: a record that still owns a piece of history but is no longer current moves into `.agents/notes/archived/<class>/`, carries `Archived: <yyyy-mm-dd>` in its header, and is registered in [manifest.json](../.agents/notes/archived/manifest.json).
 
 **Sealed means never edited again.** The `archive-seal` gate makes four kinds of drift red: a changed content digest, a registered file that is gone, a file outside the registry, and a date that disagrees with the record header.
 
@@ -72,7 +72,7 @@ When sealed content needs to change, the right move is not "edit it a little": t
 
 - The two stations' **entry and exit** are in [dev/README.md](../dev/README.md); the upgrade guide's **shape** is in [upgrade-guide/TEMPLATE.md](../dev/upgrade-guide/TEMPLATE.md).
 - A document's **kind, budget, and publication switch** are in [documentation.md](documentation.md); the paths in this file either link there or name a gate.
-- **Quality** is undecidable here: a lazily worded Migration, or an archive reason of "because it is no longer needed", passes `archive-seal`. That half belongs to [migrate-and-retire](../skills/migrate-and-retire/SKILL.md) and review.
+- **Quality** is undecidable here: a lazily worded Migration, or an archive reason of "because it is no longer needed", passes `archive-seal`. That half belongs to [migrate-and-retire](../.agents/skills/migrate-and-retire/SKILL.md) and review.
 - **"The registry and the file changed together"** is undecidable here: the gate sees only the current state of this tree, never the two being written at once. Closing that half needs a CI baseline comparison (against the pre-change registry), and this kit wires no CI.
 - **History itself** is not here: why a particular break migrates this way lives in its decision record; this file states only how to dispose of things now.
 - **What each retirement gate can see.** `release-record` guarantees only that a release record's five sections exist and are not empty; whether an install really happened outside the repository, whether the environment was scrubbed, and whether anything was quietly rebuilt at publish time are beyond it. `sealed-manifest` sees the manifest against the files **in this tree only**: it cannot see the two written together, and it compares no baseline, so an old seal touched relative to the previous commit is invisible. `archive-seal` with an empty `sealed` list only catches a file outside the manifest. `evolution-policy` guarantees six sections exist, not that the selector chose rightly.

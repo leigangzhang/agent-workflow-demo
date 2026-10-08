@@ -135,12 +135,12 @@ def self_test() -> int:
     localized_check = {
         "id": "self-sections-localized",
         "kind": "required-sections",
-        "patterns": ["notes/*.md"],
+        "patterns": [".agents/notes/*.md"],
         "sections": ["## Problem", ["## Alternatives considered", "## 曾考虑的替代方案"]],
         "minBodyLines": 1,
     }
     with write_fixtures({
-        "notes/decision.md": "## Problem\nsomething broke\n\n## 曾考虑的替代方案\n\n**Do nothing.** It stays broken.\n\n## Decision\nfixed\n",
+        ".agents/notes/decision.md": "## Problem\nsomething broke\n\n## 曾考虑的替代方案\n\n**Do nothing.** It stays broken.\n\n## Decision\nfixed\n",
     }) as localized_dir:
         rejected_localized = RUNNERS["required-sections"](Path(localized_dir), localized_check)
     if not rejected_localized:
@@ -150,7 +150,7 @@ def self_test() -> int:
         print(f"FAIL required-sections-localized: an accepted spelling was rejected ({rejected_localized[0]})")
 
     with write_fixtures({
-        "notes/decision.md": "## Problem\nsomething broke\n\n## Decision\nfixed\n",
+        ".agents/notes/decision.md": "## Problem\nsomething broke\n\n## Decision\nfixed\n",
     }) as missing_alias_dir:
         missing_alias = RUNNERS["required-sections"](Path(missing_alias_dir), localized_check)
     if missing_alias:
@@ -224,7 +224,7 @@ def self_test() -> int:
     for probe, bullet, label in criteria_probes:
         with write_fixtures({
             **SELF_CRITERIA_FILES,
-            "notes/implemented/TEMPLATE.md": f"# Decision\n\n## Testing\n\n{bullet}",
+            ".agents/notes/implemented/TEMPLATE.md": f"# Decision\n\n## Testing\n\n{bullet}",
         }) as criteria_dir:
             untraced = RUNNERS["criteria-traced"](Path(criteria_dir), SELF_CRITERIA_CHECK)
         if untraced:
@@ -327,8 +327,8 @@ def self_test() -> int:
         ),
         (
             "seal-outside-patterns",
-            {"sealed": [seal_entry("notes/x.md", SELF_SEALED_TEXT)]},
-            {"notes/x.md": SELF_SEALED_TEXT},
+            {"sealed": [seal_entry(".agents/notes/x.md", SELF_SEALED_TEXT)]},
+            {".agents/notes/x.md": SELF_SEALED_TEXT},
             "a seal outside the scanned corpus",
         ),
     )

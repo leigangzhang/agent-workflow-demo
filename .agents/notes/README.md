@@ -6,7 +6,7 @@ One kind of design document lives here. A **decision record** keeps a decision o
 
 ## Layout and naming
 
-Every record has two axes, both encoded in its **path** — `{lifecycle}/{class}/yyyy-mm-dd-topic-title.md`, under `notes/`:
+Every record has two axes, both encoded in its **path** — `{lifecycle}/{class}/yyyy-mm-dd-topic-title.md`, under `.agents/notes/`:
 
 - **Lifecycle** (the top-level folder) is the record's status; a record moves between folders as that status changes:
   - **`proposed/`** — designed but not built, or only partly; gate `decision-proposed`.
@@ -16,13 +16,13 @@ Every record has two axes, both encoded in its **path** — `{lifecycle}/{class}
 
 The date in the filename is when the topic was **first proposed**. Records cross-reference each other with relative Markdown links, never bare prose: a link survives a move, and `pair-docs.py --check` resolves its fragment.
 
-Templates live one level up, at `notes/<lifecycle>/TEMPLATE.md`: the skeleton is keyed by the lifecycle, not the class, and each one keeps its checks from matching no file — an empty corpus is void, not passing.
+Templates live one level up, at `.agents/notes/<lifecycle>/TEMPLATE.md`: the skeleton is keyed by the lifecycle, not the class, and each one keeps its checks from matching no file — an empty corpus is void, not passing.
 
-The tree is the inventory: browse its class folders, or start from the index in [docs/README.md](../docs/README.md). Do not add a centralized index page for it — a second list is a second fact.
+The tree is the inventory: browse its class folders, or start from the index in [docs/README.md](../../docs/README.md). Do not add a centralized index page for it — a second list is a second fact.
 
 ## Classification
 
-Each record belongs to one path-encoded class from the closed set declared in the `note-class` check in [workflow.json](../tools/workflow.json), which rejects a folder outside the set, an unknown lifecycle, a missing `Class:` line, and a `Class:` line that disagrees with its folder. Adding a class means updating that list and this table together.
+Each record belongs to one path-encoded class from the closed set declared in the `note-class` check in [workflow.json](../../tools/workflow.json), which rejects a folder outside the set, an unknown lifecycle, a missing `Class:` line, and a `Class:` line that disagrees with its folder. Adding a class means updating that list and this table together.
 
 | Class | What it covers |
 |---|---|
@@ -39,15 +39,15 @@ The `architecture` / `process` line: architecture is about the artefact itself; 
 
 Delete an implemented record that only describes a mechanical or local change — its English, Chinese, and sidecar files together, with every inbound link repaired. A small bug fix, a new capability, or a substantive decision does not qualify merely because its implementation is small.
 
-Seal a record into `notes/archived/{class}/yyyy-mm-dd-topic-title.md` when the decision is complete, its rationale is unlikely to guide future work, and it still owns history. Keep it active while its alternatives, an ownership boundary, a negative guarantee, or a reintroduction condition still guides anyone. Never archive a proposal: reject it. A rejected record lives only while it prevents a plausible mistake.
+Seal a record into `.agents/notes/archived/{class}/yyyy-mm-dd-topic-title.md` when the decision is complete, its rationale is unlikely to guide future work, and it still owns history. Keep it active while its alternatives, an ownership boundary, a negative guarantee, or a reintroduction condition still guides anyone. Never archive a proposal: reject it. A rejected record lives only while it prevents a plausible mistake.
 
-Archiving moves the complete triplet, keeps `Status: implemented`, and inserts the same `Archived: <yyyy-mm-dd>` line in both language files. Gate `archive-seal` binds a sealed file's text to its digest, archive date, and reason in [manifest.json](archived/manifest.json), so an unregistered drop, a missing file, an edited byte, and a disagreeing date are all red. Once sealed, a record is frozen: never edited, reformatted, translated, or moved. The delete-versus-merge-versus-seal call belongs to the selector in [evolution.md](../docs/evolution.md), not to word count, age, or a quota.
+Archiving moves the complete triplet, keeps `Status: implemented`, and inserts the same `Archived: <yyyy-mm-dd>` line in both language files. Gate `archive-seal` binds a sealed file's text to its digest, archive date, and reason in [manifest.json](archived/manifest.json), so an unregistered drop, a missing file, an edited byte, and a disagreeing date are all red. Once sealed, a record is frozen: never edited, reformatted, translated, or moved. The delete-versus-merge-versus-seal call belongs to the selector in [evolution.md](../../docs/evolution.md), not to word count, age, or a quota.
 
 A fully superseded record may be consolidated into the one that now owns the decision and deleted, provided the owner keeps every unique rationale, alternative, consequence, and named gap, and every inbound link is repaired. Partial supersession does not qualify: keep both cross-linked and keep the facts that are still current.
 
 ## When to write one
 
-Write or update a record in the same change as the work, and only for lasting rationale that code, tests, and the standing documents do not already explain ([rule](../AGENTS.md)). Substantial future work starts in `proposed/`; a decision already made starts in `implemented/`. Updating the record that already owns the decision satisfies the rule — do not create a duplicate.
+Write or update a record in the same change as the work, and only for lasting rationale that code, tests, and the standing documents do not already explain ([rule](../../AGENTS.md)). Substantial future work starts in `proposed/`; a decision already made starts in `implemented/`. Updating the record that already owns the decision satisfies the rule — do not create a duplicate.
 
 Mechanical and local edits are exempt. A record is never edited into a *different* decision: write a new one and cross-link it, unless the old one qualifies for consolidation above. Correcting an `implemented/` record to match what shipped is required, not forbidden.
 
@@ -88,11 +88,11 @@ Moving a record means updating the `Status:` line and re-satisfying the target f
 
 ### Chinese counterparts
 
-A `.zh.md` counterpart mirrors its English sibling section for section, with a `.i18n.yaml` record beside the pair ([i18n.md](../docs/i18n.md)). The machine-checked header tokens — `# Proposal: `, `# Decision: `, `Status:`, `Date:`, `Class:` — stay in English verbatim; only headings and prose are translated.
+A `.zh.md` counterpart mirrors its English sibling section for section, with a `.i18n.yaml` record beside the pair ([i18n.md](../../docs/i18n.md)). The machine-checked header tokens — `# Proposal: `, `# Decision: `, `Status:`, `Date:`, `Class:` — stay in English verbatim; only headings and prose are translated.
 
 ## Where to look
 
-- How to write one: the skeletons in [notes/proposed/TEMPLATE.md](proposed/TEMPLATE.md) and [notes/implemented/TEMPLATE.md](implemented/TEMPLATE.md).
-- Which record a change needs: the selector in [evolution.md](../docs/evolution.md).
-- What each section must contain: the document kinds in [documentation.md](../docs/documentation.md).
+- How to write one: the skeletons in [.agents/notes/proposed/TEMPLATE.md](proposed/TEMPLATE.md) and [.agents/notes/implemented/TEMPLATE.md](implemented/TEMPLATE.md).
+- Which record a change needs: the selector in [evolution.md](../../docs/evolution.md).
+- What each section must contain: the document kinds in [documentation.md](../../docs/documentation.md).
 - Every record this kit has made: this tree, newest first by file name.

@@ -7,7 +7,7 @@ Every command below was run in this checkout and its output is pasted verbatim. 
 1. **The index answers two more questions.** [docs/README.md](../../docs/README.md) and its Chinese side gained `Tier` and `Gate` columns, so a reader can see which copy set a home ships in and which checks bite there, without opening the lifecycle map.
 2. **A changed surface can exclude paths.** `change-scope.py` gained the optional `exclude` key, `prose` and `i18n` exclude `evidence/*`, and the generated catalog prints the resulting scope (`*.md` (except `evidence/*`)) so it stops projecting a wider scope than the tool applies.
 3. **Two study-document claims about the host were corrected.** `study/engineering/dsh-docs.md` no longer says the host compares a mirror against `begin`/`end` markers in source (the host uses the TypeScript parser; the markers are this kit's mechanism) and no longer calls `capability-registry` a host artifact (it is this kit's check).
-4. **The placement question is filed, not silently answered.** [notes/proposed/process/2026-10-07-source-derived-co-location.md](../../notes/implemented/process/2026-10-07-source-derived-co-location.md) proposes deciding the two source-derived artifacts' placement, with three outcomes and traceable acceptance criteria.
+4. **The placement question is filed, not silently answered.** [.agents/notes/proposed/process/2026-10-07-source-derived-co-location.md](../../.agents/notes/implemented/process/2026-10-07-source-derived-co-location.md) proposes deciding the two source-derived artifacts' placement, with three outcomes and traceable acceptance criteria.
 
 ## The guard was watched going red
 

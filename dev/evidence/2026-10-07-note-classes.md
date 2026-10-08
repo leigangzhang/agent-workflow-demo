@@ -4,17 +4,17 @@ Every command below was run in this checkout and its output is pasted verbatim. 
 
 ## What this record covers
 
-1. **A second axis**: records live at `notes/<lifecycle>/<class>/<yyyy-mm-dd>-<slug>.md`, classed by the host repository's closed set — `feature`, `bug-fix`, `simplification`, `architecture`, `process`, `testing`.
+1. **A second axis**: records live at `.agents/notes/<lifecycle>/<class>/<yyyy-mm-dd>-<slug>.md`, classed by the host repository's closed set — `feature`, `bug-fix`, `simplification`, `architecture`, `process`, `testing`.
 2. **A gate for it**: a tenth check kind, `note-class`, rejects a folder outside the set, an unknown lifecycle, a missing `Class:` line, and a `Class:` line that disagrees with its folder.
-3. **The existing records were classified and moved**, and every relative link inside them was repaired for the extra level: eight records into `notes/implemented/process/`, the version-state proposal into `notes/proposed/architecture/`, and six `Class:` lines rewritten from the retired `docs` class.
-4. **The rules moved with them**: `notes/README.md` gained a `## Classes` section, `notes/AGENTS.md` a class rule, and the path shape gained its second axis in `AGENTS.md`, `docs/LIFECYCLE.md`, `docs/README.md`, and `docs/extending.md`.
+3. **The existing records were classified and moved**, and every relative link inside them was repaired for the extra level: eight records into `.agents/notes/implemented/process/`, the version-state proposal into `.agents/notes/proposed/architecture/`, and six `Class:` lines rewritten from the retired `docs` class.
+4. **The rules moved with them**: `.agents/notes/README.md` gained a `## Classes` section, `.agents/notes/AGENTS.md` a class rule, and the path shape gained its second axis in `AGENTS.md`, `docs/LIFECYCLE.md`, `docs/README.md`, and `docs/extending.md`.
 
 ## The kit's own gates
 
 ### `python3 tools/check-invariants.py --self-test | tail -3`
 
 ```text
-PASS seal-outside-patterns: a seal outside the scanned corpus was rejected (archive/manifest.json sealed[0]: notes/x.md matches none of ['archive/*'], so its seal is never verified)
+PASS seal-outside-patterns: a seal outside the scanned corpus was rejected (archive/manifest.json sealed[0]: .agents/notes/x.md matches none of ['archive/*'], so its seal is never verified)
 PASS seal-empty-archive: an archive with nothing sealed is accepted, and the unsealed-file probe keeps the guard live
 check-invariants: self-test PASSED — every check rejects an invalid fixture and accepts a valid one, a check with no subject is rejected, and every registration direction is covered
 exit=0

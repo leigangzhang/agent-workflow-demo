@@ -20,7 +20,7 @@ The two probes that prove the new rule in both directions:
 
 ```text
 PASS required-sections-localized: a declared translated spelling satisfied its section
-PASS required-sections-missing-alias: a section absent in every spelling was rejected (notes/decision.md: missing section '## Alternatives considered' or '## 曾考虑的替代方案')
+PASS required-sections-missing-alias: a section absent in every spelling was rejected (.agents/notes/decision.md: missing section '## Alternatives considered' or '## 曾考虑的替代方案')
 ```
 
 ## `python3 tools/check-invariants.py`, `gen-docs.py --check`, `pair-docs.py --check`

@@ -111,4 +111,4 @@ python3 tools/run-evidence.py --check                      # only verify the dec
 
 ## 已知边界
 
-`testing-policy` 只保证本文件那七节**存在且不为空**。这些分层是不是选对了、证据映射是否真能抓住回归、flake 策略有没有被遵守，全都在闸门之外 —— 那一半属于 [engineer-tests](../skills/engineer-tests/SKILL.md) 与评审。"这条命令证明这一层"这类主张同理：套件不会替你去跑它。
+`testing-policy` 只保证本文件那七节**存在且不为空**。这些分层是不是选对了、证据映射是否真能抓住回归、flake 策略有没有被遵守，全都在闸门之外 —— 那一半属于 [engineer-tests](../.agents/skills/engineer-tests/SKILL.md) 与评审。"这条命令证明这一层"这类主张同理：套件不会替你去跑它。

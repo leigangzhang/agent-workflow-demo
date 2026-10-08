@@ -98,7 +98,7 @@ def check_criteria_traced(root: Path, check: dict) -> list[str]:
 SELF_CRITERIA_CHECK = {
     "id": "self-criteria",
     "kind": "criteria-traced",
-    "patterns": ["notes/implemented/*.md"],
+    "patterns": [".agents/notes/implemented/*.md"],
     "sections": ["## Acceptance criteria", "## Testing"],
     "declaredIn": "tools/workflow.json",
 }
@@ -106,7 +106,7 @@ SELF_CRITERIA_CHECK = {
 
 SELF_CRITERIA_FILES = {
     "tools/workflow.json": json.dumps({"checks": [{"id": "budget"}], "surfaces": [{"name": "source"}]}),
-    "notes/implemented/TEMPLATE.md": (
+    ".agents/notes/implemented/TEMPLATE.md": (
         "# Decision\n\n## Testing\n\n- [A1] `budget` rejects a file over its line budget.\n"
     ),
 }
@@ -118,7 +118,7 @@ SELF_TEST_CASES = (
         SELF_CRITERIA_CHECK,
         {
             **SELF_CRITERIA_FILES,
-            "notes/implemented/TEMPLATE.md": "# Decision\n\n## Testing\n\n- [A1] the feature works as intended.\n",
+            ".agents/notes/implemented/TEMPLATE.md": "# Decision\n\n## Testing\n\n- [A1] the feature works as intended.\n",
         },
         dict(SELF_CRITERIA_FILES),
     ),

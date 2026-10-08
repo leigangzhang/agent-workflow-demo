@@ -3,8 +3,8 @@
 # After editing either side, bring the other along and re-record with:
 #   python3 tools/pair-docs.py --write docs/README.md
 /documentation-index:
-  en: 62bb34ef4d00cd4e
-  zh: d3e3a20a5ba8ad4a
+  en: 76d324c81c1ee208
+  zh: a118c4f43e511542
 /documentation-index/every-home-and-what-it-owns:
-  en: cebc71ae3e5b47d4
-  zh: d1fe00767ff150a4
+  en: f5e762076b8c583c
+  zh: 1671377a26d4055f

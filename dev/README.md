@@ -14,8 +14,8 @@ This page is also the landing page for `dev/`: each station's artifact lives in 
 | # | Station | Artifact (home) | Gates | Who decides |
 |---|---|---|---|---|
 | 1 | Intent | The `Class:` field in a record header | manual | The requester |
-| 2 | Proposal | `notes/proposed/<class>/<date>-<slug>.md` | `decision-proposed`, `criteria-traced` | The proposer |
-| 3 | Decision | `notes/implemented/<class>/<date>-<slug>.md` or `notes/rejected/<class>/<date>-<slug>.md`; the capability registry `dev/capabilities/registry.json` | `decision-implemented`, `no-proposal-era-headings`, `decision-rejected`, `capability-registry` | Proposer + review |
+| 2 | Proposal | `.agents/notes/proposed/<class>/<date>-<slug>.md` | `decision-proposed`, `criteria-traced` | The proposer |
+| 3 | Decision | `.agents/notes/implemented/<class>/<date>-<slug>.md` or `.agents/notes/rejected/<class>/<date>-<slug>.md`; the capability registry `dev/capabilities/registry.json` | `decision-implemented`, `no-proposal-era-headings`, `decision-rejected`, `capability-registry` | Proposer + review |
 | 4 | Contract | `dev/contracts/<slug>.md` plus `dev/contracts/mirrors.json` (or a source interface file plus a link) | `contract-record`, `contract-mirror` | The interface owner |
 | 5 | Implementation | The `## Consequences` section of the record, or a task entry | `criteria-traced`, `change-scope --strict` | The implementer |
 | 6 | Verification | Tests + golden files + a record under `dev/evidence/`; the strategy lives in `testing.md` | `testing-policy`, `no-time-based-test-sync`, `--self-test`, the empty-corpus rule, `criteria-traced`, `run-evidence` | The implementer |
@@ -23,7 +23,7 @@ This page is also the landing page for `dev/`: each station's artifact lives in 
 | 8 | Integration | The commit history + the `change-scope` report + a pre-landing preflight | `change-scope --strict` | A person |
 | 9 | Release | `dev/release/<version>.md` + an immutable artifact | `release-record` | A person |
 | 10 | Evolution | `dev/upgrade-guide/<version>-<surface>.md`; the rules live in [evolution.md](../docs/evolution.md) | `dev/upgrade-guide`, `upgrade-guide-budget`, `evolution-policy` | A person |
-| 11 | Retirement | `notes/archived/` plus [manifest.json](../notes/archived/manifest.json) (seal + digest + date) | `archive-seal` | A person |
+| 11 | Retirement | `.agents/notes/archived/` plus [manifest.json](../.agents/notes/archived/manifest.json) (seal + digest + date) | `archive-seal` | A person |
 | ⚡ | Incident (cross-cutting) | `dev/postmortem/<NNNN>-<slug>.md` | `postmortem-record` | The incident handler |
 | 📄 | Documentation (cross-cutting) | [documentation.md](../docs/documentation.md) + [docs/](README.md) + [i18n.md](../docs/i18n.md) + [glossary.md](../docs/glossary.md) + [plain-language.md](../docs/plain-language.md) | `docs-policy`, `docs-budget`, `publish-manifest`, `i18n-policy`, `i18n-budget`, `generated-docs` (freshness through `run-evidence`) | A person |
 
@@ -35,7 +35,7 @@ You do not need all eleven stations at once. Pick by where your project is now:
 |---|---|---|
 | **Minimum** | 1 · 2 · 3 · 4 · 6 · 7, plus documentation, tests, and capabilities | One person iterating fast, with no users yet |
 | **Delivery** | The above + 9 · 10 (including [evolution.md](../docs/evolution.md) and `dev/upgrade-guide/`) | A public interface, and other people using it |
-| **Long-lived** | Everything + 5 · 8 · 11 (including the `notes/archived/` seal), rejected records, and incidents (`notes/rejected/`) | Several rounds of evolution, several people, and a long life |
+| **Long-lived** | Everything + 5 · 8 · 11 (including the `.agents/notes/archived/` seal), rejected records, and incidents (`.agents/notes/rejected/`) | Several rounds of evolution, several people, and a long life |
 
 For a station you do not install, **its checks turn red for matching no file** (see station 6) — deliberately, because a hollow check is worse than no check. So declare it `none` in [tools/tiers.json](../tools/tiers.json): the switch turns the station into a declared absence, the checks that own nothing but its home stop running, and the empty-corpus rule stops applying to them. That is the whole instruction — the eight mappings this paragraph used to list are now the switch's job. Remove the directory as well, because the switch states intent and the tree states fact: a stage the switch calls absent while its files are still there is red, and so is a stage it calls installed whose home is empty.
 
@@ -61,9 +61,9 @@ For a station you do not install, **its checks turn red for matching no file** (
 **What it solves**: writing down **what you are rejecting**, and **what done looks like**, before any code exists.
 
 **Entry** → a non-trivial change starts.
-**Exit** → `notes/proposed/<class>/<date>-<slug>.md` exists, and: `Alternatives considered` is **not empty**; and **every** entry under `## Acceptance criteria` carries a stable id and names, inside backticks, **the check that will go red** for it (a check id or surface name already declared in `tools/workflow.json`).
+**Exit** → `.agents/notes/proposed/<class>/<date>-<slug>.md` exists, and: `Alternatives considered` is **not empty**; and **every** entry under `## Acceptance criteria` carries a stable id and names, inside backticks, **the check that will go red** for it (a check id or surface name already declared in `tools/workflow.json`).
 
-**Artifact**: [notes/proposed/TEMPLATE.md](../notes/proposed/TEMPLATE.md)
+**Artifact**: [.agents/notes/proposed/TEMPLATE.md](../.agents/notes/proposed/TEMPLATE.md)
 
 **Gates**: `decision-proposed` (any missing section is red) + `criteria-traced` (a missing id, or one naming a check that does not exist → red)
 
@@ -78,9 +78,9 @@ For a station you do not install, **its checks turn red for matching no file** (
 **What it solves**: separating "a decision that landed" from "a proposal still under discussion" physically, and keeping **one fact version per decision**.
 
 **Entry** → the proposal is implemented.
-**Exit** → the file moves into `notes/implemented/<class>/` and is **rewritten in the present tense**: `## Proposal` → `## Decision`; `## Acceptance criteria` + `## Risks` fold into `## Consequences`, and the part that was verified is rewritten as `## Testing`, **keeping the original ids**.
+**Exit** → the file moves into `.agents/notes/implemented/<class>/` and is **rewritten in the present tense**: `## Proposal` → `## Decision`; `## Acceptance criteria` + `## Risks` fold into `## Consequences`, and the part that was verified is rewritten as `## Testing`, **keeping the original ids**.
 
-**Artifact**: [notes/implemented/TEMPLATE.md](../notes/implemented/TEMPLATE.md)
+**Artifact**: [.agents/notes/implemented/TEMPLATE.md](../.agents/notes/implemented/TEMPLATE.md)
 
 **Gates**: `decision-implemented` requires `## Decision`, `## Consequences`, and `## Testing`, so **a record that was not rewritten is red**; `no-proposal-era-headings` blocks the other direction: a leftover `## Proposal` / `## Plan` / `## Migration plan` / `## Acceptance criteria` after the move is red too. Both directions are blocked because requiring only "the new skeleton is present" would let one record carry two skeletons at once.
 
@@ -187,7 +187,7 @@ It is the same pattern as the contract layer: **existence is discovered from sou
 **Discipline**:
 
 - **A new guard must be able to go red** — break it once, watch it go red, put it back. What you have never seen red is not a guard.
-- **Distrust the green signal by default** — ask two things of every "pass": who says so, and am I reading external state or its own self-report? Before delivery, walk the eight questions in [skills/apply-distrust/SKILL.md](../skills/apply-distrust/SKILL.md); spend distrust only across a boundary and where a signal can lie.
+- **Distrust the green signal by default** — ask two things of every "pass": who says so, and am I reading external state or its own self-report? Before delivery, walk the eight questions in [.agents/skills/apply-distrust/SKILL.md](../.agents/skills/apply-distrust/SKILL.md); spend distrust only across a boundary and where a signal can lie.
 - **Determinism is part of the test**: allocate resources atomically, synchronize on state (never sleep), wrap process-global state, and give each lane a timeout budget.
 - **Flake is not noise**: a longer timeout, a retry, a fully serial suite, a weaker assertion, or an added sleep is not a fix; only a transient failure at a real external provider may be retried at that boundary.
 - **Mark each lane blocking or observational**: a platform-specific known instability **is downgraded to observational**, never deleted and never weakened; an observational item must still report, and you must write how many consecutive green runs promote it back to blocking, or it rots into a list nobody reads. See [testing.md](../docs/testing.md#blocking-and-observational-lanes).
@@ -286,9 +286,9 @@ It is the same pattern as the contract layer: **existence is discovered from sou
 **What it solves**: making the old thing **really disappear**.
 
 **Entry** → an artifact loses its value, or starts misleading readers.
-**Exit** → delete it, or move it into `notes/archived/<class>/`, add `Archived: <yyyy-mm-dd>` to its header, register it in [manifest.json](../notes/archived/manifest.json), and **never edit it again**.
+**Exit** → delete it, or move it into `.agents/notes/archived/<class>/`, add `Archived: <yyyy-mm-dd>` to its header, register it in [manifest.json](../.agents/notes/archived/manifest.json), and **never edit it again**.
 
-**Artifact**: the `notes/archived/` directory + [manifest.json](../notes/archived/manifest.json) (seal + digest + archive date).
+**Artifact**: the `.agents/notes/archived/` directory + [manifest.json](../.agents/notes/archived/manifest.json) (seal + digest + archive date).
 
 **Gate**: `archive-seal` — an unregistered drop, a file edited after sealing, and a date that disagrees with the registry are all red.
 

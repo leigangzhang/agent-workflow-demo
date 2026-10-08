@@ -7,7 +7,7 @@ Every command below was run in this checkout and its output is pasted verbatim. 
 1. **Two directions, two homes.** `docs/glossary.md` says what each term means here and which spelling to use — for the agent; `docs/plain-language.md` says how to say it to someone who has never read this kit — for the human. Translation pairs stay in `docs/I18N.md#terminology`, which no longer claims meaning.
 2. **A new document kind.** The kit's kind table had no `reference`; both pages arrived with the skeleton, home, and check that the table's own rule demands.
 3. **Six new checks.** Two framing-section checks, two reference budgets, the term-heading anchor rule, and one executable spelling ban.
-4. **A thirteenth skill.** `skills/plain-language/SKILL.md` loads when the agent writes to a person and points at the table.
+4. **A thirteenth skill.** `.agents/skills/plain-language/SKILL.md` loads when the agent writes to a person and points at the table.
 5. **The corpus was cleaned before the ban shipped.** 13 Chinese files moved to 正文; the frozen archive under `.backup/` and the run records under `evidence/` are outside the ban's patterns as history.
 
 ## Sizes against the ceilings
@@ -25,7 +25,7 @@ relative links across the kit: 588, broken: 0
 Two of them failed on real misses before they passed, which is the strongest form of the evidence:
 
 ```text
-banned-spellings      → docs/check-catalog.md:80, notes/implemented/process/2026-10-07-terminology-system.md:32/55/57 names the banned spelling
+banned-spellings      → docs/check-catalog.md:80, .agents/notes/implemented/process/2026-10-07-terminology-system.md:32/55/57 names the banned spelling
 term-headings-ascii   → docs/plain-language.zh.md:22: matches forbidden pattern '^### .*[^\x00-\x7F]'   (temporary translated heading, restored)
 ```
 
@@ -36,7 +36,7 @@ The ban's first two runs found the literal inside the ban's own explanation and 
 ### `python3 tools/check-invariants.py --self-test | tail -3`
 
 ```text
-PASS seal-outside-patterns: a seal outside the scanned corpus was rejected (archive/manifest.json sealed[0]: notes/x.md matches none of ['archive/*'], so its seal is never verified)
+PASS seal-outside-patterns: a seal outside the scanned corpus was rejected (archive/manifest.json sealed[0]: .agents/notes/x.md matches none of ['archive/*'], so its seal is never verified)
 PASS seal-empty-archive: an archive with nothing sealed is accepted, and the unsealed-file probe keeps the guard live
 check-invariants: self-test PASSED — every check rejects an invalid fixture and accepts a valid one, a check with no subject is rejected, and every registration direction is covered
 exit=0

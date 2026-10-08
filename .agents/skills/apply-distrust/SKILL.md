@@ -33,15 +33,15 @@ The failures that survive review rarely look like failures. They look like a gre
 
 | Do not trust | Owner |
 |---|---|
-| A report, a summary, a sub-agent's "handled" | [testing.md](../../docs/testing.md#tiers) — re-run the command and read external state |
-| A green test | [testing.md](../../docs/testing.md#tiers) — confirm it takes the real entry path |
-| Coverage, or a mock | [testing.md](../../docs/testing.md#tiers) — name what the check cannot prove |
-| A refreshed golden file | [testing.md](../../docs/testing.md#evidence-per-change) — read the diff as a behaviour change |
-| A guard nobody watched fail | [testing.md](../../docs/testing.md#prove-a-new-guard) — introduce the regression, watch it go red |
-| One signal standing in for a result | [review/TEMPLATE.md](../../dev/review/TEMPLATE.md) — `## Evidence` is an external observation, and the facts must agree |
-| A missing signal | [testing.md](../../docs/testing.md#tiers) — `UNKNOWN` is never a pass |
+| A report, a summary, a sub-agent's "handled" | [testing.md](../../../docs/testing.md#tiers) — re-run the command and read external state |
+| A green test | [testing.md](../../../docs/testing.md#tiers) — confirm it takes the real entry path |
+| Coverage, or a mock | [testing.md](../../../docs/testing.md#tiers) — name what the check cannot prove |
+| A refreshed golden file | [testing.md](../../../docs/testing.md#evidence-per-change) — read the diff as a behaviour change |
+| A guard nobody watched fail | [testing.md](../../../docs/testing.md#prove-a-new-guard) — introduce the regression, watch it go red |
+| One signal standing in for a result | [review/TEMPLATE.md](../../../dev/review/TEMPLATE.md) — `## Evidence` is an external observation, and the facts must agree |
+| A missing signal | [testing.md](../../../docs/testing.md#tiers) — `UNKNOWN` is never a pass |
 | A claim that will not reproduce | [write-docs](../write-docs/SKILL.md) — fix the claim, not the check |
-| An incident | [postmortem/TEMPLATE.md](../../dev/postmortem/TEMPLATE.md) — record what was green, then add the guard |
+| An incident | [postmortem/TEMPLATE.md](../../../dev/postmortem/TEMPLATE.md) — record what was green, then add the guard |
 | A reviewer's diagnosis | [review-standard](../review-standard/SKILL.md) — verify the claim against the code before acting |
 | "It's the environment" | [pick-evidence](../pick-evidence/SKILL.md) — prove it with the exact command and failure |
 
@@ -53,7 +53,7 @@ The failures that survive review rarely look like failures. They look like a gre
 - A check that already passed, when none of its inputs changed.
 - A line or word ceiling — a guardrail, not a reduction target.
 
-**4. Landing a rule.** A rule that cannot go red is a wish. Add it to [tools/workflow.json](../../tools/workflow.json), prove it rejects an invalid fixture in `--self-test`, and watch the real violation fail once before trusting it.
+**4. Landing a rule.** A rule that cannot go red is a wish. Add it to [tools/workflow.json](../../../tools/workflow.json), prove it rejects an invalid fixture in `--self-test`, and watch the real violation fail once before trusting it.
 
 ## Verification
 

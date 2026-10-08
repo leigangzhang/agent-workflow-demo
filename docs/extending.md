@@ -14,11 +14,11 @@ Everything this kit enforces is data in one file plus five scripts. This page is
 
 1. **A changed surface** — add an entry to `surfaces` in [tools/workflow.json](../tools/workflow.json). `name` is unique, each `dev/evidence` entry must be a command a reader can paste and run rather than a description, and the optional `exclude` removes paths the `patterns` would otherwise claim (no glob expresses negation).
 2. **A record check** — add a `checks` entry, then create the file it matches. A check whose patterns match no file is void, so the template comes first.
-3. **A skill** — create `skills/<name>/SKILL.md` with the four sections `skill-record` requires, and a `description` that states the trigger instead of summarising the contents.
+3. **A skill** — create `.agents/skills/<name>/SKILL.md` with the four sections `skill-record` requires, and a `description` that states the trigger instead of summarising the contents.
 4. **A budget** — give the check `maxLines` or `maxWords`, at least one. Only whitespace-separated prose suits a word count; a standing document in Chinese is counted in lines, and a text with no word separator is undercounted by any word unit.
 5. **A contract mirror** — add the `begin`/`end` markers in the source, paste the block into the document, and register it in [contracts/mirrors.json](../dev/contracts/mirrors.json). All three land in one change, or `contract-mirror` is red.
 6. **A capability** — add the leading `# capability: <key>` line in source, write the registry entry, and, for a seam, fill in the Definition, Provider, and Consumer paths. Discovery is automatic; classification is hand-written.
-7. **A traceable criterion** — write `- [A<n>] \`<declared check id or surface>\` <observable result>` in the acceptance section of a [proposed record](../notes/proposed/TEMPLATE.md). File it under the class that matches the decision, not the file it touches; the id survives the move into the implemented skeleton.
+7. **A traceable criterion** — write `- [A<n>] \`<declared check id or surface>\` <observable result>` in the acceptance section of a [proposed record](../.agents/notes/proposed/TEMPLATE.md). File it under the class that matches the decision, not the file it touches; the id survives the move into the implemented skeleton.
 8. **A publication decision** — classify the file in [docs/publish.json](publish.json). `public` names files one by one and accepts no glob.
 9. **A generated page** — write the generator and its `--check` mode, then declare that command on the `generated-docs` surface. A generated page is read-only; the generator is the source.
 10. **A document** — give it a kind and a home, add a `required-sections` check when it is a policy home, classify it, and pair it ([i18n.md](i18n.md)).

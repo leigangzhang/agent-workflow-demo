@@ -20,7 +20,7 @@ class TierSwitch(unittest.TestCase):
         "tiers": ["minimum", "long-lived"],
         "ladder": {"minimum": ["proposal"], "long-lived": ["contract"]},
         "stages": {
-            "proposal": {"number": 2, "label": "Proposal", "home": "notes/proposed/*.md"},
+            "proposal": {"number": 2, "label": "Proposal", "home": ".agents/notes/proposed/*.md"},
             "contract": {"number": 4, "label": "Contract", "home": "dev/contracts/*.md"},
         },
         "lifecycles": {"fixture": {"default": "long-lived", "stages": {}}},
@@ -29,7 +29,7 @@ class TierSwitch(unittest.TestCase):
     FILES = {
         "tools/tiers.json": json.dumps(SWITCH),
         "dev/README.md": TABLE,
-        "notes/proposed/2026-01-01-a.md": "# A\n",
+        ".agents/notes/proposed/2026-01-01-a.md": "# A\n",
         "dev/contracts/2026-01-01-b.md": "# B\n",
     }
 
@@ -67,7 +67,7 @@ class TierSwitch(unittest.TestCase):
     def test_a_stage_that_owns_several_paths_is_checked_at_each_one(self):
         """`home` may be a list: an absent stage must own none of the paths it lists."""
         switch = json.loads(json.dumps(self.SWITCH))
-        switch["stages"]["proposal"]["home"] = ["notes/proposed/*.md", "test_*.py"]
+        switch["stages"]["proposal"]["home"] = [".agents/notes/proposed/*.md", "test_*.py"]
         files = dict(self.FILES)
         files["tools/tiers.json"] = json.dumps(switch)
         files["test_leftover.py"] = "# leftover\n"

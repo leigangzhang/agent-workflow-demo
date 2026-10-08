@@ -9,7 +9,7 @@ A criterion exists so that someone who did not write the code can decide whether
 
 ## When to use
 
-- Writing `## Acceptance criteria` in [notes/proposed/](../../notes/proposed/TEMPLATE.md), or moving that record to `notes/implemented/` as `## Testing`.
+- Writing `## Acceptance criteria` in [.agents/notes/proposed/](../../notes/proposed/TEMPLATE.md), or moving that record to `.agents/notes/implemented/` as `## Testing`.
 - Turning a spec or a plan into tasks, and deciding what each task is worth.
 - Reviewing someone else's proposal: the criteria are the part most often missing.
 
@@ -19,7 +19,7 @@ A criterion exists so that someone who did not write the code can decide whether
 
 **2. Give every criterion an id and keep it.** `[A1]`, `[A2]`, next to the bullet. The id survives the rewrite into `## Testing`; a criterion that loses its id has lost its proof.
 
-**3. Name the owner.** In backticks, cite the check or surface that would go red for this criterion — a declared `checks[].id` or `surfaces[].name` from [tools/workflow.json](../../tools/workflow.json). This is the one line `criteria-traced` enforces, and it is the answer to dev/README.md's stage-6 question: *if I broke this now, which check fails?*
+**3. Name the owner.** In backticks, cite the check or surface that would go red for this criterion — a declared `checks[].id` or `surfaces[].name` from [tools/workflow.json](../../../tools/workflow.json). This is the one line `criteria-traced` enforces, and it is the answer to dev/README.md's stage-6 question: *if I broke this now, which check fails?*
 
 **4. Prefer a landing point you can point at.** In descending order of strength:
 

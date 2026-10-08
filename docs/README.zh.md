@@ -17,8 +17,8 @@
 | 五个脚本各自做什么，在哪里停下来？ | [tools/README.md](../tools/README.zh.md) |
 | 此刻某道闸门在查什么？ | [check-catalog.md](check-catalog.md)（生成页，永不手改） |
 | 哪些文档会发布，哪些留在仓库里？ | [publish.json](publish.json) |
-| 某个决定当时为什么这么做，放弃了什么？ | [notes/README.md](../notes/README.zh.md) |
-| 写文档时我要遵守哪些规则？ | [skills/write-docs/SKILL.md](../skills/write-docs/SKILL.md) |
+| 某个决定当时为什么这么做，放弃了什么？ | [.agents/notes/README.md](../.agents/notes/README.zh.md) |
+| 写文档时我要遵守哪些规则？ | [.agents/skills/write-docs/SKILL.md](../.agents/skills/write-docs/SKILL.md) |
 | 这个词在这里什么意思，我该用哪种写法？ | [glossary.md](glossary.md) |
 | 怎么把某个术语讲给从没读过这套件的人？ | [plain-language.md](plain-language.md) |
 
@@ -31,15 +31,15 @@
 | [dev/README.md](../dev/README.zh.md) | guide | 全档 | — | 生命周期地图：十一站的进出口、它的闸门与反模式 |
 | `docs/` | policy | 全档 | `docs-policy`、`i18n-policy`、`evolution-policy`、`testing-policy`，各带一条预算 | 套件的常驻规则：文档、词汇、语言、演化、测试 |
 | [tools/](../tools/README.zh.md) | machinery | 全档 | —（它实现全部闸门） | 五个脚本、它们唯一的配置（`workflow.json`），以及改它们的规矩 |
-| [skills/](../skills/write-docs/SKILL.md) | skills | 全档 | `skill-record`、`skill-trigger` | 触发层，由 `description` 加载，而不是按顺序通读 |
-| [notes/](../notes/README.zh.md) | records | 全档 | `decision-*`、`no-proposal-era-headings`、`criteria-traced`、`note-class`、`notes-readme` | 决策记录：提案、已实现的决定、被否决的提案，每份都归在类目目录下 |
+| [.agents/skills/](../.agents/skills/write-docs/SKILL.md) | skills | 全档 | `skill-record`、`skill-trigger` | 触发层，由 `description` 加载，而不是按顺序通读 |
+| [.agents/notes/](../.agents/notes/README.zh.md) | records | 全档 | `decision-*`、`no-proposal-era-headings`、`criteria-traced`、`note-class`、`notes-readme` | 决策记录：提案、已实现的决定、被否决的提案，每份都归在类目目录下 |
 | [dev/contracts/](../dev/contracts/TEMPLATE.md) | contract | 最小档 | `contract-record`、`contract-mirror`、`contract-kinds-budget` | 接口、镜像声明，以及契约的 kind 清单 |
 | [dev/capabilities/](../dev/capabilities/TEMPLATE.md) | records | 最小档 | `capability-record`、`capability-registry` | 能力登记处：seam、core、service、bundle |
 | [dev/review/](../dev/review/TEMPLATE.md) | records | 最小档 | `review-record` | 评审记录：只有读代码才能得出的发现 |
 | [dev/release/](../dev/release/TEMPLATE.md) | records | 交付档 | `release-record` | 发布记录：版本、范围、证据、破坏性变更、回滚 |
 | [dev/upgrade-guide/](../dev/upgrade-guide/TEMPLATE.md) | records | 交付档 | `dev/upgrade-guide`、`upgrade-guide-budget` | 每个被破坏的面一份迁移指南，写在破坏它的那次改动里 |
 | [dev/postmortem/](../dev/postmortem/TEMPLATE.md) | records | 长期档 | `postmortem-record`、`postmortem-guardrail` | 事故复盘：流程为什么会放它过去 |
-| [notes/archived/](../notes/archived/manifest.json) | archived | 长期档 | `archive-seal` | 被封印的记录，连同摘要与归档日期一起冻结 |
+| [.agents/notes/archived/](../.agents/notes/archived/manifest.json) | archived | 长期档 | `archive-seal` | 被封印的记录，连同摘要与归档日期一起冻结 |
 | [tests/](../tests/README.zh.md) | tests | 全档 | `no-time-based-test-sync` | 套件自己的契约测试，由 [testing.md](testing.md) 里的 Unit 命令运行 |
 | `dev/evidence/` | generated | 生成 | — | `run-evidence.py` 写下的东西：每次运行、每条命令一个判定 |
 

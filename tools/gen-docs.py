@@ -82,7 +82,7 @@ def render(config: dict) -> str:
         "This page lists the changed surfaces and the gates this repository declares right now: a surface answers "
         "\"which evidence do I run after changing this path\", and a gate answers \"which convention turns red when it "
         "is violated\". Why each one exists, and what it gave up, lives in the decision records under "
-        "[notes/](../notes/implemented/TEMPLATE.md); the decision logic is not restated here, only executed in "
+        "[.agents/notes/](../.agents/notes/implemented/TEMPLATE.md); the decision logic is not restated here, only executed in "
         "[tools/check-invariants.py](../tools/check-invariants.py) and [tools/pair-docs.py](../tools/pair-docs.py).",
         "",
         "## Changed surfaces",

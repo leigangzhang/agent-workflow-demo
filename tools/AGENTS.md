@@ -10,6 +10,6 @@ The five scripts are this kit's whole implementation. [README.md](README.md) is 
 
 **A generator ships with its freshness gate.** Every generated artifact declares a `--check` command on its surface, and `run-evidence` really runs it; never patch generated output by hand.
 
-**Evidence is executed, not retyped.** A command's result has three states, and a manual entry is never counted as verified — [README.md](README.md) owns that semantics, and [skills/pick-evidence/SKILL.md](../skills/pick-evidence/SKILL.md) owns when to run it.
+**Evidence is executed, not retyped.** A command's result has three states, and a manual entry is never counted as verified — [README.md](README.md) owns that semantics, and [.agents/skills/pick-evidence/SKILL.md](../.agents/skills/pick-evidence/SKILL.md) owns when to run it.
 
 **Fail loud on misconfiguration.** A check whose patterns match no file is void, not passing; a declared command that cannot resolve is red before it is run.

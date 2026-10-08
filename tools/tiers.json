@@ -39,12 +39,12 @@
     "proposal": {
       "number": 2,
       "label": "Proposal",
-      "home": "notes/proposed/*.md"
+      "home": ".agents/notes/proposed/*.md"
     },
     "decision": {
       "number": 3,
       "label": "Decision",
-      "home": "notes/implemented/*.md"
+      "home": ".agents/notes/implemented/*.md"
     },
     "contract": {
       "number": 4,
@@ -89,12 +89,12 @@
     "retirement": {
       "number": 11,
       "label": "Retirement",
-      "home": "notes/archived/*"
+      "home": ".agents/notes/archived/*"
     },
     "rejection": {
       "number": null,
       "label": "rejected records",
-      "home": "notes/rejected/*.md"
+      "home": ".agents/notes/rejected/*.md"
     },
     "incident": {
       "number": null,

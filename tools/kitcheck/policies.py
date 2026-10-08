@@ -106,12 +106,12 @@ SELF_TEST_CASES = (
         {
             "id": "self-sections",
             "kind": "required-sections",
-            "patterns": ["notes/*.md"],
+            "patterns": [".agents/notes/*.md"],
             "sections": ["## Problem", "## Alternatives considered"],
             "minBodyLines": 1,
         },
-        {"notes/decision.md": "## Problem\nsomething broke\n\n## Alternatives considered\n\n## Decision\nfixed\n"},
-        {"notes/decision.md": "## Problem\nsomething broke\n\n## Alternatives considered\n\n**Do nothing.** It stays broken.\n\n## Decision\nfixed\n"},
+        {".agents/notes/decision.md": "## Problem\nsomething broke\n\n## Alternatives considered\n\n## Decision\nfixed\n"},
+        {".agents/notes/decision.md": "## Problem\nsomething broke\n\n## Alternatives considered\n\n**Do nothing.** It stays broken.\n\n## Decision\nfixed\n"},
     ),
     (
         "forbidden-regex",

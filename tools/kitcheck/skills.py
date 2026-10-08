@@ -56,8 +56,8 @@ def check_skill_trigger(root: Path, check: dict) -> list[str]:
 SELF_TEST_CASES = (
     (
         "skill-trigger",
-        {"id": "self-skill-trigger", "kind": "skill-trigger", "patterns": ["skills/*/SKILL.md"]},
-        {"skills/a/SKILL.md": "---\nname: a\ndescription: Summarizes the testing policy.\n---\n\n## When to use\nx\n"},
-        {"skills/a/SKILL.md": "---\nname: a\ndescription: Use when a check fails to decide whether the failure is environmental.\n---\n\n## When to use\nx\n"},
+        {"id": "self-skill-trigger", "kind": "skill-trigger", "patterns": [".agents/skills/*/SKILL.md"]},
+        {".agents/skills/a/SKILL.md": "---\nname: a\ndescription: Summarizes the testing policy.\n---\n\n## When to use\nx\n"},
+        {".agents/skills/a/SKILL.md": "---\nname: a\ndescription: Use when a check fails to decide whether the failure is environmental.\n---\n\n## When to use\nx\n"},
     ),
 )

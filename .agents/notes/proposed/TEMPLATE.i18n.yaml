@@ -1,7 +1,7 @@
 # Bilingual-pair consistency record for TEMPLATE.md (docs/i18n.md): per heading section, a hash
 # of its English and Chinese blocks outside fenced code blocks.
 # After editing either side, bring the other along and re-record with:
-#   python3 tools/pair-docs.py --write notes/proposed/TEMPLATE.md
+#   python3 tools/pair-docs.py --write .agents/notes/proposed/TEMPLATE.md
 /proposal-one-line-title:
   en: fd6f63e9324d0876
   zh: d685f94ec00be0ee

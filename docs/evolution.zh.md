@@ -12,10 +12,10 @@
 
 | 你改了什么 | 写哪份记录 | 谁卡它 |
 |---|---|---|
-| 一个非平凡决定 | [notes/](../notes/implemented/TEMPLATE.zh.md)（提案 → 决策） | `decision-proposed`、`decision-implemented` |
+| 一个非平凡决定 | [.agents/notes/](../.agents/notes/implemented/TEMPLATE.zh.md)（提案 → 决策） | `decision-proposed`、`decision-implemented` |
 | 已发布的东西坏了 | [postmortem/](../dev/postmortem/TEMPLATE.zh.md)（含"当时的绿灯"与负控制） | `postmortem-record` |
 | 对外可感知的破坏 | [upgrade-guide/](../dev/upgrade-guide/TEMPLATE.zh.md)（一个面一份） | `dev/upgrade-guide`、`upgrade-guide-budget` |
-| 一份记录不再指导任何人 | 删除，或进 [notes/archived/](../notes/archived/manifest.json) 封存 | `archive-seal` |
+| 一份记录不再指导任何人 | 删除，或进 [.agents/notes/archived/](../.agents/notes/archived/manifest.json) 封存 | `archive-seal` |
 | 以上都不是 | 不写记录 | — |
 
 **一个破坏一份指南，不是一版一份。** 指南按**面**（命令、配置键、存储格式、已发布入口）拆，一版里坏了几件事就写几份；一份指南里塞两个面，读者就得自己判断哪段跟他有关。
@@ -61,8 +61,8 @@
 
 - **直接删**：只描述机械改动或局部调整的已实现记录。
 - **先合并再删**：被完全取代的记录可以并入当前记录后删除，但**删除前必须保留每一条独特理由、被否方案、后果、必需的验证**。部分取代不算，两边都留着并交叉链接。
-- **留在 `notes/rejected/`**：被否的提案，**仅当它还能阻止一个诱人的错误时**；理由失效就整条删掉。
-- **封存**：仍然对某段历史负责、但不再是当前态的，移进 `notes/archived/<class>/`，在头部加 `Archived: <yyyy-mm-dd>`，并登记进 [manifest.json](../notes/archived/manifest.json)。
+- **留在 `.agents/notes/rejected/`**：被否的提案，**仅当它还能阻止一个诱人的错误时**；理由失效就整条删掉。
+- **封存**：仍然对某段历史负责、但不再是当前态的，移进 `.agents/notes/archived/<class>/`，在头部加 `Archived: <yyyy-mm-dd>`，并登记进 [manifest.json](../.agents/notes/archived/manifest.json)。
 
 **封存之后不再编辑。** 闸门 `archive-seal` 让四种漂移变红：内容摘要变了、清单里的文件不见了、清单外多了一份、清单与记录头的日期不一致。
 
@@ -72,7 +72,7 @@
 
 - 两站的**进出口**在 [dev/README.md](../dev/README.zh.md)；升级指南的**形状**在 [upgrade-guide/TEMPLATE.zh.md](../dev/upgrade-guide/TEMPLATE.zh.md)。
 - **文档**的 kind、预算与发布开关在 [documentation.zh.md](documentation.zh.md)；本文件里的路径要么链过去，要么是闸门名字。
-- **质量**判不了：一份措辞敷衍的 Migration、一条"因为不再需要了"的归档理由，`archive-seal` 都放过 —— 那一半是 [migrate-and-retire](../skills/migrate-and-retire/SKILL.md) 与 review 的责任。
+- **质量**判不了：一份措辞敷衍的 Migration、一条"因为不再需要了"的归档理由，`archive-seal` 都放过 —— 那一半是 [migrate-and-retire](../.agents/skills/migrate-and-retire/SKILL.md) 与 review 的责任。
 - **"清单与文件被一起改"判不了**：闸门只看这棵树的现状，看不见"把文件和新摘要同时写进清单"。要闭合这一半需要一条 CI 基线比较（对照改动前的清单），本套件不接 CI。
 - **历史本身**不在这里：某次破坏为什么这么迁，住在它的决策记录里；本文件只说现在该怎么处置。
 - **各退役闸门能看到什么。** `release-record` 只保证发布记录那五节存在且不为空：是否真的在仓库之外装过、环境有没有被清干净、发布时有没有东西被悄悄重建，都在它之外。`sealed-manifest` 只看清单与本树内文件的一致性 —— 它看不见"清单与文件被同时写入"，也不做基线比对，所以判不出一条旧封印相对上一个提交有没有被动过。`sealed-manifest` 的 `sealed` 列表为空时，`archive-seal` 只能抓到清单之外的文件；在第一条登记落地之前，它拦不住对已归档文件的编辑。`evolution-policy` 只保证本文件六节存在，判不了选择器选得对不对。

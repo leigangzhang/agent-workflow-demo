@@ -5,7 +5,7 @@ description: Use when writing to a human — a chat reply, a pull-request descri
 
 # Write to the human in their own words
 
-[Glossary](../../docs/glossary.md) fixes what a term means **inside** this kit, and that vocabulary belongs to the agent, not to the reader. The lookup for saying it differently is [plain-language.md](../../docs/plain-language.md).
+[Glossary](../../../docs/glossary.md) fixes what a term means **inside** this kit, and that vocabulary belongs to the agent, not to the reader. The lookup for saying it differently is [plain-language.md](../../../docs/plain-language.md).
 
 ## When to use
 

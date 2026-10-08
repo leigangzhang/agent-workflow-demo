@@ -5,7 +5,7 @@ description: Use when a change breaks something that has already been consumed �
 
 # Migrate and retire
 
-Two stations, one moment: something that other people already depend on is changing, or something that nobody depends on any more has to go. Both are governed by [evolution.md](../../docs/evolution.md); this skill is the trigger layer that says when to apply it.
+Two stations, one moment: something that other people already depend on is changing, or something that nobody depends on any more has to go. Both are governed by [evolution.md](../../../docs/evolution.md); this skill is the trigger layer that says when to apply it.
 
 ## When to use
 
@@ -18,7 +18,7 @@ Two stations, one moment: something that other people already depend on is chang
 
 ## How
 
-**1. Decide the record before you write it.** Walk the selector in [evolution.md](../../docs/evolution.md#which-record-for-which-change): a decision, an incident, a break, or a retirement. A break that nobody outside this change can feel gets no guide — write that down nowhere and save the reader the noise.
+**1. Decide the record before you write it.** Walk the selector in [evolution.md](../../../docs/evolution.md#which-record-for-which-change): a decision, an incident, a break, or a retirement. A break that nobody outside this change can feel gets no guide — write that down nowhere and save the reader the noise.
 
 **2. Write the guide in the change that makes the break.** One guide per changed **surface**, not per release. `## Change` names the exact old behaviour, the new one, and who is affected; `## Migration` is ordered steps, each naming the exact file, key, command, or symbol, and its **last step states how to confirm the migration worked**. Over budget means the content belongs in a linked file, not in a longer guide.
 
@@ -26,7 +26,7 @@ Two stations, one moment: something that other people already depend on is chang
 
 **4. Add a successor; never rewrite a generation.** Once a format, schema, or published interface has been consumed, write a new file, directory, or version number. Never move, overwrite, rename, or delete the committed generation, and do not treat the old one as a rollback or downgrade promise. The same holds for `dev/evidence/` records: a re-run writes a successor file, because editing a record of what was true then is forging it.
 
-**5. Retire on the standard, then seal.** Ask which artifact would make the next reader decide wrongly: delete the purely mechanical ones, merge a fully superseded record into its successor (keeping every unique reason, rejected alternative, consequence, and required verification), keep a rejected proposal only while it still prevents a tempting mistake, and move anything that still owns history into `notes/archived/<class>/` with an `Archived: <yyyy-mm-dd>` line and its `notes/archived/manifest.json` entry in the same change. **After sealing, edit nothing** — to change the content, unarchive it and write a new record, or supersede its conclusion in the current-state document.
+**5. Retire on the standard, then seal.** Ask which artifact would make the next reader decide wrongly: delete the purely mechanical ones, merge a fully superseded record into its successor (keeping every unique reason, rejected alternative, consequence, and required verification), keep a rejected proposal only while it still prevents a tempting mistake, and move anything that still owns history into `.agents/notes/archived/<class>/` with an `Archived: <yyyy-mm-dd>` line and its `.agents/notes/archived/manifest.json` entry in the same change. **After sealing, edit nothing** — to change the content, unarchive it and write a new record, or supersede its conclusion in the current-state document.
 
 ## Verification
 

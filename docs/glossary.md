@@ -86,7 +86,7 @@ The state of a check whose patterns match no file. It is a violation, never a pa
 
 ### decision record
 
-A record at `notes/<lifecycle>/<class>/<yyyy-mm-dd>-<slug>.md`, keeping one decision's problem, choice, rejected alternatives, consequences, and verification ([notes/README.md](../notes/README.md)). Write `decision record`; `note` alone is not a synonym. Host word: **Agent Note**.
+A record at `.agents/notes/<lifecycle>/<class>/<yyyy-mm-dd>-<slug>.md`, keeping one decision's problem, choice, rejected alternatives, consequences, and verification ([.agents/notes/README.md](../.agents/notes/README.md)). Write `decision record`; `note` alone is not a synonym. Host word: **Agent Note**.
 
 ### proposal / rejected
 
@@ -102,7 +102,7 @@ What happens to a record between lifecycles: the skeleton is rewritten in the sa
 
 ### seal / archived / frozen
 
-Three words for the retirement of a record. **Seal** is the act — the file's digest, its archive date, and a reason enter `notes/archived/manifest.json`. **Archived** is where it lives. **Frozen** is the consequence: a sealed record is never edited, reformatted, translated, repaired, or moved. Host word: `archived/`, with the same three meanings.
+Three words for the retirement of a record. **Seal** is the act — the file's digest, its archive date, and a reason enter `.agents/notes/archived/manifest.json`. **Archived** is where it lives. **Frozen** is the consequence: a sealed record is never edited, reformatted, translated, repaired, or moved. Host word: `archived/`, with the same three meanings.
 
 ### pair / sidecar / triplet
 

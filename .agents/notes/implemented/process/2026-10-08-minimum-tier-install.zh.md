@@ -14,11 +14,11 @@ Class: process
 
 ## Decision
 
-`tools/tiers.json` 里写着 `default: minimum`，并对本仓库不运行的七个站点显式写 `none`：implementation、integration、release、evolution、retirement、rejection、incident。这些站点的家——`dev/release`、`dev/upgrade-guide`、`dev/postmortem`、`notes/archived`、`notes/rejected`——在树里不存在，因此开关与树双向一致。
+`tools/tiers.json` 里写着 `default: minimum`，并对本仓库不运行的七个站点显式写 `none`：implementation、integration、release、evolution、retirement、rejection、incident。这些站点的家——`dev/release`、`dev/upgrade-guide`、`dev/postmortem`、`.agents/notes/archived`、`.agents/notes/rejected`——在树里不存在，因此开关与树双向一致。
 
 已安装九个阶段：intent、proposal、decision、contract、capabilities、verification、review、documentation、tests。`dev/contracts` 与 `dev/capabilities` 保留，因为检查引擎自己的定义、提供者与消费者就住在那里，而最小档正是这个引擎运行的地方。
 
-套件自己的决策记录在安装时已删除；`notes/` 只留下每个生命周期的 `TEMPLATE.md`、它的 `README.md` 与它的 `AGENTS.md`。`README.md`、`README.zh.md`、`README.i18n.yaml` 是本仓库自己的，因为套件的拷贝清单刻意不含根 README。
+套件自己的决策记录在安装时已删除；`.agents/notes/` 只留下每个生命周期的 `TEMPLATE.md`、它的 `README.md` 与它的 `AGENTS.md`。`README.md`、`README.zh.md`、`README.i18n.yaml` 是本仓库自己的，因为套件的拷贝清单刻意不含根 README。
 
 `AGENTS.md` 同样是本仓库自己的：它的"先读"入口指向套件自己的两张地图，它写明目前没有安装步骤，原先指到被删的家的两条规则也改成不依赖链接而独立成立。
 

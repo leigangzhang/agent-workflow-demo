@@ -16,8 +16,8 @@
 | 索引（[docs/README.md](README.zh.md)） | 去哪找什么 | 任何规则或事实本身 |
 | 生成（[docs/check-catalog.md](check-catalog.md)） | 从唯一源穷举导出的事实 | 任何手写内容 |
 | 契约（[dev/contracts/TEMPLATE.md](../dev/contracts/TEMPLATE.zh.md)、[dev/capabilities/TEMPLATE.md](../dev/capabilities/TEMPLATE.zh.md)） | 一份要对调用方负责的接口 | 行为叙述与理由（→ 决策记录） |
-| 记录（[notes/](../notes/implemented/TEMPLATE.zh.md)、[dev/review/](../dev/review/TEMPLATE.zh.md)、[dev/release/](../dev/release/TEMPLATE.zh.md)、[dev/postmortem/](../dev/postmortem/TEMPLATE.zh.md)） | 一次决定、评审、发布或事故 | 当前态规则（→ 各自的规则家） |
-| 技能（[skills/](../skills/write-docs/SKILL.md)） | 什么时候做什么 | 判定逻辑（→ 闸门）与契约（→ 源码或 `dev/contracts/`） |
+| 记录（[.agents/notes/](../.agents/notes/implemented/TEMPLATE.zh.md)、[dev/review/](../dev/review/TEMPLATE.zh.md)、[dev/release/](../dev/release/TEMPLATE.zh.md)、[dev/postmortem/](../dev/postmortem/TEMPLATE.zh.md)） | 一次决定、评审、发布或事故 | 当前态规则（→ 各自的规则家） |
+| 技能（[.agents/skills/](../.agents/skills/write-docs/SKILL.md)） | 什么时候做什么 | 判定逻辑（→ 闸门）与契约（→ 源码或 `dev/contracts/`） |
 | 模板（`*/TEMPLATE.md`） | 一份记录该长什么样 | 真实内容 |
 | reference（[glossary.md](glossary.zh.md)、[plain-language.md](plain-language.zh.md)） | 按名字或术语查的当前事实 | 教学路径、决策理由、生成式目录 |
 
@@ -33,11 +33,11 @@
 |---|---|---|
 | 常驻规则（每个任务都要在上下文里） | [AGENTS.md](../AGENTS.md) | 故事、例子、情境流程 |
 | 阶段进出口 | [dev/README.md](../dev/README.zh.md) | 逐条检查清单（→ `tools/workflow.json`） |
-| 某一站的记录 | `dev/<station>/`（见 [dev/README.md](../dev/README.zh.md)） | 该站的规则（→ `docs/`）或决定的理由（→ [notes/](../notes/implemented/TEMPLATE.zh.md)） |
+| 某一站的记录 | `dev/<station>/`（见 [dev/README.md](../dev/README.zh.md)） | 该站的规则（→ `docs/`）或决定的理由（→ [.agents/notes/](../.agents/notes/implemented/TEMPLATE.zh.md)） |
 | 验证策略 | [testing.md](testing.zh.md) | 具体测试命令（→ 改动面的 evidence） |
 | 演化与退役规则 | [evolution.md](evolution.zh.md) | 某次破坏的具体迁移步骤（→ `dev/upgrade-guide/`） |
 | 文档规则 | 本文件 | 产品契约（→ README 或源码） |
-| 为什么这么选、放弃了什么 | [notes/](../notes/implemented/TEMPLATE.zh.md) | 当前态规则 |
+| 为什么这么选、放弃了什么 | [.agents/notes/](../.agents/notes/implemented/TEMPLATE.zh.md) | 当前态规则 |
 | 语言、配对与术语译法 | [i18n.md](i18n.zh.md) | 一个词是什么意思、该用哪个（→ [glossary.md](glossary.zh.md)） |
 | 一个词是什么意思、该用哪种写法 | [glossary.md](glossary.zh.md) | 译法对（→ [i18n.md](i18n.zh.md#术语)） |
 | 接口、类型、配置键 | 源码里的声明 | 文档里的副本，除非登记为镜像 |

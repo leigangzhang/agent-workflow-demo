@@ -10,7 +10,7 @@ import re
 
 from .core import iter_files
 
-RECORD_PATH = re.compile(r"^notes/(?P<lifecycle>[^/]+)/(?P<klass>[^/]+)/(?P<file>[^/]+)$")
+RECORD_PATH = re.compile(r"^\.agents/notes/(?P<lifecycle>[^/]+)/(?P<klass>[^/]+)/(?P<file>[^/]+)$")
 
 
 def check_note_class(root: Path, check: dict) -> list[str]:
@@ -31,7 +31,7 @@ def check_note_class(root: Path, check: dict) -> list[str]:
             continue
         match = RECORD_PATH.match(relative)
         if match is None:
-            violations.append(f"{relative}: a record lives at notes/<lifecycle>/<class>/<file>")
+            violations.append(f"{relative}: a record lives at .agents/notes/<lifecycle>/<class>/<file>")
             continue
         lifecycle, klass = match.group("lifecycle"), match.group("klass")
         if lifecycle not in lifecycles:
@@ -55,10 +55,10 @@ SELF_TEST_CASES = (
         {
             "id": "self-note-class",
             "kind": "note-class",
-            "patterns": ["notes/*/*/*.md"],
+            "patterns": [".agents/notes/*/*/*.md"],
             "classes": ["feature", "bug-fix", "simplification", "architecture", "process", "testing"],
         },
-        {"notes/implemented/architecture/decision.md": "Status: implemented\nClass: process\n\n## Problem\nx\n"},
-        {"notes/implemented/architecture/decision.md": "Status: implemented\nClass: architecture\n\n## Problem\nx\n"},
+        {".agents/notes/implemented/architecture/decision.md": "Status: implemented\nClass: process\n\n## Problem\nx\n"},
+        {".agents/notes/implemented/architecture/decision.md": "Status: implemented\nClass: architecture\n\n## Problem\nx\n"},
     ),
 )

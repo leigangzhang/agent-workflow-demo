@@ -10,7 +10,7 @@ Checks are declared in tools/workflow.json. Ten kinds are supported:
                         page that translates its headings declares its own wording
   forbidden-regex       files matching `patterns` contain no `regex` match
   note-class            files matching `patterns` are records at
-                        notes/<lifecycle>/<class>/<file>; the class is one of `classes`,
+                        .agents/notes/<lifecycle>/<class>/<file>; the class is one of `classes`,
                         the lifecycle is one of `lifecycles`, and the file's `Class:` line
                         agrees with its folder, so a record cannot be filed under the
                         wrong class and drift away from the taxonomy

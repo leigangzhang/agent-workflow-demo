@@ -6,7 +6,7 @@ Every command below was run in this checkout and its output is pasted verbatim. 
 
 1. **Section parity with the host**: the record README carries the host Agent Note README's headings, in the host's order, in both languages — with one kit-specific trailing section (`## Where to look`) and the kit's own title (`# Decision records`).
 2. **The rules the host states are stated here**: layout and naming, classification, archiving and deletion, when to write one, and the file format (header block, body skeleton, the alternatives mandate, moving between lifecycles, Chinese counterparts).
-3. **A wrong reading of the host gate was found and corrected later.** The gate went red on this pair's `docs/README` link and the first fix used the authored path; the real cause was that the link climbed two levels out of `notes/` and pointed outside the kit, so the host compared it as text. The follow-up change made `pair-docs.py --check` reject a relative link that names no file, and the link follows the locale again.
+3. **A wrong reading of the host gate was found and corrected later.** The gate went red on this pair's `docs/README` link and the first fix used the authored path; the real cause was that the link climbed two levels out of `.agents/notes/` and pointed outside the kit, so the host compared it as text. The follow-up change made `pair-docs.py --check` reject a relative link that names no file, and the link follows the locale again.
 4. **Budgets followed the content**: the record README got its own ceiling; `guide-budget` now covers only the tools reference and the extension tutorial.
 
 ## Section parity measured, not asserted
@@ -45,7 +45,7 @@ kit-only (zh): ['# 决策记录', '## 去哪看']
 ### `python3 tools/check-invariants.py --self-test | tail -3`
 
 ```text
-PASS seal-outside-patterns: a seal outside the scanned corpus was rejected (archive/manifest.json sealed[0]: notes/x.md matches none of ['archive/*'], so its seal is never verified)
+PASS seal-outside-patterns: a seal outside the scanned corpus was rejected (archive/manifest.json sealed[0]: .agents/notes/x.md matches none of ['archive/*'], so its seal is never verified)
 PASS seal-empty-archive: an archive with nothing sealed is accepted, and the unsealed-file probe keeps the guard live
 check-invariants: self-test PASSED — every check rejects an invalid fixture and accepts a valid one, a check with no subject is rejected, and every registration direction is covered
 exit=0
@@ -98,7 +98,7 @@ exit=0
 This gate went red on the pair, and the reading recorded here at the time — "the renderer does not normalize that link shape" — was wrong. The link was `../../docs/README.md` from a file one level deep, so it resolved outside the kit, and an unresolvable target is compared as text. The probe below shows what the renderer did with the broken path; the follow-up change replaced the inference with a guard that rejects any relative link naming no file:
 
 ```text
-study/agent-workflow-kit/notes/README.md    link #1  "../../docs/README.md"       (raw, not normalized)
+study/agent-workflow-kit/.agents/notes/README.md    link #1  "../../docs/README.md"       (raw, not normalized)
 study/agent-workflow-kit/docs/README.zh.md  link #1  dsh-translation-target:...   (resolvable target, so the localized path is normalized — the shape was never the problem)
 ```
 

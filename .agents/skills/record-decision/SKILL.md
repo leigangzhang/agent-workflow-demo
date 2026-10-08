@@ -19,7 +19,7 @@ Every round of rework has the same cause: the reason a thing is the way it is li
 **Before the work — copy the proposal template.**
 
 ```sh
-cp notes/proposed/TEMPLATE.md notes/proposed/<yyyy-mm-dd>-<slug>.md
+cp .agents/notes/proposed/TEMPLATE.md .agents/notes/proposed/<yyyy-mm-dd>-<slug>.md
 ```
 
 Fill all five sections. Two of them are mandatory, and they are the ones people skip:
@@ -30,7 +30,7 @@ Fill all five sections. Two of them are mandatory, and they are the ones people 
 **When it ships — move it and rewrite the skeleton.**
 
 ```sh
-# notes/proposed/<file>.md  →  notes/implemented/<file>.md, then:
+# .agents/notes/proposed/<file>.md  →  .agents/notes/implemented/<file>.md, then:
 #   ## Proposal                      → ## Decision   (present tense)
 #   ## Acceptance criteria + ## Risks → ## Consequences
 ```
@@ -41,7 +41,7 @@ Moving the file without rewriting it fails the check. That is deliberate: the re
 
 When a path, symbol, or default changes, update the record in place. When the **decision** changes, write a new record and cross-link it. Do not append "update: later we changed it to…" — that hands the next reader two contradicting facts.
 
-**When it stops guiding anyone**, delete it, or move it to `notes/archived/` with an `Archived:` date and never edit it again.
+**When it stops guiding anyone**, delete it, or move it to `.agents/notes/archived/` with an `Archived:` date and never edit it again.
 
 ## Verification
 

@@ -14,8 +14,8 @@
 | # | 站 | 产物（家） | 闸门 | 谁决定 |
 |---|---|---|---|---|
 | 1 | 意图 | 记录头部的 `Class:` 字段 | 人工 | 需求方 |
-| 2 | 提案 | `notes/proposed/<class>/<date>-<slug>.md` | `decision-proposed`、`criteria-traced` | 提案者 |
-| 3 | 决策 | `notes/implemented/<class>/<date>-<slug>.md` 或 `notes/rejected/<class>/<date>-<slug>.md`；能力登记 `dev/capabilities/registry.json` | `decision-implemented`、`no-proposal-era-headings`、`decision-rejected`、`capability-registry` | 提案者 + 评审 |
+| 2 | 提案 | `.agents/notes/proposed/<class>/<date>-<slug>.md` | `decision-proposed`、`criteria-traced` | 提案者 |
+| 3 | 决策 | `.agents/notes/implemented/<class>/<date>-<slug>.md` 或 `.agents/notes/rejected/<class>/<date>-<slug>.md`；能力登记 `dev/capabilities/registry.json` | `decision-implemented`、`no-proposal-era-headings`、`decision-rejected`、`capability-registry` | 提案者 + 评审 |
 | 4 | 契约 | `dev/contracts/<slug>.md` + `dev/contracts/mirrors.json`（或源码接口文件 + 链接） | `contract-record`、`contract-mirror` | 接口 owner |
 | 5 | 实现 | 记录里的 `## Consequences` / 任务条目 | `criteria-traced`、`change-scope --strict` | 实现者 |
 | 6 | 验证 | 测试 + golden 文件 + `dev/evidence/` 记录；策略在 `testing.md` | `testing-policy`、`no-time-based-test-sync`、`--self-test`、空语料规则、`criteria-traced`、`run-evidence` | 实现者 |
@@ -23,7 +23,7 @@
 | 8 | 集成 | 提交历史 + `change-scope` 报告 + 落地前 preflight | `change-scope --strict` | 人 |
 | 9 | 发布 | `dev/release/<version>.md` + 不可变产物 | `release-record` | 人 |
 | 10 | 演化 | `dev/upgrade-guide/<version>-<surface>.md`；规则在 [evolution.md](../docs/evolution.md) | `dev/upgrade-guide`、`upgrade-guide-budget`、`evolution-policy` | 人 |
-| 11 | 退役 | `notes/archived/` + [manifest.json](../notes/archived/manifest.json)（封存清单 + 摘要 + 日期） | `archive-seal` | 人 |
+| 11 | 退役 | `.agents/notes/archived/` + [manifest.json](../.agents/notes/archived/manifest.json)（封存清单 + 摘要 + 日期） | `archive-seal` | 人 |
 | ⚡ | 事故（横切） | `dev/postmortem/<NNNN>-<slug>.md` | `postmortem-record` | 事故处理者 |
 | 📄 | 文档（横切） | [documentation.md](../docs/documentation.md) + [docs/](README.zh.md) + [i18n.md](../docs/i18n.md) + [glossary.md](../docs/glossary.md) + [plain-language.md](../docs/plain-language.md) | `docs-policy`、`docs-budget`、`publish-manifest`、`i18n-policy`、`i18n-budget`、`generated-docs`（新鲜度经 `run-evidence`） | 人 |
 
@@ -35,7 +35,7 @@
 |---|---|---|
 | **最小档** | 1 · 2 · 3 · 4 · 6 · 7，另加文档（documentation）、测试（tests）与能力登记（capabilities） | 一个人在快速迭代，还没有用户 |
 | **交付档** | 上面 + 9 · 10（含 [evolution.md](../docs/evolution.md) 与 `dev/upgrade-guide/`） | 有对外接口、有别人在用 |
-| **长期档** | 全部 + 5 · 8 · 11（含 `notes/archived/` 封存），外加否决记录（`notes/rejected/`）与事故（incidents） | 多轮演化、多人协作、要活很久 |
+| **长期档** | 全部 + 5 · 8 · 11（含 `.agents/notes/archived/` 封存），外加否决记录（`.agents/notes/rejected/`）与事故（incidents） | 多轮演化、多人协作、要活很久 |
 
 没装的站，对应的检查会**因为匹配不到文件而判无效**（见第 6 站）—— 这是刻意的：空壳检查比没有检查更糟。所以请在 [tools/tiers.json](../tools/tiers.json) 里把它声明为 `none`：开关会把这个站变成**声明的缺席**，只拥有它那个家的检查不再运行，空语料规则也不再适用于它们。指令就这一句 —— 这段原先列的八组映射现在归开关管。同时把目录删掉，因为开关陈述意图、树陈述事实：开关说缺席而文件还在是红，开关说已安装而家是空的也是红。
 
@@ -61,9 +61,9 @@
 **解决什么**：在写代码之前，先写下**你要否决什么**，以及**怎么算做完**。
 
 **进** → 非平凡改动启动。
-**出** → `notes/proposed/<class>/<date>-<slug>.md` 存在，且：`Alternatives considered` **非空**；`## Acceptance criteria` 的**每一条**都带一个稳定编号，并在反引号里点名**它会为哪条检查变红**（`tools/workflow.json` 里已声明的 check id 或 surface 名）。
+**出** → `.agents/notes/proposed/<class>/<date>-<slug>.md` 存在，且：`Alternatives considered` **非空**；`## Acceptance criteria` 的**每一条**都带一个稳定编号，并在反引号里点名**它会为哪条检查变红**（`tools/workflow.json` 里已声明的 check id 或 surface 名）。
 
-**产物**：[notes/proposed/TEMPLATE.md](../notes/proposed/TEMPLATE.md)
+**产物**：[.agents/notes/proposed/TEMPLATE.md](../.agents/notes/proposed/TEMPLATE.md)
 
 **闸门**：`decision-proposed`（缺任一段直接红）+ `criteria-traced`（漏编号、或点名一个不存在的检查 → 红）
 
@@ -78,9 +78,9 @@
 **解决什么**：让"已落地的决定"和"还在讨论的提案"在物理上分开，并且**同一个决定只留一个事实版本**。
 
 **进** → 提案实现。
-**出** → 文件移进 `notes/implemented/<class>/`，并**改写为现在时**：`## Proposal` → `## Decision`；`## Acceptance criteria` + `## Risks` 折叠进 `## Consequences`，其中"被验证了什么"改写为 `## Testing` 并**保留原来的编号**。
+**出** → 文件移进 `.agents/notes/implemented/<class>/`，并**改写为现在时**：`## Proposal` → `## Decision`；`## Acceptance criteria` + `## Risks` 折叠进 `## Consequences`，其中"被验证了什么"改写为 `## Testing` 并**保留原来的编号**。
 
-**产物**：[notes/implemented/TEMPLATE.md](../notes/implemented/TEMPLATE.md)
+**产物**：[.agents/notes/implemented/TEMPLATE.md](../.agents/notes/implemented/TEMPLATE.md)
 
 **闸门**：`decision-implemented` —— 它要求 `## Decision`、`## Consequences` 与 `## Testing`，所以**没改写就红**；`no-proposal-era-headings` 再拦一道：移档后仍留着 `## Proposal` / `## Plan` / `## Migration plan` / `## Acceptance criteria` 也红。两个方向都堵上，是因为只要求"新骨架在"的话，一份记录可以同时挂着两套骨架。
 
@@ -187,7 +187,7 @@
 **纪律**：
 
 - **新守卫必须能变红** —— 改坏一次，看它红，再改回来。没亲眼见过红灯的，不算守卫。
-- **默认不信任方向** —— 每个"通过"先问两件事：是谁说的、我读的是外部状态还是它自己的自述。交付前过一遍 [skills/apply-distrust/SKILL.md](../skills/apply-distrust/SKILL.md) 的 8 个问题；不信任只花在跨边界和信号可能骗人的地方。
+- **默认不信任方向** —— 每个"通过"先问两件事：是谁说的、我读的是外部状态还是它自己的自述。交付前过一遍 [.agents/skills/apply-distrust/SKILL.md](../.agents/skills/apply-distrust/SKILL.md) 的 8 个问题；不信任只花在跨边界和信号可能骗人的地方。
 - **确定性是测试的一部分**：原子分配资源、按状态同步（不睡）、包住进程级全局状态、按跑道给超时预算。
 - **flake 不是噪声**：调超时、加重试、全串行、减弱断言、加 sleep 都不算修复；只有"外部 provider 的短暂失败"可以在那个边界上重试。
 - **车道要标严重性**：每条车道要么阻塞、要么观测。平台相关的已知不稳定项**降级为观测**，不删、不弱化；观测项必须汇报，并且要写出"连续多少次绿就晋升回阻塞"（否则它会腐烂成没人看的清单）。见 [testing.md](../docs/testing.md#blocking-and-observational-lanes)。
@@ -286,9 +286,9 @@
 **解决什么**：让旧东西**真的会消失**。
 
 **进** → 一份产物失去价值，或开始误导读者。
-**出** → 删除，或移进 `notes/archived/<class>/`、头部加 `Archived: <yyyy-mm-dd>`、登记进 [manifest.json](../notes/archived/manifest.json)，**此后不再编辑**。
+**出** → 删除，或移进 `.agents/notes/archived/<class>/`、头部加 `Archived: <yyyy-mm-dd>`、登记进 [manifest.json](../.agents/notes/archived/manifest.json)，**此后不再编辑**。
 
-**产物**：`notes/archived/` 目录 + [manifest.json](../notes/archived/manifest.json)（清单 + 内容摘要 + 归档日期）。
+**产物**：`.agents/notes/archived/` 目录 + [manifest.json](../.agents/notes/archived/manifest.json)（清单 + 内容摘要 + 归档日期）。
 
 **闸门**：`archive-seal` —— 未登记的掉落、封存后被改的文件、清单与头部日期不一致，都红。
 

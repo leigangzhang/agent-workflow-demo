@@ -37,7 +37,7 @@ A clean directory alone is not enough: the host's environment and user config tr
 
 **5. Record the release** in `dev/release/<version>.md`: the exact revision, the artifact digest, the ordered evidence (rehearsal → outside install → publication), every externally perceptible break linked to its upgrade guide, and the rollback path. Ordered evidence means an interrupted run leaves a readable prefix.
 
-**6. Retire the old version's notes** when the new one fully supersedes them, under [dev/README.md](../../dev/README.md) stage 11.
+**6. Retire the old version's notes** when the new one fully supersedes them, under [dev/README.md](../../../dev/README.md) stage 11.
 
 ## Verification
 

@@ -1,22 +1,22 @@
 # Bilingual-pair consistency record for README.md (docs/i18n.md): per heading section, a hash
 # of its English and Chinese blocks outside fenced code blocks.
 # After editing either side, bring the other along and re-record with:
-#   python3 tools/pair-docs.py --write notes/README.md
+#   python3 tools/pair-docs.py --write .agents/notes/README.md
 /decision-records:
-  en: 9bc5fbec41bc5d77
-  zh: 6dd9139b64661ad3
+  en: b5752f3fedbc9ed5
+  zh: 4cbb1b13d0ae7d2b
 /decision-records/layout-and-naming:
-  en: 8a25fb5815cd88ef
-  zh: 117adc0b240aa903
+  en: a1d64ff9f74dd90e
+  zh: 7ecf3bef7a11b0c9
 /decision-records/classification:
-  en: a55fb844618134d3
-  zh: 8c3c8348fc625443
+  en: 192388e8a7d731df
+  zh: ae57083c4003012c
 /decision-records/archiving-and-deletion:
-  en: bf4430e3a6276168
-  zh: 3ef8e6f7463e196d
+  en: 57d53cec7d2ec7d1
+  zh: 17134662d4ec619e
 /decision-records/when-to-write-one:
-  en: 82f3ad840842595a
-  zh: 3a9677998e01cd12
+  en: 9dfd6d224500896f
+  zh: 63ab02b3299313fa
 /decision-records/the-file-format:
   en: 9ba15529861529c9
   zh: cce410492cfc30f9
@@ -33,8 +33,8 @@
   en: 683507369c5c6776
   zh: 08decaac6c887217
 /decision-records/the-file-format/chinese-counterparts:
-  en: 275ba67b72d58a16
-  zh: 6211b1764646bb84
+  en: 54d5f973b985e75c
+  zh: 16c49395ad6ccfac
 /decision-records/where-to-look:
-  en: cd2649b3b303e6cd
-  zh: e82121213b13e3cd
+  en: cf82322d95c6ae73
+  zh: 2463564bccec84ef

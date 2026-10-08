@@ -24,11 +24,11 @@ class ArchiveSeal(unittest.TestCase):
 
     @unittest.skipUnless(stage_installed("retirement"), "the retirement stage is not installed at this tier")
     def test_every_archived_file_is_sealed_and_unchanged(self):
-        manifest = json.loads((ROOT / "notes" / "archived" / "manifest.json").read_text(encoding="utf-8"))
+        manifest = json.loads((ROOT / ".agents" / "notes" / "archived" / "manifest.json").read_text(encoding="utf-8"))
         sealed = {entry["path"]: entry for entry in manifest["sealed"]}
         corpus = {
             path.relative_to(ROOT).as_posix()
-            for path in (ROOT / "notes" / "archived").rglob("*")
+            for path in (ROOT / ".agents" / "notes" / "archived").rglob("*")
             if path.is_file() and path.name != "manifest.json"
         }
         self.assertEqual(corpus, set(sealed), "every archived file is registered exactly once")
@@ -97,7 +97,7 @@ class NoteClasses(unittest.TestCase):
     CHECK = {
         "id": "test-note-class",
         "kind": "note-class",
-        "patterns": ["notes/*/*/*.md"],
+        "patterns": [".agents/notes/*/*/*.md"],
         "classes": ["feature", "bug-fix", "simplification", "architecture", "process", "testing"],
     }
 
@@ -111,20 +111,20 @@ class NoteClasses(unittest.TestCase):
             return load_checker().check_note_class(root, self.CHECK)
 
     def test_a_record_filed_under_its_own_class_is_accepted(self):
-        self.assertEqual(self.run_check({"notes/implemented/process/x.md": "Class: process\n"}), [])
+        self.assertEqual(self.run_check({".agents/notes/implemented/process/x.md": "Class: process\n"}), [])
 
     def test_a_class_line_that_disagrees_with_its_folder_is_rejected(self):
-        violations = self.run_check({"notes/implemented/process/x.md": "Class: feature\n"})
+        violations = self.run_check({".agents/notes/implemented/process/x.md": "Class: feature\n"})
         self.assertTrue(violations, "a misfiled record must be rejected")
         self.assertIn("disagrees", violations[0])
 
     def test_a_folder_outside_the_closed_set_is_rejected(self):
-        violations = self.run_check({"notes/implemented/docs/x.md": "Class: docs\n"})
+        violations = self.run_check({".agents/notes/implemented/docs/x.md": "Class: docs\n"})
         self.assertTrue(violations, "a class outside the closed set must be rejected")
         self.assertIn("unknown class", violations[0])
 
     def test_a_record_with_no_class_line_is_rejected(self):
-        violations = self.run_check({"notes/implemented/process/x.md": "Status: implemented\n"})
+        violations = self.run_check({".agents/notes/implemented/process/x.md": "Status: implemented\n"})
         self.assertTrue(violations, "an unconfirmed path class must be rejected")
         self.assertIn("no 'Class:' line", violations[0])
 
@@ -135,11 +135,11 @@ class Records(unittest.TestCase):
     def test_notes_templates_trace_their_criteria(self):
         for name in ("proposed", "implemented"):
             with self.subTest(template=name):
-                text = (ROOT / "notes" / name / "TEMPLATE.md").read_text(encoding="utf-8")
+                text = (ROOT / ".agents" / "notes" / name / "TEMPLATE.md").read_text(encoding="utf-8")
                 self.assertRegex(text, r"\[A\d+\]", "every criterion in a template carries an id")
 
     def test_every_skill_carries_its_four_sections(self):
-        for skill in sorted((ROOT / "skills").glob("*/SKILL.md")):
+        for skill in sorted((ROOT / ".agents" / "skills").glob("*/SKILL.md")):
             with self.subTest(skill=skill.parent.name):
                 present = sections(skill)
                 for required in ("## When to use", "## How", "## Verification", "## Anti-patterns"):
@@ -188,4 +188,4 @@ class SurfaceExclude(unittest.TestCase):
 
     def test_an_ordinary_document_is_still_claimed(self):
         self.assertIn("prose", self.claimed("docs/documentation.md"))
-        self.assertIn("i18n", self.claimed("notes/README.i18n.yaml"))
+        self.assertIn("i18n", self.claimed(".agents/notes/README.i18n.yaml"))

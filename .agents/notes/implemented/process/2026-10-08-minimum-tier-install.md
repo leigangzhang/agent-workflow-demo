@@ -14,11 +14,11 @@ Installing every station would mean carrying the homes and gates of release, evo
 
 ## Decision
 
-`tools/tiers.json` carries `default: minimum`, and an explicit `none` for the seven stations this repository does not run: implementation, integration, release, evolution, retirement, rejection, and incident. The homes of those stations — `dev/release`, `dev/upgrade-guide`, `dev/postmortem`, `notes/archived`, `notes/rejected` — are absent from the tree, so the switch and the tree agree in both directions.
+`tools/tiers.json` carries `default: minimum`, and an explicit `none` for the seven stations this repository does not run: implementation, integration, release, evolution, retirement, rejection, and incident. The homes of those stations — `dev/release`, `dev/upgrade-guide`, `dev/postmortem`, `.agents/notes/archived`, `.agents/notes/rejected` — are absent from the tree, so the switch and the tree agree in both directions.
 
 Nine stages are installed: intent, proposal, decision, contract, capabilities, verification, review, documentation, and tests. `dev/contracts` and `dev/capabilities` stay, because the check engine's own definition, providers, and consumers live there, and the minimum tier is where that engine runs.
 
-The kit's own decision records were deleted on installation; `notes/` keeps only each lifecycle's `TEMPLATE.md`, its `README.md`, and its `AGENTS.md`. `README.md`, `README.zh.md`, and `README.i18n.yaml` are this repository's own, because the kit's copy list deliberately omits a root README.
+The kit's own decision records were deleted on installation; `.agents/notes/` keeps only each lifecycle's `TEMPLATE.md`, its `README.md`, and its `AGENTS.md`. `README.md`, `README.zh.md`, and `README.i18n.yaml` are this repository's own, because the kit's copy list deliberately omits a root README.
 
 `AGENTS.md` is this repository's own too: its read-first entry is the kit's own two maps, it states that there is no install step yet, and the two rules that pointed at removed homes now stand without the links.
 

@@ -5,7 +5,7 @@ Read-only: never fetches, never writes, never guesses a base ref.
 
 Patterns use fnmatch semantics, in which `*` also matches `/`:
   "*.md"          every Markdown file at any depth
-  "notes/*.md"    Markdown under notes/ at any depth
+  ".agents/notes/*.md"    Markdown under .agents/notes/ at any depth
   "AGENTS.md"     exactly the root file
 
 A surface may also declare `exclude`, whose patterns remove a path the include patterns
