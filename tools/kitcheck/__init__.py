@@ -4,7 +4,7 @@ from . import (capabilities, core, criteria, evidence, links, mirrors, policies,
                skills, tiers)
 from .capabilities import check_capability_registry
 from .cli import main
-from .core import (DEFAULT_CONFIG, SKIP_DIRECTORIES, count_lines, count_words, die, iter_files, load_config,
+from .core import (DEFAULT_CONFIG, SKIP_DIRECTORIES, corpus, count_lines, count_words, die, iter_files, load_config,
                    read_manifest, section_body)
 from .evidence import check_evidence_record
 from .links import check_link_target

@@ -97,9 +97,12 @@ def matches(path: str, patterns: list[str]) -> bool:
 
 def anchor_paths(root: Path, pairing: dict) -> list[str]:
     """Every `*.md` file in scope as an English-side anchor, in sorted order."""
+    listed = _ENGINE.corpus(root)
     found = []
     for path in root.rglob("*.md"):
         relative = path.relative_to(root).as_posix()
+        if listed is not None and relative not in listed:
+            continue
         if relative.endswith(ZH_SUFFIX):
             continue
         if not matches(relative, pairing["patterns"]):
@@ -717,10 +720,13 @@ def main() -> int:
     for anchor in selected:
         violations.extend(check_anchor(root, prefix, anchor, scope, pairing))
     known = set(selected)
+    listed = _ENGINE.corpus(root)
     for path in sorted(root.rglob("*")):
         if path.suffix not in {".md", ".yaml"}:
             continue
         relative = path.relative_to(root).as_posix()
+        if listed is not None and relative not in listed:
+            continue
         if relative.endswith(RECORD_SUFFIX):
             anchor = relative[: -len(RECORD_SUFFIX)] + ".md"
         elif relative.endswith(ZH_SUFFIX):

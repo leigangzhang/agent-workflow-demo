@@ -10,8 +10,7 @@
       "CLAUDE.md",
       ".agents/skills/*/SKILL.md",
       "docs/check-catalog.md",
-      "dev/evidence/*",
-      ".issues/*"
+      "dev/evidence/*"
     ],
     "hostCanonical": [
       "README.md",

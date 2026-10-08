@@ -7,6 +7,7 @@ from tests.harness import ROOT, WORKFLOW, load_checker, load_pair_docs, load_run
 from pathlib import Path
 import importlib.util
 import json
+import subprocess
 import tempfile
 import unittest
 
@@ -200,3 +201,27 @@ class SwitcherTargets(unittest.TestCase):
 
     def test_a_chinese_switcher_that_names_the_chinese_side_is_rejected(self):
         self.assertTrue(self.check(self.EN, self.ZH.replace("[English](a.md)", "[English](a.zh.md)")))
+
+
+class ThePairingToolReadsTheRepository(unittest.TestCase):
+    """A file git ignores is not in the repository, so it needs no exclusion here either."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.module = load_pair_docs()
+
+    def test_an_ignored_document_is_not_an_anchor(self):
+        """The pairing tool takes the same corpus the checks do, rather than walking the disk.
+
+        Otherwise a project has to name every scratch directory in the pairing exclusions, one
+        entry per directory, and that entry becomes load-bearing for a file nobody can commit.
+        """
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            subprocess.run(("git", "init", "-q"), cwd=root, check=True)
+            (root / ".gitignore").write_text("scratch/\n", encoding="utf-8")
+            (root / "kept.md").write_text("# kept\n", encoding="utf-8")
+            (root / "scratch").mkdir()
+            (root / "scratch" / "brief.md").write_text("# brief\n", encoding="utf-8")
+            pairing = {"patterns": ["*.md"], "exclude": []}
+            self.assertEqual(self.module.anchor_paths(root, pairing), ["kept.md"])
