@@ -268,10 +268,30 @@ def verdict_for(completed: subprocess.CompletedProcess[str] | None, reason: str 
     return "FAIL", None
 
 
-def slug_for(root: Path) -> str:
-    """Return a filesystem-safe slug for the current branch."""
-    branch = git("rev-parse", "--abbrev-ref", "HEAD").stdout.strip() or "detached"
-    return re.sub(r"[^A-Za-z0-9._-]+", "-", branch) or "evidence"
+LONG_LIVED_BRANCHES = ("main", "master", "detached", "")
+
+
+def record_slug(branch: str, surfaces: list[str]) -> str:
+    """Name a record for what it covered, in the reader's words rather than the tool's.
+
+    A reader browsing `dev/evidence/` has the file name and little else. The branch answers
+    that where it says something — a working branch is named for its work — and on a branch
+    that outlives the work it does not: every record there would be `<date>-main`, told apart
+    by a counter nobody can read anything from. The surfaces a run covers are the project's
+    own names for the parts it touched, so the record is named for those instead.
+    """
+    clean = re.sub(r"[^A-Za-z0-9._-]+", "-", branch).strip("-")
+    if clean not in LONG_LIVED_BRANCHES:
+        return clean
+    if not surfaces:
+        return "worktree"
+    return "-".join(surfaces[:3]) + ("-and-more" if len(surfaces) > 3 else "")
+
+
+def slug_for(root: Path, plan: list[dict]) -> str:
+    """Return a filesystem-safe name for the record this run writes."""
+    branch = git("rev-parse", "--abbrev-ref", "HEAD").stdout.strip()
+    return re.sub(r"[^A-Za-z0-9._-]+", "-", record_slug(branch, [surface["name"] for surface in plan])) or "evidence"
 
 
 def unique_record_path(base: Path) -> Path:
@@ -442,7 +462,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"--- [{surfaces}] {verdict}{'' if detail is None else f': {detail}'}")
 
     out = args.out or unique_record_path(
-        root / "dev" / "evidence" / f"{datetime.now(timezone.utc).strftime('%Y-%m-%d')}-{slug_for(root)}.md",
+        root / "dev" / "evidence" / f"{datetime.now(timezone.utc).strftime('%Y-%m-%d')}-{slug_for(root, plan)}.md",
     )
     write_record(root, out, plan, unmatched, results, merge_base, args.base)
 

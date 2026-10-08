@@ -75,3 +75,15 @@ class RunEvidence(unittest.TestCase):
             successor.write_text("second run\n", encoding="utf-8")
             self.assertEqual(self.module.unique_record_path(base).name, "2026-01-01-main-3.md")
             self.assertEqual(base.read_text(encoding="utf-8"), "first run\n")
+
+    def test_a_record_is_named_for_what_it_covered(self):
+        """On a long-lived branch the branch name says nothing, so the surfaces name it.
+
+        Every record on `main` would otherwise be `<date>-main`, told apart by a counter: five
+        such files, indistinguishable by name, sat in the adopting repository's evidence
+        directory. A working branch is named for its work and is kept as it is.
+        """
+        self.assertEqual(self.module.record_slug("main", ["source", "tests", "i18n"]), "source-tests-i18n")
+        self.assertEqual(self.module.record_slug("main", ["a", "b", "c", "d"]), "a-b-c-and-more")
+        self.assertEqual(self.module.record_slug("main", []), "worktree")
+        self.assertEqual(self.module.record_slug("feature/gomoku-ai", ["source"]), "feature-gomoku-ai")
