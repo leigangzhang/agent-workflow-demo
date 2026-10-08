@@ -8,14 +8,14 @@
       "AGENTS.md",
       "*/AGENTS.md",
       "CLAUDE.md",
-      "skills/*/SKILL.md",
+      ".agents/skills/*/SKILL.md",
       "docs/check-catalog.md",
       "dev/evidence/*"
     ],
     "hostCanonical": [
       "README.md",
       "docs/README.md",
-      "notes/README.md",
+      ".agents/notes/README.md",
       "tools/README.md",
       "dev/README.md",
       "tests/README.md"
@@ -38,7 +38,7 @@
     {
       "name": "decisions",
       "patterns": [
-        "notes/*.md"
+        ".agents/notes/*.md"
       ],
       "evidence": [
         "python3 tools/check-invariants.py",
@@ -79,6 +79,17 @@
         "confirm the page was produced by the generator, never patched by hand"
       ],
       "why": "A generated page is a projection of its source. Hand-patching it creates a second fact that the next regeneration deletes, and a generator edit without a regeneration leaves the committed page stale."
+    },
+    {
+      "name": "evidence",
+      "patterns": [
+        "dev/evidence/*"
+      ],
+      "evidence": [
+        "python3 tools/check-invariants.py",
+        "read the record: the command it ran, that command's three-state result, and every entry run-evidence could not execute"
+      ],
+      "why": "An evidence record is written by tools/run-evidence.py rather than by hand, and it is the artifact station 6 leaves behind. It needs an owner like any other path: without this surface, the record the tool has just written is an unowned path and change-scope --strict refuses the very change that produced it."
     },
     {
       "name": "capabilities",
@@ -128,8 +139,8 @@
         "CLAUDE.md",
         "README.md",
         "docs/*.md",
-        "skills/*/SKILL.md",
-        "notes/*/TEMPLATE.md",
+        ".agents/skills/*/SKILL.md",
+        ".agents/notes/*/TEMPLATE.md",
         "dev/review/TEMPLATE.md",
         "dev/release/TEMPLATE.md",
         "dev/upgrade-guide/TEMPLATE.md",
@@ -137,8 +148,8 @@
         "dev/contracts/TEMPLATE.md",
         "dev/capabilities/TEMPLATE.md",
         "tools/AGENTS.md",
-        "notes/AGENTS.md",
-        "notes/README.md",
+        ".agents/notes/AGENTS.md",
+        ".agents/notes/README.md",
         "dev/README.md",
         "tools/tiers.json",
         "tests/AGENTS.md",
@@ -154,7 +165,7 @@
       "name": "workflow",
       "patterns": [
         "tools/*",
-        "skills/*",
+        ".agents/skills/*",
         ".github/*",
         "Makefile",
         "justfile",
@@ -271,11 +282,11 @@
       "patterns": [
         "docs/evolution.md",
         "dev/upgrade-guide/*.md",
-        "notes/archived/*"
+        ".agents/notes/archived/*"
       ],
       "evidence": [
         "python3 tools/check-invariants.py",
-        "confirm every retired record entered notes/archived/ and its seal moved in the same change, and that nobody rewrote a consumed generation instead of adding a successor",
+        "confirm every retired record entered .agents/notes/archived/ and its seal moved in the same change, and that nobody rewrote a consumed generation instead of adding a successor",
         "read the policy as its reader: does each break still have exactly one guide, and does each guide still say how to confirm the migration"
       ],
       "why": "Evolving and retiring are the two stages where an old fact comes back as a current one: a guide nobody wrote leaves the reader to discover the break, and an archive that can still be edited is not an archive."
@@ -297,7 +308,7 @@
       "id": "decision-proposed",
       "kind": "required-sections",
       "patterns": [
-        "notes/proposed/*.md"
+        ".agents/notes/proposed/*.md"
       ],
       "sections": [
         [
@@ -324,7 +335,7 @@
       "id": "decision-implemented",
       "kind": "required-sections",
       "patterns": [
-        "notes/implemented/*.md"
+        ".agents/notes/implemented/*.md"
       ],
       "sections": [
         [
@@ -355,8 +366,8 @@
       "id": "criteria-traced",
       "kind": "criteria-traced",
       "patterns": [
-        "notes/proposed/*.md",
-        "notes/implemented/*.md"
+        ".agents/notes/proposed/*.md",
+        ".agents/notes/implemented/*.md"
       ],
       "sections": [
         [
@@ -597,7 +608,7 @@
       "id": "decision-rejected",
       "kind": "required-sections",
       "patterns": [
-        "notes/rejected/*.md"
+        ".agents/notes/rejected/*.md"
       ],
       "sections": [
         [
@@ -802,9 +813,9 @@
       "id": "archive-seal",
       "kind": "sealed-manifest",
       "patterns": [
-        "notes/archived/*"
+        ".agents/notes/archived/*"
       ],
-      "manifest": "notes/archived/manifest.json",
+      "manifest": ".agents/notes/archived/manifest.json",
       "why": "A record is archived because it still owns history, and history that can be edited stops being evidence: the seal binds the file's bytes and its archive date, so an edit, a deletion, an unregistered drop, and a date that disagrees with the registry all go red. Archived records live under the notes tree so they inherit its subtree rules and its class folders."
     },
     {
@@ -873,7 +884,7 @@
       "id": "skill-record",
       "kind": "required-sections",
       "patterns": [
-        "skills/*/SKILL.md"
+        ".agents/skills/*/SKILL.md"
       ],
       "sections": [
         "## When to use",
@@ -888,7 +899,7 @@
       "id": "skill-trigger",
       "kind": "skill-trigger",
       "patterns": [
-        "skills/*/SKILL.md"
+        ".agents/skills/*/SKILL.md"
       ],
       "why": "A skill is loaded by its description, so a description that summarizes the skill instead of naming when it loads has silently deleted the skill from the agent's reach. This makes that prose rule fail: the description must open with a load trigger ('Use when' / 'Use before' / 'Use after' / 'Use during'), and the wording itself stays a review call."
     },
@@ -896,7 +907,7 @@
       "id": "no-proposal-era-headings",
       "kind": "forbidden-regex",
       "patterns": [
-        "notes/implemented/*.md"
+        ".agents/notes/implemented/*.md"
       ],
       "regex": [
         "^## (?:Proposal|Plan|Migration plan|Acceptance criteria)\\b",
@@ -970,8 +981,8 @@
       "id": "notes-readme",
       "kind": "required-sections",
       "patterns": [
-        "notes/README.md",
-        "notes/README.zh.md"
+        ".agents/notes/README.md",
+        ".agents/notes/README.zh.md"
       ],
       "sections": [
         [
@@ -1014,8 +1025,8 @@
       "id": "note-class",
       "kind": "note-class",
       "patterns": [
-        "notes/*/*/*.md",
-        "notes/*/TEMPLATE.md"
+        ".agents/notes/*/*/*.md",
+        ".agents/notes/*/TEMPLATE.md"
       ],
       "classes": [
         "feature",
@@ -1040,9 +1051,9 @@
         "AGENTS.md",
         "*/AGENTS.md",
         "CLAUDE.md",
-        "skills/*/SKILL.md",
-        "notes/*/TEMPLATE.md",
-        "notes/*/TEMPLATE.zh.md",
+        ".agents/skills/*/SKILL.md",
+        ".agents/notes/*/TEMPLATE.md",
+        ".agents/notes/*/TEMPLATE.zh.md",
         "dev/*/TEMPLATE.md",
         "dev/*/TEMPLATE.zh.md"
       ],
@@ -1052,7 +1063,7 @@
       "id": "notes-readme-budget",
       "kind": "budget",
       "patterns": [
-        "notes/README.md"
+        ".agents/notes/README.md"
       ],
       "maxWords": 1400,
       "why": "The record rules are standing context for every change that writes a record, and they were aligned section for section with the host repository's Agent Note README, which is 1790 words. The kit states the same rules with fewer mechanics (no CI, no archive skill, templates instead of inline skeletons) and still had to say the file format; relocate, then condense, then raise this number and say why. It landed at 1353 after one condensing pass, and the ceiling was set to 1400 rather than lower so a future rule has room without a bump."
@@ -1061,7 +1072,7 @@
       "id": "notes-readme-budget-zh",
       "kind": "budget",
       "patterns": [
-        "notes/README.zh.md"
+        ".agents/notes/README.zh.md"
       ],
       "maxLines": 140,
       "why": "The Chinese side of the record rules, mirroring the host's translated headings. Lines, not words, for the same reason as every Chinese page (docs/i18n.md#typography)."
@@ -1147,8 +1158,8 @@
         "README.md",
         "AGENTS.md",
         "docs/*.md",
-        "notes/*.md",
-        "skills/*.md",
+        ".agents/notes/*.md",
+        ".agents/skills/*.md",
         "tools/*.md",
         "dev/contracts/*.md",
         "dev/capabilities/*.md",
