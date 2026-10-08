@@ -14,16 +14,55 @@ RECORD_PATH = re.compile(r"^\.agents/notes/(?P<lifecycle>[^/]+)/(?P<klass>[^/]+)
 DAY = re.compile(r"\d{4}-\d{2}-\d{2}")
 
 
+def module_table(root: Path, check: dict) -> list[str]:
+    """Read the declared modules from the first column of the table under the check's heading.
+
+    The list lives in the records home rather than in the configuration, so the reader who
+    manages it and the reader who is about to name a record find it in one place. The gate
+    reads that one table; a second rendering of it here would be a second fact.
+    """
+    since = check.get("areasSince")
+    if not isinstance(since, str) or DAY.fullmatch(since) is None:
+        die(f"check {check['id']!r}: 'areasSince' must be yyyy-mm-dd when 'areasIn' is declared")
+    heading = check.get("areasHeading")
+    if not isinstance(heading, str) or not heading:
+        die(f"check {check['id']!r}: 'areasHeading' is required when 'areasIn' is declared")
+    doc = root / check["areasIn"]
+    if not doc.exists():
+        die(f"check {check['id']!r}: {check['areasIn']} does not exist, so the module list has no home")
+    marker = f"\n{heading}\n"
+    start = doc.read_text(encoding="utf-8").find(marker)
+    if start < 0:
+        die(f"check {check['id']!r}: {check['areasIn']} has no {heading!r} section, so the module list has no home")
+    section = doc.read_text(encoding="utf-8")[start + len(marker):]
+    end = section.find("\n## ")
+    if end >= 0:
+        section = section[:end]
+    names: list[str] = []
+    for line in section.splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [cell.strip().strip("`") for cell in line.strip().strip("|").split("|")]
+        head = cells[0] if cells else ""
+        if not head or head in ("Module", "模块") or set(head) <= set("-: "):
+            continue
+        names.append(head)
+    if not names:
+        die(f"check {check['id']!r}: the {heading!r} table in {check['areasIn']} declares no module")
+    return names
+
+
 def check_note_class(root: Path, check: dict) -> list[str]:
     """Reject a record whose path class, `Class:` line, and topic module do not agree with the sets.
 
     A lifecycle's `TEMPLATE.md` is a matched subject only: the skeleton keeps the corpus
     non-empty before the first record exists, and a skeleton is not a record to classify.
 
-    When the check declares `areas`, a topic title dated on or after `areasSince` must open
-    with one of them, so the module a decision belongs to is declared in one place and the
-    file name carries it. A record older than `areasSince` is grandfathered, because the
-    list is a module list and a set of first words harvested from history is not one.
+    When the check declares `areasIn`, a topic title dated on or after `areasSince` must
+    open with a module the table there declares, so the module a decision belongs to is
+    stated in one place and the file name carries it. A record older than `areasSince` is
+    grandfathered, because the list is a module list and a set of first words harvested
+    from history is not one.
     """
     classes = check.get("classes")
     if not isinstance(classes, list) or not classes:
@@ -31,12 +70,8 @@ def check_note_class(root: Path, check: dict) -> list[str]:
     lifecycles = check.get("lifecycles", ["proposed", "implemented", "rejected"])
     if not isinstance(lifecycles, list) or not lifecycles:
         die(f"check {check['id']!r}: 'lifecycles' must be a non-empty list when present")
-    areas = check.get("areas")
-    if areas is not None and (not isinstance(areas, list) or not areas):
-        die(f"check {check['id']!r}: 'areas' must be a non-empty list when present")
+    areas = module_table(root, check) if check.get("areasIn") is not None else None
     since = check.get("areasSince")
-    if areas is not None and (not isinstance(since, str) or DAY.fullmatch(since) is None):
-        die(f"check {check['id']!r}: 'areasSince' must be yyyy-mm-dd when 'areas' is declared")
     violations: list[str] = []
     for relative, text in iter_files(root, check["patterns"]):
         if relative.rsplit("/", 1)[-1].startswith("TEMPLATE"):
@@ -51,8 +86,8 @@ def check_note_class(root: Path, check: dict) -> list[str]:
             module = tokens[3] if len(tokens) > 3 else ""
             if module not in areas:
                 violations.append(
-                    f"{relative}: the topic title opens with {module!r}, which is not a declared module;"
-                    f" declare it in 'areas' or reuse one of {', '.join(areas)}")
+                    f"{relative}: the topic title opens with {module!r}, which is not a module the table declares;"
+                    f" reuse one of {', '.join(areas)} or add a row to {check['areasIn']}")
         if lifecycle not in lifecycles:
             violations.append(f"{relative}: unknown lifecycle {lifecycle!r}; expected one of {', '.join(lifecycles)}")
         if klass not in classes:
@@ -68,6 +103,19 @@ def check_note_class(root: Path, check: dict) -> list[str]:
     return violations
 
 
+MODULE_README = "\n".join([
+    "# Records",
+    "",
+    "## Modules",
+    "",
+    "| Module | What it covers |",
+    "|---|---|",
+    "| `notes` | The records themselves. |",
+    "| `docs` | The standing documents. |",
+    "",
+])
+
+
 SELF_TEST_CASES = (
     (
         "note-class",
@@ -80,8 +128,8 @@ SELF_TEST_CASES = (
         {".agents/notes/implemented/architecture/decision.md": "Status: implemented\nClass: process\n\n## Problem\nx\n"},
         {".agents/notes/implemented/architecture/decision.md": "Status: implemented\nClass: architecture\n\n## Problem\nx\n"},
     ),
-    # A topic title dated on or after the rule must open with a declared module; the same
-    # title one day earlier is grandfathered, which is the same fixture proving both halves.
+    # A topic title dated on or after the rule must open with a module the table declares;
+    # the same title one day earlier is grandfathered, which is one fixture proving both halves.
     (
         "note-class",
         {
@@ -89,10 +137,17 @@ SELF_TEST_CASES = (
             "kind": "note-class",
             "patterns": [".agents/notes/*/*/*.md"],
             "classes": ["feature", "bug-fix", "simplification", "architecture", "process", "testing"],
-            "areas": ["notes", "docs"],
+            "areasIn": ".agents/notes/README.md",
+            "areasHeading": "## Modules",
             "areasSince": "2026-10-08",
         },
-        {".agents/notes/implemented/process/2026-10-08-widget-thing.md": "Class: process\n\n## Problem\nx\n"},
-        {".agents/notes/implemented/process/2026-10-07-widget-thing.md": "Class: process\n\n## Problem\nx\n"},
+        {
+            ".agents/notes/README.md": MODULE_README,
+            ".agents/notes/implemented/process/2026-10-08-widget-thing.md": "Class: process\n\n## Problem\nx\n",
+        },
+        {
+            ".agents/notes/README.md": MODULE_README,
+            ".agents/notes/implemented/process/2026-10-07-widget-thing.md": "Class: process\n\n## Problem\nx\n",
+        },
     ),
 )

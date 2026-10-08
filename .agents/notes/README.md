@@ -16,8 +16,6 @@ Every record has two axes, both encoded in its **path** — `{lifecycle}/{class}
 
 The date in the filename is when the topic was **first proposed**. Records cross-reference each other with relative Markdown links, never bare prose: a link survives a move, and `pair-docs.py --check` resolves its fragment.
 
-The **topic title** opens with the module the decision lives in, then the decision — `web-browser-snapshot-ci-gate`, `mcp-tool-list-refresh`; the slug follows, so the module is the filename's first token and the tree sorts by it. It must be declared in `areas` ([workflow.json](../../tools/workflow.json)), and gate `note-class` holds the list against every record dated on or after `areasSince` ([how one is chosen](../skills/record-decision/SKILL.md)).
-
 Templates live one level up, at `.agents/notes/<lifecycle>/TEMPLATE.md`: the skeleton is keyed by the lifecycle, not the class, and each one keeps its checks from matching no file — an empty corpus is void, not passing.
 
 The tree is the inventory: browse its class folders, or start from the index in [docs/README.md](../../docs/README.md). Do not add a centralized index page for it — a second list is a second fact.
@@ -36,6 +34,19 @@ Each record belongs to one path-encoded class from the closed set declared in th
 | `testing` | Test infrastructure and strategy. |
 
 The `architecture` / `process` line: architecture is about the artefact itself; process is the surrounding machinery and the rules that govern it. `refactor` is deliberately absent — its only discriminator, "does observable behaviour change?", is already `simplification`'s.
+
+## Modules
+
+A record's topic title opens with the **module** the decision lives in, because the class says what kind of decision it is and never which part of the project it is about. Gate `note-class` rejects a new title whose first token is not in the table below.
+
+The class set above is closed and adopted from the host repository. This one is open and this project's own: it starts with the entry a project starts with, and it grows as records arrive.
+
+| Module | What it covers |
+|---|---|
+| `init` | This project's start: the tier it runs, and the records it began with. |
+| `game` | The Gomoku feature: its rules, its opponent, and its presentation. |
+
+**How the list is kept.** Look the module up before you name a file, by the name the code or the directory uses and by the words a reader would search for — a near match is a match, and a second name for the same place is how a list stops being usable. Reuse whenever the decision lives where an entry already points: most records reuse, and a list that grows with every record is a list nobody reads. Add a row only when nothing here is where the decision lives, in the same change as the record that needs it, and name a **place rather than a topic** — `sandbox`, not `new-sandbox-flag`. Never rename a module a record already uses, because records are addressed by their paths: a module that splits or is renamed gains a second row, and the first leaves only when the last record that used it is gone. The same judgement runs in reverse — an entry no record reaches a file through is a name the next reader will reuse by mistake.
 
 ## Archiving and deletion
 

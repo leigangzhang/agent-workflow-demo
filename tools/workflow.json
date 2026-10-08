@@ -996,10 +996,14 @@
         [
           "## Where to look",
           "## 去哪看"
+        ],
+        [
+          "## Modules",
+          "## 模块"
         ]
       ],
       "minBodyLines": 1,
-      "why": "A record home's landing page follows the host repository's Agent Note README section for section — layout and naming, classification, archiving and deletion, when to write one, the file format — plus the one kit-specific routing section, so a reader who knows either tree knows both. The Chinese side declares the host's own translated heading names."
+      "why": "A record home's landing page follows the host repository's Agent Note README section for section — layout and naming, classification, archiving and deletion, when to write one, the file format — plus the one kit-specific routing section, so a reader who knows either tree knows both. The Chinese side declares the host's own translated heading names. `## Modules` joined the list with the module table: the declared modules and the rules for keeping them live in one section, which is the section this check must keep from disappearing."
     },
     {
       "id": "tools-readme",
@@ -1042,12 +1046,10 @@
         "rejected",
         "archived"
       ],
-      "areas": [
-        "init",
-        "game"
-      ],
+      "areasIn": ".agents/notes/README.md",
+      "areasHeading": "## Modules",
       "areasSince": "2026-10-08",
-      "why": "A record's class is path-encoded, so a record dropped into the wrong folder drifts out of the taxonomy with nothing to notice. The path class, the `Class:` line, and the closed set must agree; the set is adopted from the host repository, which gates the same tree with the same six classes. Sealed records are classed too: `archived/` is a lifecycle whose folders still carry the closed class set. Each lifecycle's `TEMPLATE.md` is matched only so a cleaned corpus keeps a subject; the runner skips it, because a skeleton is not a record yet. `areas` is this project's module list, and it is open where the class set is closed: a module is named by the project, grows as records arrive, and is retired when the last record that used it is gone. A record dated on or after `areasSince` must open its topic title with a declared module, so the name a reader sorts and searches by is declared before it is used; records older than that date are grandfathered, because a module list harvested from history would list first words rather than modules. Adding a module is a one-line change here, in the same change as the record that needs it — and the lookup that decides between reusing one and adding one is `record-decision`'s."
+      "why": "A record's class is path-encoded, so a record dropped into the wrong folder drifts out of the taxonomy with nothing to notice. The path class, the `Class:` line, and the closed set must agree; the set is adopted from the host repository, which gates the same tree with the same six classes. Sealed records are classed too: `archived/` is a lifecycle whose folders still carry the closed class set. Each lifecycle's `TEMPLATE.md` is matched only so a cleaned corpus keeps a subject; the runner skips it, because a skeleton is not a record yet. The module list is the table under `areasHeading` in `areasIn` — the records home, where a reader managing the list already is, rather than a second rendering of it here — and this check reads its first column, so the list has one home and the gate has one source. That list is open where the class set is closed: a module is named by the project, grows as records arrive, and is retired when the last record that used it is gone. A record dated on or after `areasSince` must open its topic title with a module from the table, so the name a reader sorts and searches by is declared before it is used; records older than that date are grandfathered, because a module list harvested from history would list first words rather than modules. The maintenance rules sit under the table, in the same section."
     },
     {
       "id": "agent-input-links",
@@ -1078,8 +1080,8 @@
       "patterns": [
         ".agents/notes/README.md"
       ],
-      "maxWords": 1430,
-      "why": "The record rules are standing context for every change that writes a record, and they were aligned section for section with the host repository's Agent Note README, which is 1790 words. The kit states the same rules with fewer mechanics (no CI, no archive skill, templates instead of inline skeletons) and still had to say the file format; relocate, then condense, then raise this number and say why. It landed at 1353 after one condensing pass, and the ceiling was set to 1400 rather than lower so a future rule has room without a bump. Raised 1400 → 1430 when the module-first title rule landed: the first draft of that paragraph ran to 131 words, its rationale moved into the record it links to, and what remains is the rule and one clause — 60 words, against the 15 the old ceiling had left. The ceiling is 1430 rather than 1417 for the same reason the last bump left headroom."
+      "maxWords": 1750,
+      "why": "The record rules are standing context for every change that writes a record, and they were aligned section for section with the host repository's Agent Note README, which is 1790 words. The kit states the same rules with fewer mechanics (no CI, no archive skill, templates instead of inline skeletons) and still had to say the file format; relocate, then condense, then raise this number and say why. It landed at 1353 after one condensing pass, and the ceiling was set to 1400 rather than lower so a future rule has room without a bump. Raised 1400 → 1430 when the module-first title rule landed: the first draft of that paragraph ran to 131 words, its rationale moved into the record it links to, and what remains is the rule and one clause — 60 words, against the 15 the old ceiling had left. The ceiling is 1430 rather than 1417 for the same reason the last bump left headroom. Raised 1430 → 1750 when the module list moved into this page: the table, the lead that says which axis is open, and the maintenance rules that govern it are read by whoever manages the list and by whoever is about to name a record, so they belong beside the rules rather than in the configuration the gate reads for the pointer alone. The ceiling is 1750 rather than the file's own count for the same reason again, and it stays under the host's 1790, which still carries every mechanism this page states as a rule. The paragraph that carried the title rule in `## Layout and naming` was deleted in the same change, because the section the list moved to states it too, and two statements of one rule are the drift this file exists to prevent."
     },
     {
       "id": "notes-readme-budget-zh",
