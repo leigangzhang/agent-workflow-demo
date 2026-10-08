@@ -169,13 +169,14 @@
         ".github/*",
         "Makefile",
         "justfile",
+        ".gitignore",
         "tools/tiers.json"
       ],
       "evidence": [
         "python3 tools/check-invariants.py --self-test",
         "read each skill's description: it must name when the skill loads, not what it contains"
       ],
-      "why": "A guard is only real if a violation makes it red; a skill is only real if its description names when it fires."
+      "why": "A guard is only real if a violation makes it red; a skill is only real if its description names when it fires. `.gitignore` is here because it is repository configuration like the rest of this list, and without a pattern that matches it a change to it is an unowned path — the one file every project has and no surface claimed."
     },
     {
       "name": "tests",
