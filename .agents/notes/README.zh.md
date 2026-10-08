@@ -16,6 +16,8 @@
 
 文件名里的日期是这件事**第一次被提出**的日期。记录之间的交叉引用一律用相对 Markdown 链接，绝不用裸文字或编号：链接能挺过搬动，而且 `pair-docs.py --check` 会解析它的 fragment。
 
+**标题**以这件事所属的模块开头，然后才是决定本身 —— `web-browser-snapshot-ci-gate`、`mcp-tool-list-refresh`。slug 跟着标题走，所以模块就是文件名的第一个词，整棵树按它排序。这条规矩由评审者来守；闸门守不了，因为模块集合是开集。
+
 模板住在上一层，即 `.agents/notes/<lifecycle>/TEMPLATE.md` —— 骨架由生命周期决定，不由类目决定 —— 每个模板还负责让对应检查不至于匹配不到文件，因为空语料判无效，而不是判通过。
 
 这棵生命周期树就是清单：浏览它的类目目录，或者从 [docs/README.md](../../docs/README.zh.md) 的索引进来。不要为这棵树再加一个集中索引页：第二份清单就是第二个事实，而已经存在的索引本来就路由到这里。
@@ -93,6 +95,7 @@
 ## 去哪看
 
 - 怎么写：骨架在 [.agents/notes/proposed/TEMPLATE.md](proposed/TEMPLATE.md) 与 [.agents/notes/implemented/TEMPLATE.md](implemented/TEMPLATE.md)。
+- 一个目标怎么变成一到多份记录：[.agents/skills/shape-intent/SKILL.md](../skills/shape-intent/SKILL.md) 里的触发器。
 - 一次改动该写哪份记录：[evolution.md](../../docs/evolution.md) 里的选择器（指向英文原文 —— 宿主管辖的配对要求两侧链接逐字一致，页顶可切到中文）。
 - 每一节必须写什么：[documentation.md](../../docs/documentation.md) 里的文档 kind（同上，英文原文）。
 - 这个仓库做过的全部记录：本树，按文件名从新到旧。

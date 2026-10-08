@@ -1073,8 +1073,8 @@
       "patterns": [
         ".agents/notes/README.md"
       ],
-      "maxWords": 1400,
-      "why": "The record rules are standing context for every change that writes a record, and they were aligned section for section with the host repository's Agent Note README, which is 1790 words. The kit states the same rules with fewer mechanics (no CI, no archive skill, templates instead of inline skeletons) and still had to say the file format; relocate, then condense, then raise this number and say why. It landed at 1353 after one condensing pass, and the ceiling was set to 1400 rather than lower so a future rule has room without a bump."
+      "maxWords": 1430,
+      "why": "The record rules are standing context for every change that writes a record, and they were aligned section for section with the host repository's Agent Note README, which is 1790 words. The kit states the same rules with fewer mechanics (no CI, no archive skill, templates instead of inline skeletons) and still had to say the file format; relocate, then condense, then raise this number and say why. It landed at 1353 after one condensing pass, and the ceiling was set to 1400 rather than lower so a future rule has room without a bump. Raised 1400 → 1430 when the module-first title rule landed: the first draft of that paragraph ran to 131 words, its rationale moved into the record it links to, and what remains is the rule and one clause — 60 words, against the 15 the old ceiling had left. The ceiling is 1430 rather than 1417 for the same reason the last bump left headroom."
     },
     {
       "id": "notes-readme-budget-zh",

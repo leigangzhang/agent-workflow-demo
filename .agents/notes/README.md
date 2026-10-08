@@ -16,6 +16,8 @@ Every record has two axes, both encoded in its **path** — `{lifecycle}/{class}
 
 The date in the filename is when the topic was **first proposed**. Records cross-reference each other with relative Markdown links, never bare prose: a link survives a move, and `pair-docs.py --check` resolves its fragment.
 
+The **topic title** opens with the module the decision lives in, then the decision — `web-browser-snapshot-ci-gate`, `mcp-tool-list-refresh`. The slug follows the title, so the module is the filename's first token and the tree sorts by it. A reviewer holds this rule; no gate can, because a module set is open.
+
 Templates live one level up, at `.agents/notes/<lifecycle>/TEMPLATE.md`: the skeleton is keyed by the lifecycle, not the class, and each one keeps its checks from matching no file — an empty corpus is void, not passing.
 
 The tree is the inventory: browse its class folders, or start from the index in [docs/README.md](../../docs/README.md). Do not add a centralized index page for it — a second list is a second fact.
@@ -93,6 +95,7 @@ A `.zh.md` counterpart mirrors its English sibling section for section, with a `
 ## Where to look
 
 - How to write one: the skeletons in [.agents/notes/proposed/TEMPLATE.md](proposed/TEMPLATE.md) and [.agents/notes/implemented/TEMPLATE.md](implemented/TEMPLATE.md).
+- How a goal becomes one or more records: the trigger in [.agents/skills/shape-intent/SKILL.md](../skills/shape-intent/SKILL.md).
 - Which record a change needs: the selector in [evolution.md](../../docs/evolution.md).
 - What each section must contain: the document kinds in [documentation.md](../../docs/documentation.md).
 - Every record this kit has made: this tree, newest first by file name.
