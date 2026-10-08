@@ -1,0 +1,22 @@
+# Bilingual-pair consistency record for 2026-10-07-kit-records-and-copy-cleanup.md (docs/i18n.md): per heading section, a hash
+# of its English and Chinese blocks outside fenced code blocks.
+# After editing either side, bring the other along and re-record with:
+#   python3 tools/pair-docs.py --write .agents/notes/implemented/process/2026-10-07-kit-records-and-copy-cleanup.md
+/decision-record-the-kit-s-own-changes-and-delete-the-kit-s-records-at-copy-time:
+  en: 457f530efbda81a7
+  zh: 44c5a93684839b8c
+/decision-record-the-kit-s-own-changes-and-delete-the-kit-s-records-at-copy-time/problem:
+  en: 4e34a4b63e10a24c
+  zh: 054bbc2d9bde0e1f
+/decision-record-the-kit-s-own-changes-and-delete-the-kit-s-records-at-copy-time/decision:
+  en: 88e4eac97b364262
+  zh: 1de233ca860161bd
+/decision-record-the-kit-s-own-changes-and-delete-the-kit-s-records-at-copy-time/alternatives-considered:
+  en: 503f6a05547990c2
+  zh: edbba6a50e8d1aa0
+/decision-record-the-kit-s-own-changes-and-delete-the-kit-s-records-at-copy-time/consequences:
+  en: 301bf0269a18dec7
+  zh: 6a9a5fe66cd539c0
+/decision-record-the-kit-s-own-changes-and-delete-the-kit-s-records-at-copy-time/testing:
+  en: b849cab69a25cf95
+  zh: 8367f121fb0c5439

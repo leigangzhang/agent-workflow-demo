@@ -53,7 +53,14 @@ def literal_prefix(pattern: str) -> str:
 
 
 def home_owns(pattern: str, home: str) -> bool:
-    """True when a check's pattern can only match files inside one stage's home."""
+    """True when a check's pattern can only match files inside one stage's home.
+
+    A home with no literal prefix — `*.spec.*`, `*_test.py` — cannot be reached by prefix
+    comparison at all, so a check that declares the identical glob is accepted as its
+    guard: the check and the stage name the same set of files.
+    """
+    if pattern == home:
+        return True
     pinned, owned = literal_prefix(pattern), literal_prefix(home)
     return bool(owned) and (pinned == owned or pinned.startswith(owned.rstrip("/") + "/") or pinned.startswith(owned))
 
@@ -102,10 +109,6 @@ def check_tier_manifest(root: Path, check: dict) -> list[str]:
         # and `test_*.py` is installed when either one is.
         if not any(next(iter_files(root, [home]), None) is not None for home in homes):
             violations.append(f"{TIER_SWITCH}: stage {stage!r} is installed, but none of {homes!r} matches a file")
-        for home in homes:
-            owners = [c["id"] for c in switch.get("checks", []) if any(home_owns(p, home) for p in c.get("patterns", []))]
-            if switch.get("checks") and not owners:
-                violations.append(f"{TIER_SWITCH}: stage {stage!r} is installed, but no check owns {home!r}")
     # The map's tier table is the human rendering of the ladder.
     map_text = (root / "dev/README.md").read_text(encoding="utf-8") if (root / "dev/README.md").exists() else ""
     for tier in tiers:
@@ -121,6 +124,26 @@ def check_tier_manifest(root: Path, check: dict) -> list[str]:
             label = catalogue[stage].get("label")
             if catalogue[stage].get("number") is None and label and label not in row:
                 violations.append(f"dev/README.md: the {tier!r} row does not name {stage!r} ({label!r}), which the switch introduces there")
+    return violations
+
+
+def check_stage_ownership(root: Path, checks: list[dict]) -> list[str]:
+    """Reject an installed stage whose home no declared check reaches into.
+
+    The switch and the tree can agree while the guard is missing: a stage installed, its
+    home holding files, and no check whose patterns reach into that home is a stage
+    nothing verifies. The rule needs both halves of the configuration at once, so
+    `run_checks` calls it with the checks it already loaded — a runner sees one check and
+    can only ever compare it with itself.
+    """
+    switch = load_tier_switch(root)
+    catalogue = switch["stages"]
+    violations: list[str] = []
+    for stage in sorted(switch["installed"]):
+        for home in homes_of(catalogue, stage):
+            owners = [c["id"] for c in checks if any(home_owns(p, home) for p in c.get("patterns", []))]
+            if not owners:
+                violations.append(f"{TIER_SWITCH}: stage {stage!r} is installed, but no check owns {home!r}")
     return violations
 
 

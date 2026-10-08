@@ -1,5 +1,7 @@
 # Git state corrected, and the co-location question decided — verification record, 2026-10-07
 
+Verdict: MANUAL — every command below was run by hand in this checkout and its output pasted verbatim, because run-evidence could not see this tree at the time.
+
 ## Two things this record covers
 
 1. **A false claim was corrected.** Nine evidence records said `study/` was git-ignored by its host repository. It is not: the host's `.gitignore` line is `# study/`, commented out, and `git ls-files study` returns `0` — the tree is **untracked**, not ignored. The effect those records described is real (the git-based tools cannot enumerate the files individually), so only the reason was wrong. Each record now states it correctly and carries a `Corrected 2026-10-07` note that preserves the misreading, including where it came from: [tools/README.md](../../tools/README.md) says a path under *an* ignored tree does not appear at all, which is the general rule, not a statement about this tree.

@@ -1,5 +1,7 @@
 # Tier switch — verification record, 2026-10-07
 
+Verdict: MANUAL — every command below was run by hand in this checkout and its output pasted verbatim, because run-evidence could not see this tree at the time.
+
 ## What landed
 
 `tools/tiers.json` is the only tier switch: an ordered `tiers` ladder, `ladder` increments, a `stages` catalogue that names the paths each stage owns, a top-level default, and per-lifecycle overrides. `check-invariants.py` resolves it, skips the checks that own nothing but an absent stage's paths (withholding the empty-corpus rule), and runs the new `tier-manifest` check.

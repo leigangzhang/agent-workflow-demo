@@ -26,7 +26,7 @@ SKIP_DIRECTORIES = {
 
 # capability: check-engine — the declared check kinds are this capability's interface.
 # region: supported-kinds
-SUPPORTED_KINDS = ("tier-manifest", "budget", "required-sections", "source-mirror", "capability-registry", "criteria-traced", "forbidden-regex", "note-class", "link-target", "skill-trigger", "publish-manifest", "sealed-manifest")
+SUPPORTED_KINDS = ("tier-manifest", "budget", "required-sections", "source-mirror", "capability-registry", "criteria-traced", "forbidden-regex", "note-class", "link-target", "evidence-record", "skill-trigger", "publish-manifest", "sealed-manifest")
 # endregion: supported-kinds
 
 

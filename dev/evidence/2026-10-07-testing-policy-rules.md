@@ -1,5 +1,7 @@
 # Testing policy: three language-neutral rules, a budget, and a repaired citation — verification record, 2026-10-07
 
+Verdict: MANUAL — every command below was run by hand in this checkout and its output pasted verbatim, because run-evidence could not see this tree at the time.
+
 ## What changed
 
 - `## Test doubles` joined the policy: substitute only the expensive or non-deterministic edge; name the boundary you replaced; keep the interface the code already calls; green with a stand-in proves the call site, not the integration.

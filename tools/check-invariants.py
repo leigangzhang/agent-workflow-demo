@@ -1,6 +1,6 @@
 """Executable conventions: every check here can fail, and --self-test proves it.
 
-Checks are declared in tools/workflow.json. Ten kinds are supported:
+Checks are declared in tools/workflow.json. Twelve kinds are supported:
 
   budget                files matching `patterns` stay at or under `maxLines`, `maxWords`
                         (whitespace-separated, as `wc -w` counts them), or both
@@ -17,6 +17,12 @@ Checks are declared in tools/workflow.json. Ten kinds are supported:
   source-mirror         fenced blocks registered in `manifest` equal the source region
                         between a `begin` and an `end` marker line; trailing whitespace
                         and blank edges are ignored, nothing else is
+  link-target           files matching `patterns` carry no relative link that names no
+                        file; a link into a stage the tier switch declares absent is
+                        exempt, and the scanner is the one tools/pair-docs.py uses
+  evidence-record       files matching `patterns` are records written by
+                        tools/run-evidence.py: each carries the shape a reader needs, and
+                        its `Verdict:` counts agree with the entries below it
   capability-registry   capabilities registered in `manifest` are complete, and their
                         keys equal the `capability: <key>` markers discovered in source
   criteria-traced       every bullet in the listed `sections` carries an id and cites a

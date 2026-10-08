@@ -13,9 +13,10 @@ import json
 import sys
 import tempfile
 
-from . import capabilities, criteria, links, mirrors, policies, publication, records, seals, skills, tiers
+from . import capabilities, criteria, evidence, links, mirrors, policies, publication, records, seals, skills, tiers
 from .capabilities import check_capability_registry
 from .core import SUPPORTED_KINDS, die, iter_files, load_config
+from .evidence import check_evidence_record
 from .links import check_link_target
 from .mirrors import check_source_mirror
 from .policies import check_budget, check_forbidden_regex, check_required_sections
@@ -24,7 +25,7 @@ from .publication import check_publish_manifest
 from .records import check_note_class
 from .seals import check_sealed_manifest
 from .skills import check_skill_trigger
-from .tiers import check_tier_manifest, home_owns, load_tier_switch
+from .tiers import check_stage_ownership, check_tier_manifest, home_owns, load_tier_switch
 
 
 
@@ -35,6 +36,7 @@ RUNNERS = {
     "forbidden-regex": check_forbidden_regex,
     "note-class": check_note_class,
     "link-target": check_link_target,
+    "evidence-record": check_evidence_record,
     "source-mirror": check_source_mirror,
     "capability-registry": check_capability_registry,
     "criteria-traced": check_criteria_traced,
@@ -50,9 +52,12 @@ def run_checks(root: Path, checks: list[dict]) -> list[tuple[str, list[str]]]:
     A check whose patterns match no file is reported as a violation. A check with no
     subject cannot fail, so it is an empty shell rather than a guard: it reads as
     protection while proving nothing.
+
+    `tier-manifest` also carries the rule that every installed stage's home must be
+    reachable by some declared check. That rule needs the switch and the whole check list
+    at once, so it is applied here rather than inside the runner, which sees one check.
     """
     switch = load_tier_switch(root)
-    switch["checks"] = checks
     results: list[tuple[str, list[str]]] = []
     for check in checks:
         # A check that can only match a stage the switch says is absent is a declared
@@ -63,6 +68,8 @@ def run_checks(root: Path, checks: list[dict]) -> list[tuple[str, list[str]]]:
             continue
         matched = sum(1 for _ in iter_files(root, check["patterns"]))
         violations = RUNNERS[check["kind"]](root, check)
+        if check["kind"] == "tier-manifest":
+            violations = violations + check_stage_ownership(root, checks)
         if matched == 0 and check["kind"] != "tier-manifest":
             violations = [f"no file matched {check['patterns']!r}: a check with no subject cannot fail"] + violations
         results.append((check["id"], violations))
@@ -128,6 +135,31 @@ def self_test() -> int:
     else:
         failed.append("empty-corpus")
         print("FAIL empty-corpus: a check matching no file passed, so it cannot fail")
+
+    # An installed stage whose home no check reaches into must be rejected: the switch and
+    # the tree can agree while the guard is missing entirely. Both directions need a probe,
+    # or the rule is one nobody has watched fail.
+    tier_check = {"id": "tier-manifest", "kind": "tier-manifest", "patterns": ["tools/tiers.json"]}
+    with write_fixtures(tiers.SELF_TEST_TIER_FILES) as unguarded_dir:
+        unguarded = run_checks(Path(unguarded_dir), [tier_check])
+    missing_owner = [v for _id, vs in unguarded for v in vs if "no check owns" in v]
+    if missing_owner:
+        print(f"PASS tier-ownership: an installed stage with no owning check was rejected ({missing_owner[0]})")
+    else:
+        failed.append("tier-ownership")
+        print("FAIL tier-ownership: an installed stage with no owning check passed")
+    with write_fixtures(tiers.SELF_TEST_TIER_FILES) as guarded_dir:
+        guarded = run_checks(Path(guarded_dir), [
+            tier_check,
+            {"id": "owns-proposal", "kind": "budget", "patterns": [".agents/notes/proposed/*.md"], "maxLines": 100},
+            {"id": "owns-contract", "kind": "budget", "patterns": ["dev/contracts/*.md"], "maxLines": 100},
+        ])
+    still_missing = [v for _id, vs in guarded for v in vs if "no check owns" in v]
+    if not still_missing:
+        print("PASS tier-ownership-guarded: a stage with an owning check was accepted")
+    else:
+        failed.append("tier-ownership-guarded")
+        print(f"FAIL tier-ownership-guarded: a stage with an owning check was rejected ({still_missing[0]})")
 
     # A section may declare several accepted spellings, because a translated page
     # carries its own heading wording. Both directions need a probe: the localized
@@ -365,4 +397,4 @@ if __name__ == "__main__":
 
 SELF_TEST_CASES = (tiers.SELF_TEST_CASES + policies.SELF_TEST_CASES + mirrors.SELF_TEST_CASES + capabilities.SELF_TEST_CASES
                    + records.SELF_TEST_CASES + publication.SELF_TEST_CASES + seals.SELF_TEST_CASES + criteria.SELF_TEST_CASES
-                   + skills.SELF_TEST_CASES + links.SELF_TEST_CASES)
+                   + skills.SELF_TEST_CASES + links.SELF_TEST_CASES + evidence.SELF_TEST_CASES)

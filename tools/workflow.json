@@ -1060,6 +1060,14 @@
       "why": "The agent loads these files, and pairing excludes them, because agent instructions and skills are single-language by rule. Without this check a rule, a skill, or a record template can cite a file that does not exist and nothing goes red: the reader follows the link and finds nothing. A link into a stage the tier switch declares absent is exempt, which is the tolerance `pair-docs` already applies to paired documents."
     },
     {
+      "id": "evidence-record",
+      "kind": "evidence-record",
+      "patterns": [
+        "dev/evidence/*.md"
+      ],
+      "why": "The record is what a reviewer reads to decide whether a change's evidence holds, and tools/run-evidence.py writes it rather than a person. Its verdict is a claim about its own entries: counts that disagree with the entries below them, or a `Verdict:` of PASS beside an entry that failed, mean the record was edited, truncated, or written by a regressed generator — and a verdict nobody can trust is worse than no record. The format belongs to that writer; a change to it lands with a change to this check."
+    },
+    {
       "id": "notes-readme-budget",
       "kind": "budget",
       "patterns": [

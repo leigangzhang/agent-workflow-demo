@@ -1,5 +1,7 @@
 # The engine and the suite, split by subject — verification record, 2026-10-07
 
+Verdict: MANUAL — every command below was run by hand in this checkout and its output pasted verbatim, because run-evidence could not see this tree at the time.
+
 ## What changed
 
 `tools/check-invariants.py` went from 1637 lines to a 95-line entry (its manual, then the engine call), and the engine became the package `tools/kitcheck/`. The suite went from one 669-line file to `harness.py` plus five subject modules holding the same fourteen classes.
