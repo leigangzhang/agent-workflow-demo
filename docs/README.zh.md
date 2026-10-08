@@ -31,7 +31,7 @@
 | [dev/README.md](../dev/README.zh.md) | guide | 全档 | — | 生命周期地图：十一站的进出口、它的闸门与反模式 |
 | `docs/` | policy | 全档 | `docs-policy`、`i18n-policy`、`evolution-policy`、`testing-policy`，各带一条预算 | 套件的常驻规则：文档、词汇、语言、演化、测试 |
 | [tools/](../tools/README.zh.md) | machinery | 全档 | —（它实现全部闸门） | 五个脚本、它们唯一的配置（`workflow.json`），以及改它们的规矩 |
-| [skills/](../skills/write-docs/SKILL.md) | skills | 全档 | `skill-record`、`skill-trigger` | 十二个触发层，由 `description` 加载，而不是按顺序通读 |
+| [skills/](../skills/write-docs/SKILL.md) | skills | 全档 | `skill-record`、`skill-trigger` | 触发层，由 `description` 加载，而不是按顺序通读 |
 | [notes/](../notes/README.zh.md) | records | 全档 | `decision-*`、`no-proposal-era-headings`、`criteria-traced`、`note-class`、`notes-readme` | 决策记录：提案、已实现的决定、被否决的提案，每份都归在类目目录下 |
 | [dev/contracts/](../dev/contracts/TEMPLATE.md) | contract | 最小档 | `contract-record`、`contract-mirror`、`contract-kinds-budget` | 接口、镜像声明，以及契约的 kind 清单 |
 | [dev/capabilities/](../dev/capabilities/TEMPLATE.md) | records | 最小档 | `capability-record`、`capability-registry` | 能力登记处：seam、core、service、bundle |
