@@ -81,10 +81,6 @@
     {
       "pattern": "tests/AGENTS.md",
       "reason": "standing orders for an agent editing the suite; the reader-facing policy lives in docs/testing.md and the layout in the file itself"
-    },
-    {
-      "pattern": ".issues/*",
-      "reason": "review briefs about work in flight, kept out of git on purpose; classified here because the publication switch reads the tree rather than the index, so an ignored page is still a page"
     }
   ]
 }

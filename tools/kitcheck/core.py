@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Iterator
 from typing import NoReturn
 import json
+import subprocess
 import sys
 
 DEFAULT_CONFIG = Path(__file__).resolve().parent.parent / "workflow.json"  # tools/workflow.json, beside the package
@@ -61,13 +62,38 @@ def load_config(path: Path) -> dict:
     return config
 
 
+def corpus(root: Path) -> set[str] | None:
+    """The repository's files as git sees them: tracked, plus untracked and not ignored.
+
+    A file git ignores is not in the repository, so it is not a check's subject either.
+    Without this, every project has to declare its own scratch directories — in the
+    publication switch and in the pairing exclusions, one entry per directory per config —
+    and a declaration a project forgets turns a check red on a file that cannot ship.
+    Returns None when git cannot answer, and the caller walks the tree instead.
+    """
+    try:
+        listed = subprocess.run(("git", "ls-files", "-co", "--exclude-standard", "-z"),
+                                cwd=root, capture_output=True, check=True)
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    return {name for name in listed.stdout.decode("utf-8", "surrogateescape").split("\0") if name}
+
+
 def iter_files(root: Path, patterns: list[str]) -> Iterator[tuple[str, str]]:
-    """Yield (repository-relative path, text) for every text file matching one pattern."""
+    """Yield (repository-relative path, text) for every text file matching one pattern.
+
+    The corpus is the repository rather than the disk. When git cannot answer, the walk is
+    the fallback and `SKIP_DIRECTORIES` covers the directories that are never source; that
+    list is a guess at what git already knows.
+    """
+    listed = corpus(root)
     for dirpath, dirnames, filenames in os.walk(root):
         dirnames[:] = sorted(name for name in dirnames if name not in SKIP_DIRECTORIES)
         for filename in sorted(filenames):
             path = Path(dirpath) / filename
             relative = path.relative_to(root).as_posix()
+            if listed is not None and relative not in listed:
+                continue
             if not any(fnmatch(relative, pattern) for pattern in patterns):
                 continue
             if path.is_symlink():
