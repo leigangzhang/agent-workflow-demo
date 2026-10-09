@@ -35,6 +35,15 @@ Changing how a check decides is a four-place change, and all four land together:
 
 A rule no fixture can make red is noise, not a guard.
 
+## Syncing a change into a copy of the kit
+
+A project that adopted the kit runs the same scripts and a **different** configuration, so a kit change reaches it by rule or by hunk — never by copying whole files. `diff` first, and ask of each file whether it is meant to be byte-identical on both sides.
+
+- **The kit's files** — the five scripts, [tools/kitcheck/](../tools/kitcheck/), and the nested `AGENTS.md` files carry no project facts; copy them verbatim.
+- **The project's files** — the root `AGENTS.md` names that project's own documents under `## Read first` and its own checks under `## Commands`; [tools/workflow.json](../tools/workflow.json) holds that project's surfaces, evidence commands, and policy, including whether a page deliverable needs a visual read (`delivery.page`). A wholesale copy replaces both with the kit's template.
+
+The loss is quiet, which is why the rule is written down: the gates still pass, because an evidence entry left as the kit's placeholder reads as a manual entry and a policy that is gone reads as "this project declares nothing". It surfaces later, at the check that never ran.
+
 ## How to know it worked
 
 Run the commands in [AGENTS.md](../AGENTS.md#commands): `--self-test` proves every guard can fail, the real scan proves the conventions hold on this tree, each generator's `--check` proves its page is a current projection, and `pair-docs.py --check` proves every pair is complete and in step. Then run `run-evidence.py` so the run is recorded rather than asserted, and read the record before calling the change done.
