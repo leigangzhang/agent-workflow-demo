@@ -3,11 +3,11 @@
 # After editing either side, bring the other along and re-record with:
 #   python3 tools/pair-docs.py --write .agents/notes/README.md
 /decision-records:
-  en: b5752f3fedbc9ed5
-  zh: 4cbb1b13d0ae7d2b
+  en: 521ab63c68f5ce2c
+  zh: f72d09ce1c8e353a
 /decision-records/layout-and-naming:
-  en: a1d64ff9f74dd90e
-  zh: 7ecf3bef7a11b0c9
+  en: 6c715793d3d0f906
+  zh: 24230dd8de529b38
 /decision-records/classification:
   en: 192388e8a7d731df
   zh: ae57083c4003012c
@@ -15,32 +15,29 @@
   en: 577237fd363173c6
   zh: 3c037d25e86755d7
 /decision-records/archiving-and-deletion:
-  en: 57d53cec7d2ec7d1
-  zh: 17134662d4ec619e
+  en: 74490515ebf08bec
+  zh: ff7b81fedd5ec792
 /decision-records/when-to-write-one:
-  en: 993bfde98ee79e06
-  zh: 6bb1c54465d5c5b8
-/decision-records/the-session-decisions-file:
-  en: ba78f0d69d363ab6
-  zh: b80ffc5657c89199
+  en: c15670e890869e06
+  zh: 4a2e7253bab8da36
 /decision-records/the-file-format:
-  en: 9ba15529861529c9
-  zh: cce410492cfc30f9
+  en: d15f9aa262636fac
+  zh: 9465a41281cc111a
 /decision-records/the-file-format/the-header-block:
-  en: 43e11858a181954d
-  zh: 1334d6b8fe1df764
+  en: 3409f7ffc1b05832
+  zh: d71731ef6db4a207
 /decision-records/the-file-format/the-body-skeleton:
-  en: 11281fac1460451e
-  zh: e75065b6e02a2a47
+  en: 39c9cc692d2e60de
+  zh: ac96bf332a95131f
 /decision-records/the-file-format/alternatives-considered-mandatory:
-  en: eab7772fd490b708
-  zh: 0d352614db5b52cf
+  en: 1639408e113842ee
+  zh: 5f4e3a180a6a2f79
 /decision-records/the-file-format/moving-between-lifecycles:
-  en: 683507369c5c6776
-  zh: 08decaac6c887217
+  en: 8eae1fea7b58ef0e
+  zh: bfaf07cdcd2aa443
 /decision-records/the-file-format/chinese-counterparts:
-  en: 54d5f973b985e75c
-  zh: 16c49395ad6ccfac
+  en: a7887416a1cd0044
+  zh: 987b874a48134919
 /decision-records/where-to-look:
   en: a6c4edeeeea4f440
-  zh: b75dc9ec0afaccec
+  zh: 6e19dce9b4b1da81

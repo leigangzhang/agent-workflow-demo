@@ -25,6 +25,10 @@ Read [the record rules](../../notes/README.md#when-to-write-one), then the files
 
 Do not decide by source — decide by evidence. A sentence enters the record only when it can name a file, a command, or a commit. Where the file and the conversation disagree, the side that can point at the evidence wins and the other side is corrected or deleted, including when the conversation is the side that is wrong. An entry neither side can support is dropped, not softened.
 
+**Know where a session keeps what it settled.** The entries live in one file per session under `.agents/notes/.session-decisions/`, named with the session id the host reports (`$DSH_SESSION_ID` where there is one) and held by `.gitignore`. Each entry is self-contained — the question, the options, the conclusion, the reason, and the evidence — so a compacted conversation can continue from the file alone. Deleting that file is part of freezing, and freezing is per record, not per commit: a change that is not final keeps its file, and later work adds its entries to the same record.
+
+**Keep the record to what a reader can hold.** Across the host repository's 525 implemented records the `## Decision` section states a median of 4 constraints and 80% stay within 8; this kit's own records peak at 7. Past 8, compress first — merge statements that restate one constraint and delete sentences that constrain nothing. Split only when an entry answers a question about another module, another consumer, or another independently deliverable unit.
+
 **Before the work — copy the proposal template.**
 
 ```sh

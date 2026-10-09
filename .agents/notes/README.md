@@ -2,23 +2,23 @@
 
 English | [中文](README.zh.md)
 
-One kind of design document lives here. A **decision record** keeps a decision or a proposal that shapes this kit — the *why*, what it beat, and what it cost: the parts the templates and the gates cannot carry. This file defines where records live, when to write one, and the in-file format.
+One kind of design doc lives here. A **decision record** keeps a decision or a proposal that shapes this kit — the *why* and what we gave up, the parts code and docs cannot carry. This file defines where records live, when to write one, and the in-file format.
 
 ## Layout and naming
 
-Every record has two axes, both encoded in its **path** — `{lifecycle}/{class}/yyyy-mm-dd-topic-title.md`, under `.agents/notes/`:
+Every record has two axes, both encoded in its **path** — `.agents/notes/{lifecycle}/{class}/yyyy-mm-dd-topic-title.md`:
 
-- **Lifecycle** (the top-level folder) is the record's status; a record moves between folders as that status changes:
+- **Lifecycle** (the top-level folder) is the record's status, and a record moves between folders as that status changes:
   - **`proposed/`** — designed but not built, or only partly; gate `decision-proposed`.
   - **`implemented/`** — the decision shipped, and **kept current with what shipped**: a later path, name, or default change updates the record in the same change — facts only, never the decision; gates `decision-implemented`, `no-proposal-era-headings`.
-  - **`rejected/`** — considered and declined; keep it only while its rationale prevents a tempting mistake, otherwise delete the triplet; gate `decision-rejected`.
+  - **`rejected/`** — considered and declined; keep it only while its rationale prevents a tempting, meaningful mistake, otherwise delete the triplet; gate `decision-rejected`.
 - **Class** (the nested folder) is the *kind* of decision, from the closed set in the next section; gate `note-class`.
 
-The date in the filename is when the topic was **first proposed**. Records cross-reference each other with relative Markdown links, never bare prose: a link survives a move, and `pair-docs.py --check` resolves its fragment.
+The date in the filename is when the topic was **first proposed**, per git history. Records cross-reference each other with relative Markdown links, never bare prose or numbers: a link survives a move, and `pair-docs.py --check` resolves its fragment.
+
+The active tree is the inventory: browse its lifecycle and class folders, or start from the index in [docs/README.md](../../docs/README.md). Do not add a centralized index page for it — a second list is a second fact. Records with historical decision value but little future guidance move to the frozen `archived/` tree described below.
 
 Templates live one level up, at `.agents/notes/<lifecycle>/TEMPLATE.md`: the skeleton is keyed by the lifecycle, not the class, and each one keeps its checks from matching no file — an empty corpus is void, not passing.
-
-The tree is the inventory: browse its class folders, or start from the index in [docs/README.md](../../docs/README.md). Do not add a centralized index page for it — a second list is a second fact.
 
 ## Classification
 
@@ -52,33 +52,25 @@ The class set above is closed and adopted. This one is open and this project's o
 
 Delete an implemented record that only describes a mechanical or local change — its English, Chinese, and sidecar files together, with every inbound link repaired. A small bug fix, a new capability, or a substantive decision does not qualify merely because its implementation is small.
 
-Seal a record into `.agents/notes/archived/{class}/yyyy-mm-dd-topic-title.md` when the decision is complete, its rationale is unlikely to guide future work, and it still owns history. Keep it active while its alternatives, an ownership boundary, a negative guarantee, or a reintroduction condition still guides anyone. Never archive a proposal: reject it. A rejected record lives only while it prevents a plausible mistake.
+Seal a record into `.agents/notes/archived/{class}/yyyy-mm-dd-topic-title.md` when the decision is complete, its rationale is unlikely to guide future work, and it still owns history. `implemented` is deliberately absent from that path, because only implemented records can enter it. Keep a record active while its alternatives, an ownership boundary, a negative guarantee, durable or wire semantics, a security rule, or a reintroduction condition still guides anyone. Never archive a proposal: reject it. A rejected record lives only while it prevents a plausible mistake, and is otherwise deleted with its triplet. The delete-versus-merge-versus-seal call is the calibrated one in [migrate-and-retire](../skills/migrate-and-retire/SKILL.md), never word count, age, or a target quota; the selector itself lives in [evolution.md](../../docs/evolution.md).
 
-Archiving moves the complete triplet, keeps `Status: implemented`, and inserts the same `Archived: <yyyy-mm-dd>` line in both language files. Gate `archive-seal` binds a sealed file's text to its digest, archive date, and reason in [manifest.json](archived/manifest.json), so an unregistered drop, a missing file, an edited byte, and a disagreeing date are all red. Once sealed, a record is frozen: never edited, reformatted, translated, or moved. The delete-versus-merge-versus-seal call belongs to the selector in [evolution.md](../../docs/evolution.md), not to word count, age, or a quota.
+Archiving moves the complete triplet, keeps `Status: implemented`, and inserts the same `Archived: <yyyy-mm-dd>` line immediately below the status in both language files, re-records the sidecar, and repairs or deletes inbound links. Those are the only permitted content changes during archival; existing title punctuation, blank-line layout, and language-switcher wording do not block it and are preserved with the body. Gate `archive-seal` binds a sealed file's text to its digest, archive date, and reason in [manifest.json](archived/manifest.json), so an unregistered drop, a missing file, an edited byte, and a disagreeing date are all red. Once sealed, a record is frozen: never edited, reformatted, translated, updated, moved, or deleted, and never treated as authority for current behaviour. Documentation gates skip archived sources, including their outbound links, while active prose may still link into an archived record when it intentionally cites history.
 
-A fully superseded record may be consolidated into the one that now owns the decision and deleted, provided the owner keeps every unique rationale, alternative, consequence, and named gap, and every inbound link is repaired. Partial supersession does not qualify: keep both cross-linked and keep the facts that are still current.
+A fully superseded record may be consolidated into the one that now owns the decision and deleted, provided the owner keeps every unique rationale, alternative, consequence, required verification, and named gap, and every inbound link is repaired. Partial supersession does not qualify: keep both cross-linked and keep the facts that are still current. Consolidation must not rewrite the old record into its opposite, and must not leave git history as the only copy of its rationale.
+
+A capability record may be consolidated into the record that removes it only when the capability is absent from production code, configuration, schemas, durable or wire formats, migration, and compatibility behavior; no current document presents it as available; and no test exercises it as supported behavior. The removing record keeps the original motivation, why it no longer justified keeping the capability, the alternatives to full removal, the capability given up, the conditions for reintroduction, and the verification of complete absence. Removing one transport, default, implementation, or presentation is partial supersession, as is any surviving durable data or compatibility handling.
 
 ## When to write one
 
-Write or update a record in the same change as the work, and only for lasting rationale that code, tests, and the standing documents do not already explain ([rule](../../AGENTS.md)). Ask that as two questions. **Can `## Decision` be one sentence another change can be checked against?** If it can only be written as "we did X", the decision is history — keep it in the commit message and write no record. **Does that sentence already have a home?** That is the rule above: code, tests, and the standing documents must not already state it. Substantial future work starts in `proposed/`; a decision already made starts in `implemented/`. Updating the record that already owns the decision satisfies the rule — do not create a duplicate.
+Add or update a record in the same delivery that lands the work — the pull request, or the commit where there is no pull request — only for lasting decision rationale that code, tests, and existing documentation do not explain. A proposal for substantial future work starts in `proposed/`; a decision already made starts in `implemented/`. Pick the class folder that matches the decision ([meanings](#classification)).
 
-Mechanical and local edits are exempt. A record is never edited into a *different* decision: write a new one and cross-link it, unless the old one qualifies for consolidation above. Correcting an `implemented/` record to match what shipped is required, not forbidden.
+Updating the record that already owns the decision satisfies the rule; do not create a duplicate. Mechanical or local edits, including local presentation and interaction changes, are exempt. A record is never edited into a *different decision*: supersede it with a new one, and keep both records cross-linked unless the old one is later fully consolidated under the rule in [Archiving and deletion](#archiving-and-deletion). Editing an `implemented/` record to track where its existing decision lives is required, not forbidden.
 
-Write with `/record-decision`. The decisions a session settles live in one [session decisions file](#the-session-decisions-file); the gesture freezes them into records and deletes the file. A declined proposal that still blocks a plausible mistake becomes its own `rejected/` record through the same gesture.
-
-A record carries what a reader can hold at once. Across the record corpus of the host repository this kit mirrors, the `## Decision` section states a median of 4 constraints and 80% of records stay within 8; this kit's own records peak at 7. **Keep a record at or below 8 settled decisions.** The number is a measurement, not a quota. Past 8, **compress first**: merge statements that restate one constraint and delete sentences that constrain nothing. Split only when an entry answers a question about **another module, another consumer, or another independently deliverable unit** — the cut [shape-intent](../skills/shape-intent/SKILL.md) already makes, never because the file got long.
-
-## The session decisions file
-
-One file per session under `.agents/notes/.session-decisions/`. Name it with the session id the host reports (`$DSH_SESSION_ID` where there is one); otherwise use `<yyyy-mm-dd-HHMMSS>-<slug>`. `.gitignore` holds the directory.
-
-Entries state settled conclusions only — the question, the options, the conclusion, the reason, and the evidence for it. Discussion that settled nothing does not belong in the file.
-
-`/record-decision` reads every file in the directory, takes the entries belonging to the work being recorded, writes them into records, and deletes the files it emptied. **Freezing is per record, not per commit**: a change that is not final yet keeps its file, and later work adds its entries to the same record.
+A record is written by hand, not by the turn that produced the work: `/record-decision` freezes the decisions a session settled ([skill](../skills/record-decision/SKILL.md)).
 
 ## The file format
 
-Every active record follows one in-file format, enforced by `decision-proposed`, `decision-implemented`, `no-proposal-era-headings`, `criteria-traced`, and `note-class`. The literal skeletons are the templates: one copy of the format, not two.
+Every active record follows one in-file format, enforced by `decision-proposed`, `decision-implemented`, `no-proposal-era-headings`, `criteria-traced`, and `note-class`. The literal skeletons are the templates: one copy of the format, not two. Archived records keep the format they had when sealed, plus the archive-date line above.
 
 ### The header block
 
@@ -91,29 +83,29 @@ The first lines of every record are these, in this order:
 | `Date: <yyyy-mm-dd>` | The first-proposed date, and the same date the filename carries |
 | `Class: <class>` | The path class, verbatim; `note-class` cross-checks it against the folder |
 
-The status carries no dates and no parentheticals beyond the rejection reason: the filename holds the date, and the record holds everything else.
+The status carries no dates and no parentheticals beyond the rejection reason: the filename holds the date, and the record holds everything else. A record accepted in amended form states the amendment in its body, not in the status. The rejection reason is the one status with content, because a rejected record's verdict is the fact readers come for.
 
 ### The body skeleton
 
-Every record opens with `## Problem` — the motivation, written to stand without the solution. Recurring sections use these names and nothing else; a bespoke section (a gate's contract, a table shape) sits between the required ones.
+Every record opens with `## Problem` — the motivation, written to stand without the solution. Recurring sections use these names and nothing else; a genuinely bespoke section — a gate's contract, a table shape, a package topology — sits between the required ones.
 
 - `proposed/`: `## Problem` · `## Proposal` · `## Alternatives considered` · `## Acceptance criteria` · `## Risks`.
 - `implemented/`: `## Problem` · `## Decision` · `## Alternatives considered` · `## Consequences` · `## Testing`.
 - `rejected/`: the proposal as frozen; the verdict lives on the `Status:` line.
 
-`## Proposal` may speak in the future tense — plans and open questions belong there while the work is unbuilt. `## Decision` states shipped reality in the present tense. `## Testing` keeps each criterion's id alive, and `## Consequences` records what the trade-off cost as well as what it bought.
+`## Proposal` may speak in the future tense — plans, migration steps, and open questions belong there while the work is unbuilt. `## Acceptance criteria` says what observable state means done. `## Risks` covers both what could go wrong and what the change knowingly gives up. `## Decision` states shipped reality in the present tense. `## Testing` keeps each criterion's id alive, and `## Consequences` records what the trade-off cost as well as what it bought. A `## Deferred` or `## Related` section is fine where it states present-tense fact. A rejected record keeps whatever proposal-time sections it had, including `## Acceptance criteria` or `## Plan`; only the header block, the `## Problem` opener, a `## Proposal` section, and the mandatory alternatives section apply to it.
 
 ### Alternatives considered — mandatory
 
-Every record carries `## Alternatives considered`, and it may not be empty: each genuine alternative with why it lost, one bold-led paragraph each. A decision recorded without what it beat invites re-litigation. The requirement is gated in both languages, so a translated record cannot quietly drop it.
+Every record carries `## Alternatives considered`, and it may not be empty: each genuine alternative with why it lost, one bold-led paragraph each, or a `### Why not <X>?` subsection for a contested one. A decision recorded without what it beat invites re-litigation. Alternatives are recorded, never invented. The requirement is gated in both languages, so a translated record cannot quietly drop it.
 
 ### Moving between lifecycles
 
-Moving a record means updating the `Status:` line and re-satisfying the target folder's skeleton in the same change. `proposed/` → `implemented/` rewrites `## Proposal` into a present-tense `## Decision`, folds `## Acceptance criteria` and `## Risks` into `## Consequences` (or a present-tense `## Testing` for what now pins the behaviour), and keeps every criterion id — the id tells a reader which check proves which criterion. `proposed/` → `rejected/` adds the reason to the status line and freezes the body. Gate `no-proposal-era-headings` rejects a moved record still carrying `## Proposal`, `## Plan`, `## Migration plan`, or `## Acceptance criteria`.
+Moving a record means updating the `Status:` line and re-satisfying the target folder's skeleton in the same change — the gate fails the move otherwise. `proposed/` → `implemented/` rewrites `## Proposal` into a present-tense `## Decision`, folds `## Acceptance criteria` and `## Risks` into `## Consequences` (or a present-tense `## Testing` for what now pins the behaviour), and keeps every criterion id — the id tells a reader which check proves which criterion. `proposed/` → `rejected/` adds the reason to the status line and freezes the body. Gate `no-proposal-era-headings` rejects a moved record still carrying `## Proposal`, `## Plan`, `## Migration plan`, or `## Acceptance criteria`.
 
 ### Chinese counterparts
 
-A `.zh.md` counterpart mirrors its English sibling section for section, with a `.i18n.yaml` record beside the pair ([i18n.md](../../docs/i18n.md)). The machine-checked header tokens — `# Proposal: `, `# Decision: `, `Status:`, `Date:`, `Class:` — stay in English verbatim; only headings and prose are translated.
+A `.zh.md` counterpart mirrors its English sibling's structure section for section, with a `.i18n.yaml` record beside the pair ([i18n.md](../../docs/i18n.md)). The machine-checked header tokens — `# Proposal: `, `# Decision: `, `Status:`, `Date:`, `Class:` — stay in English verbatim; only headings and prose are translated. The format gate skips `.zh.md` files; the pairing gate checks their consistency.
 
 ## Where to look
 
