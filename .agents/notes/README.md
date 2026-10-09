@@ -60,9 +60,21 @@ A fully superseded record may be consolidated into the one that now owns the dec
 
 ## When to write one
 
-Write or update a record in the same change as the work, and only for lasting rationale that code, tests, and the standing documents do not already explain ([rule](../../AGENTS.md)). Substantial future work starts in `proposed/`; a decision already made starts in `implemented/`. Updating the record that already owns the decision satisfies the rule — do not create a duplicate.
+Write or update a record in the same change as the work, and only for lasting rationale that code, tests, and the standing documents do not already explain ([rule](../../AGENTS.md)). Ask that as two questions. **Can `## Decision` be one sentence another change can be checked against?** If it can only be written as "we did X", the decision is history — keep it in the commit message and write no record. **Does that sentence already have a home?** That is the rule above: code, tests, and the standing documents must not already state it. Substantial future work starts in `proposed/`; a decision already made starts in `implemented/`. Updating the record that already owns the decision satisfies the rule — do not create a duplicate.
 
 Mechanical and local edits are exempt. A record is never edited into a *different* decision: write a new one and cross-link it, unless the old one qualifies for consolidation above. Correcting an `implemented/` record to match what shipped is required, not forbidden.
+
+Write with `/record-decision`. The decisions a session settles live in one [session decisions file](#the-session-decisions-file); the gesture freezes them into records and deletes the file. A declined proposal that still blocks a plausible mistake becomes its own `rejected/` record through the same gesture.
+
+A record carries what a reader can hold at once. Across the record corpus of the host repository this kit mirrors, the `## Decision` section states a median of 4 constraints and 80% of records stay within 8; this kit's own records peak at 7. **Keep a record at or below 8 settled decisions.** The number is a measurement, not a quota. Past 8, **compress first**: merge statements that restate one constraint and delete sentences that constrain nothing. Split only when an entry answers a question about **another module, another consumer, or another independently deliverable unit** — the cut [shape-intent](../skills/shape-intent/SKILL.md) already makes, never because the file got long.
+
+## The session decisions file
+
+One file per session under `.agents/notes/.session-decisions/`. Name it with the session id the host reports (`$DSH_SESSION_ID` where there is one); otherwise use `<yyyy-mm-dd-HHMMSS>-<slug>`. `.gitignore` holds the directory.
+
+Entries state settled conclusions only — the question, the options, the conclusion, the reason, and the evidence for it. Discussion that settled nothing does not belong in the file.
+
+`/record-decision` reads every file in the directory, takes the entries belonging to the work being recorded, writes them into records, and deletes the files it emptied. **Freezing is per record, not per commit**: a change that is not final yet keeps its file, and later work adds its entries to the same record.
 
 ## The file format
 

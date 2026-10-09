@@ -86,7 +86,15 @@ The state of a check whose patterns match no file. It is a violation, never a pa
 
 ### decision record
 
-A record at `.agents/notes/<lifecycle>/<class>/<yyyy-mm-dd>-<slug>.md`, keeping one decision's problem, choice, rejected alternatives, consequences, and verification ([.agents/notes/README.md](../.agents/notes/README.md)). Write `decision record`; `note` alone is not a synonym. Host word: **Agent Note**.
+A record at `.agents/notes/<lifecycle>/<class>/<yyyy-mm-dd>-<module>-<slug>.md`, keeping one decision's problem, choice, rejected alternatives, consequences, and verification ([.agents/notes/README.md](../.agents/notes/README.md)). Write `decision record`; `note` alone is not a synonym. One is written only when its `## Decision` can be stated as a [`standing constraint`](#standing-constraint) that has no other home. Host word: **Agent Note**.
+
+### standing constraint
+
+A sentence that is true now and that a later change can be checked against — "X is owned by Y", "Z never reaches the wire". A `## Decision` that can only be written as a completed action ("we moved X") is not one, and earns no record.
+
+### session decisions file
+
+The working file `.agents/notes/.session-decisions/<session>.md` holding the [`standing constraints`](#standing-constraint) a session settled, each self-contained so a compacted conversation can continue from it. `.gitignore` holds the directory; `/record-decision` freezes the entries into records and deletes the file.
 
 ### proposal / rejected
 

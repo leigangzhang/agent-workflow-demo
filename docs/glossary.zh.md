@@ -86,7 +86,15 @@
 
 ### decision record
 
-`.agents/notes/<lifecycle>/<class>/<yyyy-mm-dd>-<slug>.md` 下的记录，留下一个决定的问题、选择、被否方案、后果与验证（[.agents/notes/README.md](../.agents/notes/README.zh.md)）。写 `decision record`；单独的 `note` 不是同义词。宿主叫法：**Agent Note**。
+`.agents/notes/<lifecycle>/<class>/<yyyy-mm-dd>-<module>-<slug>.md` 下的记录，留下一个决定的问题、选择、被否方案、后果与验证（[.agents/notes/README.md](../.agents/notes/README.zh.md)）。写 `decision record`；单独的 `note` 不是同义词。只有当它的 `## Decision` 能写成一条[约束句](#standing-constraint)、且别处没有这条约束时才写。宿主叫法：**Agent Note**。
+
+### standing constraint
+
+一条对现在成立、后续改动可以拿它对照的句子 —— "X 归 Y 所有"、"Z 永远不会被写到线上"。只能写成一次已完成动作（"我们把 X 搬了"）的 `## Decision` 不是约束句，不写记录。
+
+### session decisions file
+
+一个会话定下来的[约束句](#standing-constraint)所在的工作文件，路径 `.agents/notes/.session-decisions/<session>.md`；每条自足，压缩过的会话能只靠它继续。`.gitignore` 忽略整个目录；`/record-decision` 把条目冻结成记录并删掉这个文件。
 
 ### proposal / rejected
 

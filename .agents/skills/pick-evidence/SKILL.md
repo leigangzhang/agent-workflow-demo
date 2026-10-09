@@ -23,6 +23,8 @@ python3 tools/change-scope.py --base <verified-base-ref>
 
 Never guess the base. A wrong base makes the whole report fiction.
 
+Then answer two questions before anything else: is a settled decision still unfrozen ([record-decision](../record-decision/SKILL.md))? And does this delivery unit have its one evidence record?
+
 **2. Map each changed surface to its smallest sufficient evidence.**
 
 | What changed | Evidence |

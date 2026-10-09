@@ -1,6 +1,7 @@
 ---
 name: record-decision
-description: Use when starting any non-trivial change, so its motivation, the alternatives it beat, and its cost survive the session that produced them — and use again when a shipped decision proves wrong.
+description: Use when the user types /record-decision or asks to freeze this session's settled decisions into records.
+disable-model-invocation: true
 ---
 
 # Record a decision
@@ -9,17 +10,26 @@ Every round of rework has the same cause: the reason a thing is the way it is li
 
 ## When to use
 
-- A change is non-trivial: it changes behaviour, a contract, a format, a default, or a workflow.
+- The user types `/record-decision`, or asks to freeze this session's decisions in words.
 - A previously recorded decision is being reversed.
 
-**Exempt:** mechanical edits, renames, formatting, and local presentation tweaks that change no contract.
+This skill is user-invocable only (`disable-model-invocation: true`): the agent does not decide when a record is written. Where a host has no `/name` gesture, the same request in words loads this skill.
+
+**Exempt:** mechanical edits, renames, formatting, and local presentation tweaks. They state no constraint, so the first question above fails on its own.
 
 ## How
+
+**Load both sources, then judge every entry on evidence.**
+
+Read [the record rules](../../notes/README.md#when-to-write-one), then the files under `.agents/notes/.session-decisions/`. The file is the durable baseline: it survives compaction, and it is the only thing a later session can read. The live conversation is usually richer, and it may hold decisions the file never got.
+
+Do not decide by source — decide by evidence. A sentence enters the record only when it can name a file, a command, or a commit. Where the file and the conversation disagree, the side that can point at the evidence wins and the other side is corrected or deleted, including when the conversation is the side that is wrong. An entry neither side can support is dropped, not softened.
 
 **Before the work — copy the proposal template.**
 
 ```sh
-cp .agents/notes/proposed/TEMPLATE.md .agents/notes/proposed/<yyyy-mm-dd>-<slug>.md
+mkdir -p .agents/notes/proposed/<class>
+cp .agents/notes/proposed/TEMPLATE.md .agents/notes/proposed/<class>/<yyyy-mm-dd>-<module>-<slug>.md
 ```
 
 Fill all five sections. Two of them are mandatory, and they are the ones people skip:
@@ -56,6 +66,8 @@ The topic title opens with the module the decision lives in, and that module mus
 ## Anti-patterns
 
 - Recording the plan instead of the decision: "we will add X" is not a decision.
+- Carrying a discussion into the record, or reconstructing an alternative after the fact: only settled conclusions belong there, and an invented alternative is worse than an empty one.
+- Writing past 8 settled decisions without compressing first, or splitting a record because it got long instead of because a second module, consumer, or deliverable arrived.
 - An empty or perfunctory alternatives section — it is the only part that prevents re-litigation.
 - Editing a shipped record to describe a different decision.
 - Keeping every record forever, so superseded facts still read as current.

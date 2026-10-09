@@ -4,7 +4,7 @@ Decision records are this kit's RFCs: they keep the rationale, the rejected alte
 
 **A record moves; it is not renamed.** Moving a proposal into `implemented/` rewrites the skeleton (`## Proposal` becomes `## Decision`; acceptance criteria and risks fold into `## Consequences`) and keeps every criterion id; a record that still carries proposal-era headings fails `decision-implemented`.
 
-**A record's class is path-encoded.** It lives at `.agents/notes/<lifecycle>/<class>/<yyyy-mm-dd>-<slug>.md`, with the class taken from the closed set in [workflow.json](../../tools/workflow.json); gate `note-class` rejects a folder outside the set and a `Class:` line that disagrees with its folder. Pick the class by the decision, not by the files it touches ([meanings](README.md#classification)).
+**A record's class is path-encoded.** It lives at `.agents/notes/<lifecycle>/<class>/<yyyy-mm-dd>-<module>-<slug>.md`, with the class taken from the closed set in [workflow.json](../../tools/workflow.json); gate `note-class` rejects a folder outside the set and a `Class:` line that disagrees with its folder. Pick the class by the decision, not by the files it touches ([meanings](README.md#classification)).
 
 **Facts may be corrected in place; the decision may not.** Paths, defaults, and mechanisms are updated in the change that alters them. Reversing a decision means writing a new record and cross-linking it.
 
@@ -17,3 +17,5 @@ Decision records are this kit's RFCs: they keep the rationale, the rejected alte
 **A deletion of a committed path is a change like any other.** Removing or moving a record still claims a surface, and its inbound links must be resolved in the same change: a generated record is excluded from prose and pairing, but never from ownership. Gate `change-scope` reads the change, not the directory you tidied.
 
 **Say what is not verified.** An entry that did not run, and a claim nothing can falsify, are named in the place a reader looks for the verified ones; an unverified item presented as verified is an overclaim, not a shorter report.
+
+**Every `## Decision` sentence points at evidence.** A sentence that names no file, command, or commit is deleted or marked `unverified`; a record whose alternatives were reconstructed after the fact is fiction ([trigger](../skills/record-decision/SKILL.md)).
