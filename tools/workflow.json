@@ -199,6 +199,7 @@
       ],
       "evidence": [
         "python3 -m unittest discover -s tests -v  # this kit's own suite; replace with your project's test command",
+        "node --test src/gomoku/rules.test.js",
         "run the owning test for each changed test file, and watch it fail for the regression it pins",
         "read docs/testing.md: judge whether the tier, the determinism rules, and the negative control still hold"
       ],
@@ -219,7 +220,7 @@
         "*.rs"
       ],
       "evidence": [
-        "<the narrowest owning test for the changed module>"
+        "node --test src/gomoku/rules.test.js"
       ],
       "why": "Behaviour changes need the smallest test that would fail for the regression."
     },
